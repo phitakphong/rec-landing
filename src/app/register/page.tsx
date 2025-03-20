@@ -1,16 +1,23 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
-import Footer from "../components/footer/Footer";
-import React, { useState } from "react";
-import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from "reactstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Col, Container, Form, FormGroup, Input, InputGroup, Label, Row } from "reactstrap";
 import { useRouter } from "next/navigation";
+import ApiService from "../services/api-service";
 
 // import Image from "next/image";
 
 export default function RegisterContent() {
-  const { t } = useTranslation(["register"]);
+  const { t, i18n } = useTranslation(["register"]);
   const router = useRouter();
+  const [provinces, setProvince] = useState<any[]>([]);
+  const [districts, setDistricts] = useState<any[]>([]);
+  const [subDistricts, setSubDistricts] = useState<any[]>([]);
+  const [pCode, setPostCode] = useState("");
+  const [registerSuccess, setRegisterSuccess] = useState(false);
+  const [registerError, setRegisterError] = useState(false);
+  const [requests, setRequests] = useState<any[]>([]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -23,29 +30,25 @@ export default function RegisterContent() {
     sub_district: "",
     postcode: "",
     loccode: "",
-    request_power: "",
     rec_amount: "",
     rec_year: "",
     contact_period: "",
     more_detail: "",
+    request_id: "",
   });
 
-  const [errors, setErrors] = useState({
-    name: false,
-    surname: false,
-    mobile: false,
-    email: false,
-    address: false,
-    province: false,
-    district: false,
-    sub_district: false,
-    postcode: false,
-    loccode: false,
-    request_power: false,
-    rec_amount: false,
-    rec_year: false,
-    contact_period: false,
-  });
+  const [errors, setErrors] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const resp = await ApiService.getProvinces();
+      setProvince(resp);
+
+      const respReq = await ApiService.getRequests();
+      setRequests(respReq);
+    };
+    fetchData();
+  }, [setProvince, setRequests]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -53,6 +56,108 @@ export default function RegisterContent() {
       ...formData,
       [name]: value,
     });
+  };
+
+  const provinceChanged = async (provinceCode: string) => {
+    if (provinceCode.length) {
+      const resp = await ApiService.getDistricts(provinceCode);
+      setDistricts(resp);
+    } else {
+      setDistricts([]);
+    }
+    setSubDistricts([]);
+    setPostCode("");
+  };
+
+  const districtChanged = async (districtCode: string) => {
+    if (districtCode.length) {
+      const resp = await ApiService.getSubDistricts(districtCode);
+      setSubDistricts(resp);
+    } else {
+      setSubDistricts([]);
+    }
+    setPostCode("");
+  };
+
+  const subDistrictChanged = async (subDistrictCode: string) => {
+    const p = subDistricts.find((s) => s.sub_district_code === subDistrictCode)!.post_code;
+    setPostCode(p);
+  };
+
+  const validate = (): boolean => {
+    const invalid = {
+      name: false,
+      surname: false,
+      mobile: false,
+      email: false,
+      address: false,
+      province: false,
+      district: false,
+      sub_district: false,
+      rec_amount: false,
+      rec_year: false,
+      contact_period: false,
+      request_id: false,
+    };
+    Object.keys(invalid).forEach((k) => {
+      invalid[k as keyof typeof invalid] = formData[k as keyof typeof formData].length === 0;
+    });
+
+    const res = Object.values(invalid).every((e) => e === false);
+    setErrors(!res);
+    return res;
+  };
+
+  const submit = async () => {
+    setRegisterSuccess(false);
+    setRegisterError(false);
+
+    if (validate()) {
+      setErrors(false);
+
+      const req = {
+        name: formData.name,
+        surname: formData.surname,
+        mobile: formData.mobile,
+        email: formData.email,
+
+        address: formData.address,
+        province: provinces.find((p) => p.province_code === formData.province)!.province_name[i18n.language],
+        district: districts.find((d) => d.district_code === formData.district)!.district_name[i18n.language],
+        sub_district: subDistricts.find((s) => s.sub_district_code === formData.sub_district)!.sub_district_name[i18n.language],
+        postcode: pCode,
+
+        request_id: parseInt(formData.request_id),
+        rec_amount: parseFloat(formData.rec_amount),
+        rec_year: parseInt(formData.rec_year),
+
+        is_request_power_source_solar: false,
+        is_request_power_source_hydro: false,
+        is_request_power_source_bio: false,
+        is_request_power_source_wind: false,
+
+        is_contact_period_morning: formData.contact_period === "1",
+        is_contact_period_afternoon: formData.contact_period === "2",
+
+        more_detail: formData.more_detail,
+
+        loccode: "",
+      };
+
+      await ApiService.register(req)
+        .catch((e) => {
+          setRegisterError(true);
+        })
+        .then(() => {
+          setRegisterSuccess(true);
+          const form = { ...formData };
+          Object.keys(form).forEach((k: string) => {
+            form[k as keyof typeof form] = "";
+          });
+          setFormData(form);
+          setPostCode("");
+        });
+    }
   };
 
   return (
@@ -72,7 +177,7 @@ export default function RegisterContent() {
             <Form>
               <Row>
                 <Col className={`col-12 col-lg-6`}>
-                  <FormGroup className={errors.name ? "input-group-error" : ""}>
+                  <FormGroup>
                     <Label className="text-black" for="name">
                       {t("D_1_1")} *
                     </Label>
@@ -80,7 +185,7 @@ export default function RegisterContent() {
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
-                  <FormGroup className={errors.surname ? "input-group-error" : ""}>
+                  <FormGroup>
                     <Label className="text-black" for="surname">
                       {t("D_1_2")} *
                     </Label>
@@ -88,7 +193,7 @@ export default function RegisterContent() {
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
-                  <FormGroup className={errors.mobile ? "input-group-error" : ""}>
+                  <FormGroup>
                     <Label className="text-black" for="phoneNo">
                       {t("D_1_3")} *
                     </Label>
@@ -96,7 +201,7 @@ export default function RegisterContent() {
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
-                  <FormGroup className={errors.email ? "input-group-error" : ""}>
+                  <FormGroup>
                     <Label className="text-black" for="email">
                       {t("D_1_4")} *
                     </Label>
@@ -108,7 +213,7 @@ export default function RegisterContent() {
                   <h5 className="text-black warp-content ms-3">{t("H_2")}</h5>
                 </Col>
                 <Col className={`col-12 mt-3`}>
-                  <FormGroup className={errors.address ? "input-group-error" : ""}>
+                  <FormGroup>
                     <Label className="text-black" for="address">
                       {t("D_2_1")} *
                     </Label>
@@ -116,41 +221,77 @@ export default function RegisterContent() {
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
-                  <FormGroup className={errors.province ? "input-group-error" : ""}>
+                  <FormGroup>
                     <Label className="text-black" for="province">
                       {t("D_2_2")} *
                     </Label>
-                    <Input id="province" value={formData.province} name="province" onChange={handleChange} type="select">
-                      <option>{t("H_10")}</option>
+                    <Input
+                      id="province"
+                      value={formData.province}
+                      name="province"
+                      onChange={(e: any) => {
+                        handleChange(e);
+                        provinceChanged(e.target.value);
+                      }}
+                      type="select"
+                    >
+                      <option value={``}>{t("H_10")}</option>
+                      {provinces.map((p: any) => {
+                        return <option value={p.province_code}>{p.province_name[i18n.language]}</option>;
+                      })}
                     </Input>
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
-                  <FormGroup className={errors.district ? "input-group-error" : ""}>
+                  <FormGroup>
                     <Label className="text-black" for="district">
                       {t("D_2_3")} *
                     </Label>
-                    <Input id="district" value={formData.district} name="district" onChange={handleChange} type="select">
-                      <option>{t("H_10")}</option>
+                    <Input
+                      id="district"
+                      value={formData.district}
+                      name="district"
+                      onChange={(e: any) => {
+                        handleChange(e);
+                        districtChanged(e.target.value);
+                      }}
+                      type="select"
+                    >
+                      <option value={``}>{t("H_10")}</option>
+                      {districts.map((d: any) => {
+                        return <option value={d.district_code}>{d.district_name[i18n.language]}</option>;
+                      })}
                     </Input>
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
-                  <FormGroup className={errors.sub_district ? "input-group-error" : ""}>
+                  <FormGroup>
                     <Label className="text-black" for="sub_district">
                       {t("D_2_4")} *
                     </Label>
-                    <Input id="sub_district" value={formData.sub_district} name="sub_district" onChange={handleChange} type="select">
-                      <option>{t("H_10")}</option>
+                    <Input
+                      id="sub_district"
+                      value={formData.sub_district}
+                      name="sub_district"
+                      onChange={(e: any) => {
+                        handleChange(e);
+                        subDistrictChanged(e.target.value);
+                      }}
+                      type="select"
+                    >
+                      <option value={``}>{t("H_10")}</option>
+                      {subDistricts.map((s: any) => {
+                        return <option value={s.sub_district_code}>{s.sub_district_name[i18n.language]}</option>;
+                      })}
                     </Input>
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
-                  <FormGroup className={errors.postcode ? "input-group-error" : ""}>
+                  <FormGroup>
                     <Label className="text-black" for="postcode">
                       {t("D_2_5")} *
                     </Label>
-                    <Input id="postcode" value={formData.postcode} name="postcode" onChange={handleChange} placeholder={t("D_7_1")} type="text" maxLength={255} />
+                    <Input readOnly value={pCode} placeholder={t("D_7_1")} type="text" maxLength={255} />
                   </FormGroup>
                 </Col>
                 <Col className={`col-12  mt-3 d-flex align-items-center`}>
@@ -158,15 +299,15 @@ export default function RegisterContent() {
                   <h5 className="text-black warp-content ms-3">{t("H_3")}</h5>
                 </Col>
                 <Col className={`col-12 col-lg-6 mt-3`}>
-                  <FormGroup className={errors.request_power ? "input-group-error" : ""}>
-                    <Label className="text-black" for="request_power">
+                  <FormGroup>
+                    <Label className="text-black" for="request_id">
                       {t("H_4")} *
                     </Label>
-                    <Input id="request_power" value={formData.request_power} name="request_power" onChange={handleChange} type="select">
+                    <Input id="request_id" value={formData.request_id} name="request_id" onChange={handleChange} type="select">
                       <option value={``}>{t("H_10")}</option>
-                      <option value={1}>{t("D_4_2")}</option>
-                      <option value={2}>{t("D_4_4")}</option>
-                      <option value={3}>{t("D_4_5")}</option>
+                      {requests.map((r: any) => {
+                        return <option value={r.request_id}>{r.text[i18n.language]}</option>;
+                      })}
                     </Input>
                   </FormGroup>
                 </Col>
@@ -175,7 +316,7 @@ export default function RegisterContent() {
                   <h5 className="text-black warp-content ms-3">{t("H_5")}</h5>
                 </Col>
                 <Col className={`col-12 col-lg-6 mt-3`}>
-                  <FormGroup className={errors.rec_amount ? "input-group-error" : ""}>
+                  <FormGroup>
                     <Label className="text-black" for="rec_amount">
                       {t("D_5_1")} *
                     </Label>
@@ -184,7 +325,7 @@ export default function RegisterContent() {
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6 mt-3`}>
-                  <FormGroup className={errors.rec_year ? "input-group-error" : ""}>
+                  <FormGroup>
                     <Label className="text-black" for="rec_year">
                       {t("D_5_2")} *
                     </Label>
@@ -213,17 +354,31 @@ export default function RegisterContent() {
                 </Col>
                 <Col className={`col-12 mt-5`}>
                   <FormGroup>
-                    <Label className="text-black" for="address">
+                    <Label className="text-black" for="more_detail">
                       {t("H_7")}
                     </Label>
-                    <Input id="address" value={formData.address} name="address" onChange={handleChange} placeholder={t("D_7_1")} type="textarea" maxLength={255} rows={5} />
+                    <Input id="more_detail" value={formData.more_detail} name="more_detail" onChange={handleChange} placeholder={t("D_7_1")} type="textarea" maxLength={255} rows={5} />
                   </FormGroup>
                 </Col>
-                <Col className={`col-12 mt-5`}>
+                <Col className={`col-12 mt-3`}>
+                  {errors && <p className="text-danger">* {t("H_13")}</p>}
+
+                  {registerError && <p className="text-danger">* {t("H_14")}</p>}
+
+                  {registerSuccess && <p> {t("H_15")}</p>}
+
                   <Button outline color="primary" style={{ width: 140, height: 40 }} onClick={() => router.back()}>
                     {t("H_8")}
                   </Button>
-                  <Button color="primary" className="bg-primary-gradient ms-3" style={{ width: 140, height: 40 }}>
+                  <Button
+                    type="button"
+                    color="primary"
+                    className="bg-primary-gradient ms-3"
+                    style={{ width: 140, height: 40 }}
+                    onClick={() => {
+                      submit();
+                    }}
+                  >
                     {t("H_9")}
                   </Button>
                 </Col>
@@ -232,8 +387,6 @@ export default function RegisterContent() {
           </Container>
         </div>
       </div>
-
-      <Footer />
     </>
   );
 }

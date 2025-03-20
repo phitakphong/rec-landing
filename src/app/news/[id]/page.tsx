@@ -2,30 +2,31 @@
 
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import Footer from "@/app/components/footer/Footer";
 import LastedNews from "@/app/components/news/LastedNews";
 import { useTranslation } from "react-i18next";
 import ApiService from "@/app/services/api-service";
 import { Helper } from "@/app/commons/helper";
-import RootLayout from "../layout";
+
+import { use } from "react"; // Import `use` from React
 
 type PageProps = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 export default function NewsDetailContent({ params }: PageProps) {
+  const { id } = params;
+
   const { i18n, t } = useTranslation(["news"]);
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log("params.id:", params.id);
     const fetchData = async () => {
       try {
-        const resp = await ApiService.getNewsDetail(params.id);
+        const resp = await ApiService.getNewsDetail(id);
         setData(resp);
       } catch (err) {
         setError("Failed to load news details");
@@ -35,7 +36,7 @@ export default function NewsDetailContent({ params }: PageProps) {
     };
 
     fetchData();
-  }, [params.id]);
+  }, [id]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -46,7 +47,7 @@ export default function NewsDetailContent({ params }: PageProps) {
   }
 
   return (
-    <RootLayout>
+    <>
       <div className="background-platform">
         <div className="container py-5">
           <div className="row my-5">
@@ -76,8 +77,7 @@ export default function NewsDetailContent({ params }: PageProps) {
           </div>
         </div>
         <LastedNews />
-        <Footer />
       </div>
-    </RootLayout>
+    </>
   );
 }

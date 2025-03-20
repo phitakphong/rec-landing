@@ -14,7 +14,6 @@ import Footer from "./components/footer/Footer";
 const ibmPlexSansThai = IBM_Plex_Sans_Thai({
   subsets: ["thai", "latin"],
   weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-ibm-plex-sans-thai",
 });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -28,8 +27,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   }, []);
 
   return (
-    <html lang={isReady ? i18n.language : undefined} className={isReady ? ibmPlexSansThai.variable : undefined}>
-      <body>
+    <html lang={isReady ? i18n.language : undefined}>
+      <body className={`${isReady ? ibmPlexSansThai.className : undefined}`}>
         {isReady ? (
           <I18nProvider>
             <MyNav />
