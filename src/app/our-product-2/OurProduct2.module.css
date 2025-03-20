@@ -1,0 +1,6 @@
+.backgroundPlatform {
+  background-image: url("/images/bg_platform.png");
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 50%;
+}

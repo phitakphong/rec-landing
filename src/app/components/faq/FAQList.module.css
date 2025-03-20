@@ -1,0 +1,10 @@
+.faqContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+.faqContentOpen {
+  max-height: 200px; /* ปรับขนาดให้พอดีกับเนื้อหา */
+  opacity: 1;
+}

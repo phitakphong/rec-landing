@@ -1,0 +1,19 @@
+{
+  "H_1": "This website uses cookies to improve the experience of the website to display contents and ads that matches your interest and also to analyze website access info. You can choose whether to accept the cookies by clicking \"Cookie Settings\".",
+  "H_2": "Cookie Setting",
+  "H_3": "Accept",
+  "setting": {
+    "H_1": "Privacy Setting",
+    "H_2": "When you visit the website, information may be stored or retrieved from your browser, most commonly in the form of cookies. This information may relate to you, your settings, your device, or assist the website in functioning as you desire. Typically, this information is non-personally identifiable but helps tailor the website to your personal preferences. You can choose to decline certain types of cookies by clicking the \"More Information\" link below and adjusting EGAT's default settings. However, blocking certain types of cookies may affect your ability to use the website and the services provided by EGAT.",
+    "H_3": "Essential Cookies (Always on)",
+    "D_3": "These cookies are essential for the functioning of the website and cannot be disabled in EGAT's system. Typically, these cookies are set in response to actions you take, such as setting privacy preferences, logging in, or filling out forms. You can set your browser to block or alert you about these cookies, but doing so may prevent certain parts of the website from working properly.",
+    "H_4": "Cookies for Usage",
+    "D_4": "These cookies help with the functionality of the website and customize the website experience for you, such as video and live chat. These cookies may be set by PEA or service providers from other sources added by the NBTC to the webpage. If you do not allow these cookies to function, some features of the website may not work properly.",
+    "H_5": "Performance Cookies",
+    "D_5": "These cookies help PEA count the number of visits and their sources, allowing the NBTC to measure and improve the performance of the PEA website. Additionally, they help PEA identify which pages are the most and least popular and which parts of the website visitors are viewing. All data collected by these cookies is aggregated, ensuring that it cannot be used to identify individuals. If you do not allow these cookies to function, PEA will not be able to track when you visit the PEA website.",
+    "H_6": "Targeting Cookies",
+    "D_6": "These cookies are set through the PEA website by PEA's partners. These third parties may use these cookies to create a profile based on your interests and display targeted advertisements on other websites. These cookies work by identifying each browser and device. If you do not allow these cookies to function, you will not see targeted advertisements on various websites.",
+    "H_7": "Accept or Deny all",
+    "D_7": "Press this button to accept or deny all cookies"
+  }
+}

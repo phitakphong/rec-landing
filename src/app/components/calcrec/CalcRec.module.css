@@ -1,0 +1,20 @@
+.recRes {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #3f5dc2;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: rgba(63, 93, 194, 0.1);
+  background-clip: padding-box;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+}
+
+.background {
+  background: linear-gradient(180deg, #f9fafb 0%, #edf0f3 100%);
+}

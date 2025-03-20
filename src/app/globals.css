@@ -1,0 +1,233 @@
+:root {
+  --bs-primary: #74045f; /* Custom primary color */
+  --bs-primary-rgb: 116, 4, 95; /* Ensure correct RGB values */
+
+  --purple: var(--bs-primary);
+}
+
+body {
+  color: var(--purple);
+  font-family: "IBM Plex Sans Thai", sans-serif;
+}
+
+/* Override Bootstrap button border radius */
+.btn {
+  border-radius: 12px !important; /* Apply 12px border radius to all buttons */
+}
+
+/* Override Bootstrap primary button */
+.btn-primary {
+  background-color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+  color: #fff !important;
+}
+
+.btn-primary:hover {
+  background-color: #5e034d !important; /* Darker shade on hover */
+  border-color: #5e034d !important;
+}
+
+/* Override Bootstrap outline primary button */
+.btn-outline-primary {
+  color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+  background-color: transparent !important;
+  border-radius: 12px !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--bs-primary) !important;
+  color: #fff !important;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+}
+
+.no-border {
+  border: none;
+}
+
+.full-width {
+  width: 100%;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 56px;
+  letter-spacing: 0%;
+}
+
+.txt-body {
+  font-size: larger;
+  font-weight: 400;
+  font-size: Font size/text-xl;
+  line-height: Line height/text-xl;
+  letter-spacing: 0%;
+}
+
+.bg-purple {
+  background-color: var(--purple);
+}
+
+.txt-purple {
+  color: var(--purple);
+}
+
+.text-black {
+  color: #000;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #8e0369 0%, #577ab8 48%, #2ddf9e 100%);
+  width: fit-content;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-primary-gradient {
+  background: linear-gradient(90deg, #85006b 0%, #c40aa1 100%);
+  color: white;
+  height: 50px;
+}
+
+.card-custom {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+a {
+  text-decoration: none;
+}
+
+.bold {
+  font-weight: 500;
+}
+
+.active {
+  color: var(--purple) !important;
+  font-weight: 500;
+}
+
+.background-gray {
+  background: linear-gradient(180deg, #f9fafb 0%, #edf0f3 100%);
+}
+
+.table-container {
+  border: 1px solid var(--bs-border-color);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.my-table td,
+.my-table th {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.my-table.table-striped2 tbody tr:nth-of-type(even) td {
+  background-color: #f9fafb !important;
+}
+
+.my-table.table-striped2 tbody tr:nth-of-type(odd) td {
+  background-color: white !important;
+}
+
+.my-container {
+  max-width: 500px;
+  background-color: #fff;
+}
+
+.my-radius {
+  border-radius: 16px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.background-purple {
+  background: linear-gradient(90deg, #85006b 0%, #c40aa1 100%);
+}
+
+.background-platform {
+  background-image: url("/images/bg_platform.png");
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 50%;
+}
+
+.input-group-text {
+  background: none;
+  border-right: none !important;
+}
+
+.input-group .form-control {
+  border-left: none;
+}
+
+.truncate-2-lines {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.left-item {
+  border-radius: 2em;
+  height: 100%;
+  width: 0.4em;
+  background-color: purple;
+}
+
+.warp-content {
+  width: fit-content;
+  background-clip: text;
+  -webkit-background-clip: text;
+  margin: 0;
+  padding: 0;
+}
+
+label[for] {
+  cursor: pointer;
+  user-select: none;
+}
+
+.input-group-text {
+  background-color: var(--bs-body-bg) !important;
+}
+
+.input-group select {
+  border-left: none;
+}
+
+.btn-white {
+  background-color: white !important;
+  border: var(--bs-border-width) solid var(--bs-border-color) !important;
+  font-weight: 500;
+}
+
+.input-group-error {
+  border: 1px solid red;
+  border-radius: 5px;
+}
+
+.form-control.is-invalid {
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-left: none;
+}
+
+.active > .page-link,
+.page-link.active {
+  z-index: 1 !important;
+  background-color: var(--bs-primary) !important; /* or any color you prefer */
+}
+
+a {
+  color: var(--bs-primary);
+}

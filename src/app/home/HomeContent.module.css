@@ -1,0 +1,55 @@
+.backgroundFit {
+  background-image: url("/images/bg_frame.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.backgroundNetz {
+  background-image: url("/images/bg_netz.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.backgroundService {
+  background-image: url("/images/bg_service.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.backgroundPlatform {
+  background-image: url("/images/bg_platform.png");
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 50%;
+}
+.backgroundCakc {
+  background-image: url("/images/img_calc2.png");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: auto 30em;
+}
+.backgroundfAQ {
+  background: linear-gradient(180deg, #f9fafb 0%, #edf0f3 100%);
+}
+
+.cardImgTop {
+  height: 20rem;
+  object-fit: cover;
+  width: 100%;
+}
+
+.badgeSale {
+  width: 30rem;
+  background-color: #d9534f;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+}
+
+.badgeBuy {
+  width: 30rem;
+  background-color: #5cb85c;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+}

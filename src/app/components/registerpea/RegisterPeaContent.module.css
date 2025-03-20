@@ -1,0 +1,57 @@
+.backgroundFit {
+  background-image: url("/images/bg_frame.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.backgroundNetz {
+  background-image: url("/images/bg_netz.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.backgroundService {
+  background-image: url("/images/bg_service.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.backgroundPlatform {
+  background-image: url("/images/bg_platform.png");
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 50%;
+}
+.backgroundSolar {
+  background-image: url("/images/bg_solar.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.cardCustom {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.cardImgTop {
+  height: 20rem;
+  object-fit: cover;
+  width: 100%;
+}
+
+.badgeSale {
+  width: 30rem;
+  background-color: #d9534f;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+}
+
+.badgeBuy {
+  width: 30rem;
+  background-color: #5cb85c;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+}
