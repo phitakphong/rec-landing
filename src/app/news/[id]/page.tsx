@@ -7,18 +7,13 @@ import { useTranslation } from "react-i18next";
 import ApiService from "@/app/services/api-service";
 import { Helper } from "@/app/commons/helper";
 
-import { use } from "react"; // Import `use` from React
-
 type PageProps = {
-  params: Promise<{
-    id: string;
-  }>;
+  params: Promise<{ id: string }>;
 };
 
 export default function NewsDetailContent({ params }: PageProps) {
-  const { id } = params;
-
-  const { i18n, t } = useTranslation(["news"]);
+  const { i18n } = useTranslation(["news"]);
+  const [id, setId] = useState<string | null>(null);
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -26,17 +21,20 @@ export default function NewsDetailContent({ params }: PageProps) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resp = await ApiService.getNewsDetail(id);
+        const resolvedParams = await params;
+        setId(resolvedParams.id); // Set ID after resolving params
+        const resp = await ApiService.getNewsDetail(resolvedParams.id);
         setData(resp);
       } catch (err) {
         setError("Failed to load news details");
+        console.error(err);
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [id]);
+  }, [params]);
 
   if (loading) {
     return <div>Loading...</div>;
