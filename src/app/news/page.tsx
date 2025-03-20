@@ -70,7 +70,7 @@ export default function NewsContent() {
   };
 
   return (
-    <RootLayout>
+    <>
       <div className="background-purple">
         <div className={`container py-5`}>
           <div className={`row my-5`}>
@@ -136,7 +136,6 @@ export default function NewsContent() {
           </div>
         </div>
       </div>
-      <Footer />
-    </RootLayout>
+    </>
   );
 }

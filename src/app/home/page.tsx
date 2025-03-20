@@ -45,7 +45,7 @@ export default function HomeContent() {
   }, [router]);
 
   return (
-    <RootLayout>
+    <>
       <CustomCarousel />
 
       <AnimatedSection>
@@ -287,9 +287,6 @@ export default function HomeContent() {
           </div>
         </div>
       </AnimatedSection>
-      <AnimatedSection>
-        <Footer />
-      </AnimatedSection>
-    </RootLayout>
+    </>
   );
 }

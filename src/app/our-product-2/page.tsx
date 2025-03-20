@@ -6,14 +6,12 @@ import Image from "next/image";
 import styles from "./OurProduct2.module.css";
 
 import RegisterPea from "../components/registerpea/RegisterPea";
-import Footer from "../components/footer/Footer";
-import RootLayout from "../layout";
 
 export default function OurProduct2Content() {
   const { t } = useTranslation(["product2", "common"]);
 
   return (
-    <RootLayout>
+    <>
       <div>
         <div className={`container py-5`}>
           <div className={`row`}>
@@ -249,7 +247,6 @@ export default function OurProduct2Content() {
         </div>
       </div>
       <RegisterPea />
-      <Footer />
-    </RootLayout>
+    </>
   );
 }

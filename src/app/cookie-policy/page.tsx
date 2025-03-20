@@ -10,7 +10,7 @@ export default function CookiePolicyContent() {
   const { t } = useTranslation(["cookie-policy"]);
 
   return (
-    <RootLayout>
+    <>
       <div className="background-purple">
         <div className={`container py-5`}>
           <div className={`row my-5`}>
@@ -46,8 +46,6 @@ export default function CookiePolicyContent() {
           </div>
         </div>
       </div>
-
-      <Footer />
-    </RootLayout>
+    </>
   );
 }

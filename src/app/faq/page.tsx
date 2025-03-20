@@ -34,7 +34,7 @@ export default function FaqContent() {
   const filteredFaqs = faqs.filter((faq) => faq.topic[i18n.language].toLowerCase().includes(searchQuery.toLowerCase()) || faq.detail[i18n.language].toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
-    <RootLayout>
+    <>
       <div className="background-purple">
         <div className={`container py-5`}>
           <div className={`row my-5`}>
@@ -83,7 +83,6 @@ export default function FaqContent() {
           </div>
         </div>
       </div>
-      <Footer />
-    </RootLayout>
+    </>
   );
 }

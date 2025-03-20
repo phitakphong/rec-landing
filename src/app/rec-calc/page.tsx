@@ -7,13 +7,12 @@ import React from "react";
 import CalcRec from "../components/calcrec/CalcRec";
 import RegisterPea from "../components/registerpea/RegisterPea";
 import Image from "next/image";
-import RootLayout from "../layout";
 
 export default function RecCalcContent() {
   const { t } = useTranslation(["calc"]);
 
   return (
-    <RootLayout>
+    <>
       <div className="background-purple">
         <div className={`container py-5`}>
           <div className={`row my-5`}>
@@ -36,7 +35,6 @@ export default function RecCalcContent() {
       </div>
       <div className="my-5">&emsp;</div>
       <RegisterPea />
-      <Footer />
-    </RootLayout>
+    </>
   );
 }

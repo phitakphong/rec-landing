@@ -4,14 +4,13 @@ import { useTranslation } from "react-i18next";
 
 import Footer from "../components/footer/Footer";
 import React from "react";
-import RootLayout from "../layout";
 
 export default function PlicyContent() {
   const { t } = useTranslation(["policy-notice"]);
   const checkString = (str: string) => /^((10|[1-9])\. \s?)/.test(str);
 
   return (
-    <RootLayout>
+    <>
       <div className="background-purple">
         <div className={`container py-5`}>
           <div className={`row my-5`}>
@@ -48,8 +47,6 @@ export default function PlicyContent() {
           </div>
         </div>
       </div>
-
-      <Footer />
-    </RootLayout>
+    </>
   );
 }
