@@ -22,12 +22,11 @@ export default function NewsDetailContent({ params }: PageProps) {
     const fetchData = async () => {
       try {
         const resolvedParams = await params;
-        setId(resolvedParams.id); // Set ID after resolving params
+        setId(resolvedParams.id);
         const resp = await ApiService.getNewsDetail(resolvedParams.id);
         setData(resp);
       } catch (err) {
         setError("Failed to load news details");
-        console.error(err);
       } finally {
         setLoading(false);
       }

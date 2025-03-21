@@ -26,7 +26,6 @@ export default function FAQList() {
       const data = await ApiService.getFaqs();
       if (data) {
         const splits = splitArray(data);
-        console.log(splits);
         setLeftFaq(splits[0]);
         setRigthFaq(splits[1]);
       }

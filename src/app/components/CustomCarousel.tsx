@@ -22,17 +22,14 @@ export default function CustomCarousel() {
   }, [setBanners]);
 
   return (
-    <Carousel autoPlay infiniteLoop showThumbs={false}>
-      {banners.map((item) => (
-        <>
-          <div className="d-none d-lg-block" key={`${item.banner_uid}_1`} style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "16/4" }}>
+    <>
+      <Carousel autoPlay infiniteLoop showStatus={false} showThumbs={false}>
+        {banners.map((item, i) => (
+          <div key={`${i}`} style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "16/8" }}>
             <Image src={item[`image_url_${i18n.language}`]} alt="green2" fill style={{ objectFit: "contain" }} priority />
           </div>
-          <div className="d-block d-lg-none" key={`${item.banner_uid}_2`} style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "16/9" }}>
-            <Image src={item[`image_url_${i18n.language}`]} alt="green2" fill style={{ objectFit: "contain" }} priority />
-          </div>
-        </>
-      ))}
-    </Carousel>
+        ))}
+      </Carousel>
+    </>
   );
 }

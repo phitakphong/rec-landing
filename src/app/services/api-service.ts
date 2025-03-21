@@ -1,7 +1,9 @@
+import getConfig from "../config";
+
 class ApiService {
-  static API_ENDPOINT = "http://pntdev.ddns.net:28082/api";
-  static API_KEY = "SaCE5o6t5haRyanQfO3dzPxKCQMg6IcjHkp4oDDSiao4sNZnnYbDQAB2r7n9dZVz";
-  static YOUR_GOOGLE_MAPS_API_KEY = "AIzaSyArRpUnfBJKShmHioFxRt70uH4i90XWNWw";
+  static API_ENDPOINT = getConfig().baseURL;
+  static API_KEY = getConfig().apiKey;
+  static YOUR_GOOGLE_MAPS_API_KEY = getConfig().googleMapsApiKey;
 
   static DEFAULT_HEADERS = {
     accept: "application/json",
