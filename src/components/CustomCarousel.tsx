@@ -23,7 +23,7 @@ export default function CustomCarousel() {
 
   return (
     <>
-      <Carousel autoPlay infiniteLoop showStatus={false} showThumbs={false}>
+      <Carousel autoPlay interval={10000} infiniteLoop showStatus={false} showThumbs={false}>
         {banners.map((item, i) => (
           <div key={`${i}`} style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "16/8" }}>
             <Image src={item[`image_url_${i18n.language}`]} alt="green2" fill style={{ objectFit: "cover" }} priority />

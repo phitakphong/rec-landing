@@ -1,21 +1,19 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
-import CustomCarousel from "../components/CustomCarousel";
+import CustomCarousel from "../../components/CustomCarousel";
 import Image from "next/image";
 
 import styles from "./HomeContent.module.css";
 import { Button } from "reactstrap";
-import RegisterPea from "../components/registerpea/RegisterPea";
-import CalcRec from "../components/calcrec/CalcRec";
-import News from "../components/news/News";
-import FAQList from "../components/faq/FAQList";
-import Partner from "../components/partner/Partner";
-import Footer from "../components/footer/Footer";
+import RegisterPea from "../../components/registerpea/RegisterPea";
+import CalcRec from "../../components/calcrec/CalcRec";
+import News from "../../components/news/News";
+import FAQList from "../../components/faq/FAQList";
+import Partner from "../../components/partner/Partner";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import AnimatedSection from "../components/AnimatedSection";
-import RootLayout from "../layout";
+import AnimatedSection from "../../components/AnimatedSection";
 
 // import { useRouter as useRouter2 } from "next/router";
 
@@ -93,7 +91,9 @@ export default function HomeContent() {
                 </div>
               </div>
               <div className="col-12 col-lg-6 d-flex justify-content-center align-items-end mb-3 z-0">
-                <Image src="/images/img_solar.png" alt="green2" width={500} height={500} priority />
+                <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "1/1" }}>
+                  <Image src="/images/img_solar.png" alt="green2" fill priority />
+                </div>
               </div>
             </div>
           </div>
@@ -159,8 +159,10 @@ export default function HomeContent() {
             </div>
             <div className="row d-flex text-center position-relative" style={{ minHeight: "100%" }}>
               <div className="col-md-6 mt-3 d-flex flex-column">
-                <div className={`card card-custom d-flex flex-column align-items-center h-100 pointer`} onClick={() => router.push("/our-product-1")}>
-                  <Image src="/images/img_service1.png" width={500} height={300} objectFit="cover" alt="บริการซื้อขาย" className={`${styles.cardImgTop}`} style={{ objectFit: "cover" }} />
+                <div className={`card card-custom d-flex flex-column align-items-center pointer h-100`} onClick={() => router.push("/our-product-1")} style={{ borderRadius: "34px" }}>
+                  <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "16/9" }}>
+                    <Image src="/images/img_service1.png" fill alt="บริการซื้อขาย" className={`${styles.cardImgTop}`} style={{ objectFit: "contain" }} />
+                  </div>
                   <div className="card-body text-center">
                     <h5 className="mt-2" dangerouslySetInnerHTML={{ __html: t("D_3_1_1") }}></h5>
                   </div>
@@ -168,8 +170,10 @@ export default function HomeContent() {
               </div>
 
               <div className="col-md-6 mt-3 d-flex flex-column">
-                <div className={`card card-custom d-flex flex-column align-items-center h-100 pointer`} onClick={() => router.push("/our-product-2")}>
-                  <Image src="/images/img_service2.png" width={500} height={300} objectFit="cover" alt="บริการซื้อขาย" className={`${styles.cardImgTop}`} style={{ objectFit: "cover" }} />
+                <div className={`card card-custom d-flex flex-column align-items-center pointer h-100`} onClick={() => router.push("/our-product-2")} style={{ borderRadius: "34px" }}>
+                  <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "16/9" }}>
+                    <Image src="/images/img_service2.png" fill alt="บริการซื้อขาย" className={`${styles.cardImgTop}`} style={{ objectFit: "contain" }} />
+                  </div>
                   <div className="card-body text-center">
                     <h5 className="mt-2" dangerouslySetInnerHTML={{ __html: t("D_3_1_2") }}></h5>
                   </div>

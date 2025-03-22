@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import i18next from "../../../i18n/i18n";
+import i18next from "@/../i18n/i18n";
 import { Button } from "reactstrap";
 import Image from "next/image";
 

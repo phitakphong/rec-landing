@@ -1,4 +1,4 @@
-import getConfig from "../config";
+import getConfig from "../app/config";
 
 class ApiService {
   static API_ENDPOINT = getConfig().baseURL;
@@ -20,13 +20,7 @@ class ApiService {
         body: JSON.stringify(data),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw errorData;
-      }
-
-      const responseData = await response.json();
-      return responseData;
+      return await ApiService.handleResponse(response);
     } catch (error) {
       throw error;
     }
@@ -40,13 +34,7 @@ class ApiService {
         headers: ApiService.DEFAULT_HEADERS,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw errorData;
-      }
-
-      const responseData = await response.json();
-      return responseData;
+      return await ApiService.handleResponse(response);
     } catch (error) {
       throw error;
     }
@@ -59,14 +47,7 @@ class ApiService {
         method: "GET",
         headers: ApiService.DEFAULT_HEADERS,
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw errorData;
-      }
-
-      const responseData = await response.json();
-      return responseData;
+      return await ApiService.handleResponse(response);
     } catch (error) {
       throw error;
     }
@@ -80,13 +61,7 @@ class ApiService {
         headers: ApiService.DEFAULT_HEADERS,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw errorData;
-      }
-
-      const responseData = await response.json();
-      return responseData;
+      return await ApiService.handleResponse(response);
     } catch (error) {
       throw error;
     }
@@ -100,13 +75,7 @@ class ApiService {
         headers: ApiService.DEFAULT_HEADERS,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw errorData;
-      }
-
-      const responseData = await response.json();
-      return responseData;
+      return await ApiService.handleResponse(response);
     } catch (error) {
       throw error;
     }
@@ -120,13 +89,7 @@ class ApiService {
         headers: ApiService.DEFAULT_HEADERS,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw errorData;
-      }
-
-      const responseData = await response.json();
-      return responseData;
+      return await ApiService.handleResponse(response);
     } catch (error) {
       throw error;
     }
@@ -140,13 +103,7 @@ class ApiService {
         headers: ApiService.DEFAULT_HEADERS,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw errorData;
-      }
-
-      const responseData = await response.json();
-      return responseData;
+      return await ApiService.handleResponse(response);
     } catch (error) {
       throw error;
     }
@@ -160,13 +117,7 @@ class ApiService {
         headers: ApiService.DEFAULT_HEADERS,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw errorData;
-      }
-
-      const responseData = await response.json();
-      return responseData;
+      return await ApiService.handleResponse(response);
     } catch (error) {
       throw error;
     }
@@ -180,13 +131,7 @@ class ApiService {
         headers: ApiService.DEFAULT_HEADERS,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw errorData;
-      }
-
-      const responseData = await response.json();
-      return responseData;
+      return await ApiService.handleResponse(response);
     } catch (error) {
       throw error;
     }
@@ -201,13 +146,7 @@ class ApiService {
         body: JSON.stringify(req),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw errorData;
-      }
-
-      const responseData = await response.json();
-      return responseData;
+      return await ApiService.handleResponse(response);
     } catch (error) {
       throw error;
     }
@@ -221,13 +160,7 @@ class ApiService {
         headers: ApiService.DEFAULT_HEADERS,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw errorData;
-      }
-
-      const responseData = await response.json();
-      return responseData;
+      return await ApiService.handleResponse(response);
     } catch (error) {
       throw error;
     }
@@ -242,17 +175,95 @@ class ApiService {
         body: JSON.stringify(req),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw errorData;
-      }
-
-      const responseData = await response.json();
-      return responseData;
+      return await ApiService.handleResponse(response);
     } catch (error) {
       throw error;
     }
   }
+
+  static async uploadFile(file: File) {
+    const url = `${ApiService.API_ENDPOINT}/upload`;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "X-ApiKey": ApiService.API_KEY,
+          accept: "application/json",
+        },
+        body: formData,
+      });
+
+      return await ApiService.handleResponse(response);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async createOrUpdateCooperation(req: any, id: string | null = null) {
+    if (id) {
+      return await ApiService.updateCooperation(id, req);
+    } else {
+      return await ApiService.createCooperation(req);
+    }
+  }
+
+  static async createCooperation(req: any) {
+    const url = `${ApiService.API_ENDPOINT}/cooperation/create`;
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: ApiService.DEFAULT_HEADERS,
+        body: JSON.stringify(req),
+      });
+
+      return await ApiService.handleResponse(response);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async updateCooperation(id: string, req: any) {
+    const url = `${ApiService.API_ENDPOINT}/cooperation/update/${id}`;
+    try {
+      const response = await fetch(url, {
+        method: "PUT",
+        headers: ApiService.DEFAULT_HEADERS,
+        body: JSON.stringify(req),
+      });
+
+      return await ApiService.handleResponse(response);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async getCooperation(id: string) {
+    const url = `${ApiService.API_ENDPOINT}/cooperation/${id}`;
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: ApiService.DEFAULT_HEADERS,
+      });
+
+      return await ApiService.handleResponse(response);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  private static handleResponse = async (response: any) => {
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw errorData;
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  };
 }
 
 export default ApiService;

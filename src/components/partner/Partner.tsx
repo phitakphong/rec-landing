@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import ApiService from "@/app/services/api-service";
+import ApiService from "@/services/api-service";
 
 export default function Partner() {
   const { t } = useTranslation(["common"]);

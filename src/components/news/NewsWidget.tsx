@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import styles from "./News.module.css";
 
 import Image from "next/image";
-import { Helper } from "@/app/commons/helper";
+import { Helper } from "@/commons/helper";
 
 export default function NewsWidget(props: any) {
   const { i18n } = useTranslation();

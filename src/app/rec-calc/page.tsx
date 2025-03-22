@@ -1,11 +1,11 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
-import Footer from "../components/footer/Footer";
+import Footer from "@/components/footer/Footer";
 import React from "react";
 
-import CalcRec from "../components/calcrec/CalcRec";
-import RegisterPea from "../components/registerpea/RegisterPea";
+import CalcRec from "@/components/calcrec/CalcRec";
+import RegisterPea from "@/components/registerpea/RegisterPea";
 import Image from "next/image";
 
 export default function RecCalcContent() {

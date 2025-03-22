@@ -4,7 +4,8 @@ import { useTranslation } from "react-i18next";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, FormGroup, Input, InputGroup, Label, Row } from "reactstrap";
 import { useRouter } from "next/navigation";
-import ApiService from "../services/api-service";
+import ApiService from "@/services/api-service";
+import Swal from "sweetalert2";
 
 // import Image from "next/image";
 
@@ -15,8 +16,6 @@ export default function RegisterContent() {
   const [districts, setDistricts] = useState<any[]>([]);
   const [subDistricts, setSubDistricts] = useState<any[]>([]);
   const [pCode, setPostCode] = useState("");
-  const [registerSuccess, setRegisterSuccess] = useState(false);
-  const [registerError, setRegisterError] = useState(false);
   const [requests, setRequests] = useState<any[]>([]);
 
   const [formData, setFormData] = useState({
@@ -109,12 +108,23 @@ export default function RegisterContent() {
   };
 
   const submit = async () => {
-    setRegisterSuccess(false);
-    setRegisterError(false);
+    const valid = validate();
 
-    if (validate()) {
-      setErrors(false);
+    if (!valid) {
+      Swal.fire({
+        icon: "error",
+        confirmButtonText: t("T_34"),
+        buttonsStyling: false,
+        allowOutsideClick: false,
+        customClass: {
+          confirmButton: "bg-primary-gradient btn btn-primary px-5",
+        },
+        text: t("T_33"),
+      });
+      return;
+    }
 
+    try {
       const req = {
         name: formData.name,
         surname: formData.surname,
@@ -141,22 +151,41 @@ export default function RegisterContent() {
 
         more_detail: formData.more_detail,
 
-        loccode: "",
+        loccode: subDistricts.find((s) => s.sub_district_code === formData.sub_district)!.sub_district_code,
       };
 
-      await ApiService.register(req)
-        .catch((e) => {
-          setRegisterError(true);
-        })
-        .then(() => {
-          setRegisterSuccess(true);
-          const form = { ...formData };
-          Object.keys(form).forEach((k: string) => {
-            form[k as keyof typeof form] = "";
-          });
-          setFormData(form);
-          setPostCode("");
+      await ApiService.register(req);
+      const result = await Swal.fire({
+        icon: "success",
+        title: t("T_38"),
+        text: t("T_39"),
+        allowOutsideClick: false,
+        confirmButtonText: t("T_34"),
+        customClass: {
+          confirmButton: "bg-primary-gradient btn btn-primary px-5 me-2",
+        },
+        buttonsStyling: false,
+      });
+
+      if (result.isConfirmed) {
+        const form = { ...formData };
+        Object.keys(form).forEach((k: string) => {
+          form[k as keyof typeof form] = "";
         });
+        setFormData(form);
+        setPostCode("");
+      }
+    } catch (e) {
+      Swal.fire({
+        icon: "error",
+        confirmButtonText: t("T_34"),
+        buttonsStyling: false,
+        allowOutsideClick: false,
+        customClass: {
+          confirmButton: "bg-primary-gradient btn btn-primary px-5",
+        },
+        text: t("T_42"),
+      });
     }
   };
 
@@ -181,7 +210,7 @@ export default function RegisterContent() {
                     <Label className="text-black" for="name">
                       {t("D_1_1")} *
                     </Label>
-                    <Input id="name" value={formData.name} name="name" onChange={handleChange} placeholder={t("D_7_1")} type="text" autoComplete="none" maxLength={255} />
+                    <Input id="name" value={formData.name} name="name" onChange={handleChange} placeholder={t("D_7_1")} type="text" autoComplete="off" maxLength={255} />
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -189,7 +218,7 @@ export default function RegisterContent() {
                     <Label className="text-black" for="surname">
                       {t("D_1_2")} *
                     </Label>
-                    <Input id="surname" value={formData.surname} name="surname" onChange={handleChange} placeholder={t("D_7_1")} type="text" autoComplete="none" maxLength={255} />
+                    <Input id="surname" value={formData.surname} name="surname" onChange={handleChange} placeholder={t("D_7_1")} type="text" autoComplete="off" maxLength={255} />
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -197,7 +226,7 @@ export default function RegisterContent() {
                     <Label className="text-black" for="phoneNo">
                       {t("D_1_3")} *
                     </Label>
-                    <Input id="mobile" value={formData.mobile} name="mobile" onChange={handleChange} placeholder={t("D_7_1")} type="text" autoComplete="none" maxLength={255} />
+                    <Input id="mobile" value={formData.mobile} name="mobile" onChange={handleChange} placeholder={t("D_7_1")} type="text" autoComplete="off" maxLength={255} />
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -205,7 +234,7 @@ export default function RegisterContent() {
                     <Label className="text-black" for="email">
                       {t("D_1_4")} *
                     </Label>
-                    <Input id="email" value={formData.email} name="email" onChange={handleChange} placeholder={t("D_7_1")} type="email" autoComplete="none" maxLength={255} />
+                    <Input id="email" value={formData.email} name="email" onChange={handleChange} placeholder={t("D_7_1")} type="email" autoComplete="off" maxLength={255} />
                   </FormGroup>
                 </Col>
                 <Col className={`col-12  mt-3 d-flex align-items-center`}>
@@ -217,7 +246,7 @@ export default function RegisterContent() {
                     <Label className="text-black" for="address">
                       {t("D_2_1")} *
                     </Label>
-                    <Input id="address" value={formData.address} name="address" onChange={handleChange} placeholder={t("D_7_1")} autoComplete="none" type="text" maxLength={500} />
+                    <Input id="address" value={formData.address} name="address" onChange={handleChange} placeholder={t("D_7_1")} autoComplete="off" type="text" maxLength={500} />
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -361,12 +390,6 @@ export default function RegisterContent() {
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 mt-3`}>
-                  {errors && <p className="text-danger">* {t("H_13")}</p>}
-
-                  {registerError && <p className="text-danger">* {t("H_14")}</p>}
-
-                  {registerSuccess && <p> {t("H_15")}</p>}
-
                   <Button outline color="primary" style={{ width: 140, height: 40 }} onClick={() => router.back()}>
                     {t("H_8")}
                   </Button>

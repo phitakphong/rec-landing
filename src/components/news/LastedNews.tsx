@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import NewsItemWidget from "./NewsItemWidget";
 import Image from "next/image";
-import ApiService from "@/app/services/api-service";
+import ApiService from "@/services/api-service";
 import Link from "next/link";
 
 export default function LastedNews() {

@@ -5,10 +5,8 @@ import React, { useEffect, useState } from "react";
 import styles from "./Faq.module.css";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import Footer from "../components/footer/Footer";
 import { Input, InputGroup, InputGroupText } from "reactstrap";
-import ApiService from "../services/api-service";
-import RootLayout from "../layout";
+import ApiService from "../../services/api-service";
 
 export default function FaqContent() {
   const { t, i18n } = useTranslation(["common"]);

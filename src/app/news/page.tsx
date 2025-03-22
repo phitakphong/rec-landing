@@ -4,12 +4,10 @@ import { useTranslation } from "react-i18next";
 
 // import styles from "./OurProduct2.module.css";
 
-import Footer from "../components/footer/Footer";
 import { FormGroup, Input, InputGroup, InputGroupText, Pagination, PaginationItem, PaginationLink } from "reactstrap";
 import React, { useEffect, useState } from "react";
-import NewsItemWidget from "../components/news/NewsItemWidget";
-import ApiService from "../services/api-service";
-import RootLayout from "../layout";
+import NewsItemWidget from "@/components/news/NewsItemWidget";
+import ApiService from "@/services/api-service";
 
 export default function NewsContent() {
   const { t, i18n } = useTranslation(["news"]);

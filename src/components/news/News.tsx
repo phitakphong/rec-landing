@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import NewsWidget from "./NewsWidget";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import ApiService from "@/app/services/api-service";
+import ApiService from "@/services/api-service";
 
 export default function News() {
   const { t, i18n } = useTranslation(["home"]);

@@ -66,6 +66,7 @@ h1 {
   font-size: Font size/text-xl;
   line-height: Line height/text-xl;
   letter-spacing: 0%;
+  text-align: justify;
 }
 
 .bg-purple {
@@ -225,9 +226,50 @@ label[for] {
 .active > .page-link,
 .page-link.active {
   z-index: 1 !important;
-  background-color: var(--bs-primary) !important; /* or any color you prefer */
+  background-color: var(--bs-primary) !important;
 }
 
 a {
   color: var(--bs-primary);
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: var(--bs-border-color);
+}
+
+.radius-8 {
+  border-radius: var(--bs-border-radius) !important;
+}
+
+.no-shadow {
+  box-shadow: none;
+}
+
+.circle-doc {
+  background-color: #f2f4f7;
+  border-radius: 50%;
+}
+
+.swal2-spinner {
+  border-color: --purple transparent --purple transparent !important;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+.dropdown-item-warp {
+  white-space: normal !important;
+  word-break: break-word;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: var(--purple);
+}
+
+.dropdown-item.active a,
+.dropdown-item:active a {
+  color: white !important;
 }

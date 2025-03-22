@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "i18n/i18n.ts", "i18n/i18n.ts", "src/app/services/ApiService.jjs"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "i18n/i18n.ts", "i18n/i18n.ts", "src/services/ApiService.jjs"],
   "exclude": ["node_modules"]
 }

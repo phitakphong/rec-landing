@@ -6,7 +6,7 @@
   "H_3": "Contact Number",
   "H_4": "Address",
   "H_5": "LED building 5th floor<br/><br/>Related Business Strategy and Development Division<br/><br/>200 Ngam Wong Wan Road, Lat Yao, Chatuchak, Bangkok 10900",
-  "H_6": "ข้อมูลส่วนบุคคลทั้งหมดที่ให้ไว้กับ PEA REC ในแบบฟอร์มนี้จะนำไปใช้เพื่อติดต่อท่านเพื่อแจ้งข้อมูลเพิ่มเติมเกี่ยวกับบริการซื้อขายใบรับรองการผลิตพลังงานหมุนเวียน  ประมวลผลตามคำขอของท่าน และบริการอื่นๆ ที่เหมาะสมสำหรับท่าน หากท่านต้องการศึกษาข้อมูลเพิ่มเติมเกี่ยวกับการคุ้มครองข้อมูลส่วนบุคคลของ PEA REC หรือประสงค์ที่จะใช้สิทธิใดๆ ของเจ้าของข้อมูลส่วนบุคคล ท่านสามารถศึกษารายละเอียดเพิ่มเติมได้ที่ ประกาศความเป็นส่วนตัว (Privacy Notice)",
+  "H_6": "All personal information provided to PEA REC in this form will be used to contact you for further information about renewable energy certificate trading services, process your requests, and other appropriate services for you. If you would like to learn more about PEA REC's personal data protection or wish to exercise any rights of the data subject, you can find more details in the Privacy Notice.",
   "H_7": "Submit",
   "H_8": "Name",
   "H_9": "Surname",
@@ -20,5 +20,10 @@
   "H_17": "Email.",
   "H_18": "Please fill out all the information.",
   "H_19": "The transaction could not be completed. Please try again later.",
-  "H_20": "Transaction completed successfully."
+  "H_20": "Transaction completed successfully.",
+
+  "T_33": "Please fill out all the information.",
+  "T_34": "OK",
+  "T_38": "Successfully.",
+  "T_39": "The system has successfully saved the data."
 }

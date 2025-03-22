@@ -61,7 +61,7 @@ export default function CalcRec() {
     while (tempDate <= currentDate) {
       monthsList.push({
         value: `${tempDate.getFullYear()}${(tempDate.getMonth() + 1).toString().padStart(2, "0")}`,
-        year: `${tempDate.getFullYear()}`,
+        year: `${tempDate.getFullYear() + (i18n.language == "th" ? 543 : 0)}`,
         monthIndex: tempDate.getMonth(),
       });
       tempDate.setMonth(tempDate.getMonth() + 1);
@@ -271,7 +271,7 @@ export default function CalcRec() {
       <div className="row">
         <div className="col-12">
           <h1 className="gradient-text">{t("H_1")}</h1>
-          <p className="txt-body">{t("H_2")}C</p>
+          <p className="txt-body">{t("H_2")}</p>
           <div className={`card card-custom p-2 mt-3`} style={{ width: "fit-content", display: "inline-block" }}>
             <Button
               color="primary"
@@ -336,27 +336,27 @@ export default function CalcRec() {
                   <Row>
                     <Col className={`col-12 col-lg-5`}>
                       <FormGroup>
-                        <Label className="text-black" for="pea_no">
-                          {t("H_3")}
-                        </Label>
-                        <InputGroup className={errors.pea_no ? "input-group-error" : ""}>
-                          <InputGroupText>
-                            <i className="bi bi-printer-fill"></i>
-                          </InputGroupText>
-                          <Input id="pea_no" name="pea_no" type="text" autoComplete="none" maxLength={255} value={formData.pea_no} onChange={handleChange} />
-                        </InputGroup>
-                      </FormGroup>
-                    </Col>
-                    <Col className={`col-12 col-lg-5`}>
-                      <FormGroup>
                         <Label className="text-black" for="meter_code">
-                          {t("H_4")}
+                          {t("H_3")}
                         </Label>
                         <InputGroup className={errors.meter_code ? "input-group-error" : ""}>
                           <InputGroupText>
                             <i className="bi bi-printer-fill"></i>
                           </InputGroupText>
-                          <Input id="meter_code" name="meter_code" type="text" autoComplete="none" maxLength={255} value={formData.meter_code} onChange={handleChange} />
+                          <Input id="meter_code" name="meter_code" type="text" autoComplete="off" maxLength={255} value={formData.meter_code} onChange={handleChange} />
+                        </InputGroup>
+                      </FormGroup>
+                    </Col>
+                    <Col className={`col-12 col-lg-5`}>
+                      <FormGroup>
+                        <Label className="text-black" for="pea_no">
+                          {t("H_4")}
+                        </Label>
+                        <InputGroup className={errors.pea_no ? "input-group-error" : ""}>
+                          <InputGroupText>
+                            <i className="bi bi-printer-fill"></i>
+                          </InputGroupText>
+                          <Input id="pea_no" name="pea_no" type="text" autoComplete="off" maxLength={255} value={formData.pea_no} onChange={handleChange} />
                         </InputGroup>
                       </FormGroup>
                     </Col>

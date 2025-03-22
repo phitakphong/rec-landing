@@ -7,7 +7,8 @@ import React, { useState } from "react";
 import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import Image from "next/image";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import ApiService from "../services/api-service";
+import ApiService from "../../services/api-service";
+import Swal from "sweetalert2";
 
 const containerStyle = {
   width: "100%",
@@ -30,10 +31,6 @@ export default function ContactUsContent() {
     contact_detail: "",
   });
 
-  const [valid, setValid] = useState(true);
-  const [success, setSuccess] = useState(false);
-  const [errors, setErrors] = useState(false);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -53,27 +50,58 @@ export default function ContactUsContent() {
       invalid[k as keyof typeof invalid] = formData[k as keyof typeof formData].length === 0;
     });
     const res = Object.values(invalid).every((e) => e === false);
-    setValid(res);
     return res;
   };
 
   const submit = async () => {
-    setErrors(false);
-    setSuccess(false);
-    if (validate()) {
-      setValid(true);
-      const data = await ApiService.createContactUs(formData)
-        .catch((e) => {
-          setErrors(true);
-        })
-        .then(() => {
-          setSuccess(true);
-          const form = { ...formData };
-          Object.keys(form).forEach((k: string) => {
-            form[k as keyof typeof form] = "";
-          });
-          setFormData(form);
+    const valid = validate();
+
+    if (!valid) {
+      Swal.fire({
+        icon: "error",
+        confirmButtonText: t("T_34"),
+        buttonsStyling: false,
+        allowOutsideClick: false,
+        customClass: {
+          confirmButton: "bg-primary-gradient btn btn-primary px-5",
+        },
+        text: t("T_33"),
+      });
+      return;
+    }
+
+    try {
+      await ApiService.createContactUs(formData);
+      const result = await Swal.fire({
+        icon: "success",
+        title: t("T_38"),
+        text: t("T_39"),
+        allowOutsideClick: false,
+        confirmButtonText: t("T_34"),
+        customClass: {
+          confirmButton: "bg-primary-gradient btn btn-primary px-5 me-2",
+        },
+        buttonsStyling: false,
+      });
+
+      if (result.isConfirmed) {
+        const form = { ...formData };
+        Object.keys(form).forEach((k: string) => {
+          form[k as keyof typeof form] = "";
         });
+        setFormData(form);
+      }
+    } catch (e) {
+      Swal.fire({
+        icon: "error",
+        confirmButtonText: t("T_34"),
+        buttonsStyling: false,
+        allowOutsideClick: false,
+        customClass: {
+          confirmButton: "bg-primary-gradient btn btn-primary px-5",
+        },
+        text: t("T_42"),
+      });
     }
   };
 
@@ -103,7 +131,7 @@ export default function ContactUsContent() {
                     <Label className="text-black" for="contact_name">
                       {t("H_8")} *
                     </Label>
-                    <Input id="contact_name" value={formData.contact_name} name="contact_name" onChange={handleChange} placeholder={t("H_13")} type="text" autoComplete="none" maxLength={255} />
+                    <Input id="contact_name" value={formData.contact_name} name="contact_name" onChange={handleChange} placeholder={t("H_13")} type="text" autoComplete="off" maxLength={255} />
                   </FormGroup>
                 </Col>
                 <Col className={`col-6`}>
@@ -118,7 +146,7 @@ export default function ContactUsContent() {
                       onChange={handleChange}
                       placeholder={t("H_13")}
                       type="text"
-                      autoComplete="none"
+                      autoComplete="off"
                       maxLength={255}
                     />
                   </FormGroup>
@@ -128,7 +156,7 @@ export default function ContactUsContent() {
                     <Label className="text-black" for="contact_mobile">
                       {t("H_10")} *
                     </Label>
-                    <Input id="contact_mobile" value={formData.contact_mobile} name="contact_mobile" onChange={handleChange} placeholder={t("H_13")} autoComplete="none" type="text" maxLength={255} />
+                    <Input id="contact_mobile" value={formData.contact_mobile} name="contact_mobile" onChange={handleChange} placeholder={t("H_13")} autoComplete="off" type="text" maxLength={255} />
                   </FormGroup>
                 </Col>
                 <Col className={`col-6`}>
@@ -151,12 +179,6 @@ export default function ContactUsContent() {
 
               <p className="text-muted py-5" dangerouslySetInnerHTML={{ __html: t("H_6") }}></p>
 
-              {!valid && <p className="text-danger">* {t("H_18")}</p>}
-
-              {errors && <p className="text-danger">* {t("H_19")}</p>}
-
-              {success && <p> {t("H_20")}</p>}
-
               <Button
                 color="primary"
                 type="button"
@@ -174,8 +196,8 @@ export default function ContactUsContent() {
       </div>
       <div className="background-gray">
         <div className={`container py-5`}>
-          <div className={`row my-5`}>
-            <div className={`col-6`}>
+          <div className={`row`}>
+            <div className={`col-lg-6 col-12 mt-5`}>
               <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "1/1" }}>
                 <LoadScript googleMapsApiKey={ApiService.YOUR_GOOGLE_MAPS_API_KEY}>
                   <GoogleMap mapContainerStyle={containerStyle} center={position} zoom={15}>
@@ -184,7 +206,7 @@ export default function ContactUsContent() {
                 </LoadScript>
               </div>
             </div>
-            <div className={`col-6`}>
+            <div className={`col-lg-6 col-12 mt-5`}>
               <div className="container">
                 <h3 className="text-black">{t("H_2")}</h3>
                 <div className="row mt-3">

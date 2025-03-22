@@ -106,15 +106,12 @@ export default function CustomNavbar() {
           <NavbarBrand href="/home">
             <Image src="/logo.svg" alt="Logo" width={150} height={50} priority />
           </NavbarBrand>
-          <div className="d-flex me-3">
+          <div className="d-flex">
             <LanguageSwitcher />
-            <Button color="primary" className="bg-primary-gradient mx-3" style={{ width: 140 }}>
-              {t("M_7")}
-            </Button>
-            <NavbarToggler onClick={toggleNavbar} />
+
+            <NavbarToggler onClick={toggleNavbar}>{isOpen ? <i className="bi bi-x-lg fs-4"></i> : <i className="bi bi-list fs-4"></i>}</NavbarToggler>
           </div>
 
-          {/* Navbar links and menu */}
           <div
             className={`collapse navbar-collapse ${isOpen ? "show" : ""}`}
             style={{
@@ -139,12 +136,12 @@ export default function CustomNavbar() {
                   </DropdownToggle>
                   <DropdownMenu>
                     <DropdownItem>
-                      <Link href="/our-product-1" className={`dropdown-item ${pathname === "/our-product-1" ? "fw-bold txt-purple" : ""}`}>
+                      <Link href="/our-product-1" className={`dropdown-item dropdown-item-warp ${pathname === "/our-product-1" ? "fw-bold txt-purple" : ""}`}>
                         {t("M_2_1")}
                       </Link>
                     </DropdownItem>
                     <DropdownItem>
-                      <Link href="/our-product-2" className={`dropdown-item ${pathname === "/our-product-2" ? "fw-bold txt-purple" : ""}`}>
+                      <Link href="/our-product-2" className={`dropdown-item dropdown-item-warp ${pathname === "/our-product-2" ? "fw-bold txt-purple" : ""}`}>
                         {t("M_2_2")}
                       </Link>
                     </DropdownItem>
@@ -181,9 +178,15 @@ export default function CustomNavbar() {
             </Nav>
 
             <NavbarText>
-              <Button outline color="primary" className="mt-3" style={{ width: 140, height: 50 }}>
-                {t("M_6")}
-              </Button>
+              <div className="d-flex">
+                <Button outline color="primary" style={{ width: 140, height: 50 }}>
+                  {t("M_6")}
+                </Button>
+                <div>&emsp;</div>
+                <Button color="primary" className="bg-primary-gradient" style={{ width: 140 }}>
+                  {t("M_7")}
+                </Button>
+              </div>
             </NavbarText>
           </div>
         </Navbar>

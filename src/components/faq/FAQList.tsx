@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 // import styles from "./FAQList.module.css";
 import { motion } from "framer-motion";
-import ApiService from "@/app/services/api-service";
+import ApiService from "@/services/api-service";
 
 function splitArray(array: unknown[]) {
   const mid = Math.ceil(array.length / 2);

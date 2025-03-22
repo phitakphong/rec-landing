@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import LastedNews from "@/app/components/news/LastedNews";
+import LastedNews from "@/components/news/LastedNews";
 import { useTranslation } from "react-i18next";
-import ApiService from "@/app/services/api-service";
-import { Helper } from "@/app/commons/helper";
+import ApiService from "@/services/api-service";
+import { Helper } from "@/commons/helper";
 
 type PageProps = {
   params: Promise<{ id: string }>;

@@ -2,7 +2,6 @@
 
 import { useTranslation } from "react-i18next";
 
-import Footer from "../components/footer/Footer";
 import React from "react";
 
 export default function TermsContent() {

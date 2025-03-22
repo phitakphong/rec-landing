@@ -2,9 +2,8 @@
 
 import { useTranslation } from "react-i18next";
 
-import Footer from "../components/footer/Footer";
 import React from "react";
-import Partner from "../components/partner/Partner";
+import Partner from "../../components/partner/Partner";
 
 export default function AboutContent() {
   const { t } = useTranslation(["about"]);

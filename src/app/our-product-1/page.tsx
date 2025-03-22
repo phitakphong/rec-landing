@@ -5,7 +5,7 @@ import Image from "next/image";
 
 // import styles from "./OurProduct1.module.css";
 
-import RegisterPea from "../components/registerpea/RegisterPea";
+import RegisterPea from "@/components/registerpea/RegisterPea";
 
 export default function OurProduct1Content() {
   const { t } = useTranslation(["product1", "common"]);
@@ -16,7 +16,7 @@ export default function OurProduct1Content() {
         <div className={`container py-5`}>
           <div className={`row`}>
             <div className={`col-12 col-lg-6 z-1`}>
-              <h1 className="gradient-text">{t("H_1")}</h1>
+              <h1 className="gradient-text py-2">{t("H_1")}</h1>
               <p className="txt-body " dangerouslySetInnerHTML={{ __html: `${t("D_1")}` }}></p>
               <div className="col-12">
                 <div className="d-flex align-items-center p-3">
@@ -50,7 +50,9 @@ export default function OurProduct1Content() {
               </div>
             </div>
             <div className="col-12 col-lg-6 d-flex justify-content-center align-items-end mb-3 z-0">
-              <Image src="/images/img_prod1.png" alt="green2" width={500} height={500} priority />
+              <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "1/1" }}>
+                <Image src="/images/img_prod1.png" alt="green2" fill priority />
+              </div>
             </div>
           </div>
         </div>

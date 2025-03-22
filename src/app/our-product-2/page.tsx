@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import styles from "./OurProduct2.module.css";
 
-import RegisterPea from "../components/registerpea/RegisterPea";
+import RegisterPea from "@/components/registerpea/RegisterPea";
 
 export default function OurProduct2Content() {
   const { t } = useTranslation(["product2", "common"]);
@@ -71,7 +71,9 @@ export default function OurProduct2Content() {
               </div>
             </div>
             <div className="col-12 col-lg-5 d-flex justify-content-center align-items-end mb-3 z-0">
-              <Image src="/images/img_prod2.png" alt="green2" width={500} height={500} priority />
+              <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "1/1" }}>
+                <Image src="/images/img_prod2.png" alt="green2" fill priority />
+              </div>
             </div>
           </div>
         </div>

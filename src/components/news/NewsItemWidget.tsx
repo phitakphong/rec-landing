@@ -3,7 +3,7 @@
 import { useTranslation } from "react-i18next";
 
 import Image from "next/image";
-import { Helper } from "@/app/commons/helper";
+import { Helper } from "@/commons/helper";
 
 export default function NewsItemWidget(props: any) {
   const { i18n, t } = useTranslation(["news"]);
