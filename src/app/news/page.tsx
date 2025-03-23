@@ -15,7 +15,7 @@ export default function NewsContent() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15;
   const [data, setData] = useState<any[]>([]);
-  const [allData, setAllData] = useState([]);
+  const [allData, setAllData] = useState<any[]>([]);
   const [count, setCount] = useState(0);
   const [categories, setCategories] = useState<any[]>([]);
   const [years, setYears] = useState<number[]>([]);
