@@ -203,7 +203,7 @@ export default function RegisterContent() {
       <div className={`container py-5 max-width-1140`}>
         <div className="row">
           <Container>
-            <Form>
+            <Form className="normal-form">
               <Row>
                 <Col className={`col-12 col-lg-6`}>
                   <FormGroup>

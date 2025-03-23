@@ -325,9 +325,9 @@ a {
 
 .left-item {
   border-radius: 2em;
-  height: 100%;
-  width: 0.4em;
-  background-color: purple;
+  height: 24px;
+  width: 4px;
+  background-color: #a80689;
 }
 
 .warp-content {
@@ -538,4 +538,42 @@ input[type="checkbox"]:checked::after {
 
 .font-w-600 {
   font-weight: 600;
+}
+
+.form-select:focus {
+  border: none;
+  background: #fff;
+  box-shadow: none;
+  outline: none;
+}
+
+.normal-form .form-control:active,
+.normal-form .form-control:focus,
+.normal-form .form-select:focus,
+.input-group:focus-within {
+  border-radius: 8px;
+  border: 1px solid #cf07aa;
+  background: #fff;
+  box-shadow: 0px 0px 0px 4px rgba(168, 6, 137, 0.12);
+  outline: none;
+}
+
+select option {
+  font-weight: normal;
+  color: #000;
+}
+
+select option:checked {
+  font-weight: bold;
+  color: #a80689;
+}
+
+.form-register i {
+  font-size: 24px;
+  color: #a80689;
+}
+
+.form-register .text-black {
+  font-size: 16px;
+  color: #475467;
 }

@@ -131,7 +131,7 @@ export default function ContactUsContent() {
             </div>
           </div>
           <Container className="pt-5">
-            <Form>
+            <Form className="normal-form">
               <Row>
                 <Col className={`col-6`}>
                   <FormGroup>

@@ -91,9 +91,7 @@ export default function CompanyInfoContent({ params }: PageProps) {
         <div className={`container py-5`}>
           <div className={`row my-5`}>
             <div className={`col-12`}>
-      
-            <h1 className="text-header-big">{t("T_01")}</h1>
-             
+              <h1 className="text-header-big">{t("T_01")}</h1>
             </div>
           </div>
         </div>
@@ -102,7 +100,7 @@ export default function CompanyInfoContent({ params }: PageProps) {
         <div className="row">
           {data && (
             <Container>
-              <Form>
+              <Form className="form-register">
                 <Row>
                   <Col className={`col-12  mb-3 d-flex align-items-center`}>
                     <div className="left-item"></div>
@@ -114,7 +112,7 @@ export default function CompanyInfoContent({ params }: PageProps) {
                         <i className="bi bi-person"></i>&emsp;{t("T_02")}
                       </Label>
                       <br />
-                      &emsp;&emsp;<Label className="text-black">{data.cooperate_name}</Label>
+                      &emsp;&emsp;<Label className="text-black ms-2">{data.cooperate_name}</Label>
                     </FormGroup>
                   </Col>
 
@@ -124,7 +122,7 @@ export default function CompanyInfoContent({ params }: PageProps) {
                         <i className="bi bi-person"></i>&emsp;{t("T_03")}
                       </Label>
                       <br />
-                      &emsp;&emsp;<Label className="text-black">{data.cooperate_surname}</Label>
+                      &emsp;&emsp;<Label className="text-black ms-2">{data.cooperate_surname}</Label>
                     </FormGroup>
                   </Col>
                   <Col className={`col-12 col-lg-6`}>
@@ -133,7 +131,7 @@ export default function CompanyInfoContent({ params }: PageProps) {
                         <i className="bi bi-credit-card"></i>&emsp;{t("T_04")}
                       </Label>
                       <br />
-                      &emsp;&emsp;<Label className="text-black">{data.cooperate_card_type == 1 ? t("T_05") : t("T_06")}</Label>
+                      &emsp;&emsp;<Label className="text-black ms-2">{data.cooperate_card_type == 1 ? t("T_05") : t("T_06")}</Label>
                     </FormGroup>
                   </Col>
                   <Col className={`col-12 col-lg-6`}>
@@ -142,7 +140,7 @@ export default function CompanyInfoContent({ params }: PageProps) {
                         <i className="bi bi-credit-card"></i>&emsp;{t("T_07")}
                       </Label>
                       <br />
-                      &emsp;&emsp;<Label className="text-black">{data.cooperate_card_id}</Label>
+                      &emsp;&emsp;<Label className="text-black ms-2">{data.cooperate_card_id}</Label>
                     </FormGroup>
                   </Col>
                   <Col className={`col-12 col-lg-6`}>
@@ -151,7 +149,7 @@ export default function CompanyInfoContent({ params }: PageProps) {
                         <i className="bi bi-phone"></i>&emsp;{t("T_08")}
                       </Label>
                       <br />
-                      &emsp;&emsp;<Label className="text-black">{data.cooperate_phone}</Label>
+                      &emsp;&emsp;<Label className="text-black ms-2">{data.cooperate_phone}</Label>
                     </FormGroup>
                   </Col>
                   <Col className={`col-12 col-lg-6`}>
@@ -160,7 +158,7 @@ export default function CompanyInfoContent({ params }: PageProps) {
                         <i className="bi bi-envelope"></i>&emsp;{t("T_09")}
                       </Label>
                       <br />
-                      &emsp;&emsp;<Label className="text-black">{data.cooperate_email}</Label>
+                      &emsp;&emsp;<Label className="text-black ms-2">{data.cooperate_email}</Label>
                     </FormGroup>
                   </Col>
                   <Col className={`col-12  my-3 d-flex align-items-center`}>
@@ -173,7 +171,7 @@ export default function CompanyInfoContent({ params }: PageProps) {
                         <i className="bi bi-person"></i>&emsp;{t("T_11")}
                       </Label>
                       <br />
-                      &emsp;&emsp;<Label className="text-black">{data.cooperate_company_name}</Label>
+                      &emsp;&emsp;<Label className="text-black ms-2">{data.cooperate_company_name}</Label>
                     </FormGroup>
                   </Col>
                   <Col className={`col-12 col-lg-6`}>
@@ -182,7 +180,7 @@ export default function CompanyInfoContent({ params }: PageProps) {
                         <i className="bi bi-credit-card"></i>&emsp;{t("T_12")}
                       </Label>
                       <br />
-                      &emsp;&emsp;<Label className="text-black">{data.cooperate_company_ca}</Label>
+                      &emsp;&emsp;<Label className="text-black ms-2">{data.cooperate_company_ca}</Label>
                     </FormGroup>
                   </Col>
                   <Col className={`col-12 col-lg-6`}>
@@ -191,7 +189,7 @@ export default function CompanyInfoContent({ params }: PageProps) {
                         <i className="bi bi-credit-card"></i>&emsp;{t("T_13")}
                       </Label>
                       <br />
-                      &emsp;&emsp;<Label className="text-black">{data.cooperate_company_id}</Label>
+                      &emsp;&emsp;<Label className="text-black ms-2">{data.cooperate_company_id}</Label>
                     </FormGroup>
                   </Col>
                   <Col className={`col-12 col-lg-6`}>
@@ -200,7 +198,7 @@ export default function CompanyInfoContent({ params }: PageProps) {
                         <i className="bi bi-credit-card"></i>&emsp;{t("T_14")}
                       </Label>
                       <br />
-                      &emsp;&emsp;<Label className="text-black">{data.cooperate_company_branch}</Label>
+                      &emsp;&emsp;<Label className="text-black ms-2">{data.cooperate_company_branch}</Label>
                     </FormGroup>
                   </Col>
                   <Col className={`col-12`}>
@@ -215,7 +213,7 @@ export default function CompanyInfoContent({ params }: PageProps) {
                         <i className="bi bi-buildings"></i>&emsp;{t("T_16")}
                       </Label>
                       <br />
-                      &emsp;&emsp;<Label className="text-black">{data.cooperate_company_address}</Label>
+                      &emsp;&emsp;<Label className="text-black ms-2">{data.cooperate_company_address}</Label>
                     </FormGroup>
                   </Col>
                   <Col className={`col-12 col-lg-6`}>
@@ -224,7 +222,7 @@ export default function CompanyInfoContent({ params }: PageProps) {
                         <i className="bi bi-buildings"></i>&emsp;{t("T_18")}
                       </Label>
                       <br />
-                      &emsp;&emsp;<Label className="text-black">{data.cooperate_company_province}</Label>
+                      &emsp;&emsp;<Label className="text-black ms-2">{data.cooperate_company_province}</Label>
                     </FormGroup>
                   </Col>
                   <Col className={`col-12 col-lg-6`}>
@@ -233,7 +231,7 @@ export default function CompanyInfoContent({ params }: PageProps) {
                         <i className="bi bi-buildings"></i>&emsp;{t("T_19")}
                       </Label>
                       <br />
-                      &emsp;&emsp;<Label className="text-black">{data.cooperate_company_district}</Label>
+                      &emsp;&emsp;<Label className="text-black ms-2">{data.cooperate_company_district}</Label>
                     </FormGroup>
                   </Col>
                   <Col className={`col-12 col-lg-6`}>
@@ -242,7 +240,7 @@ export default function CompanyInfoContent({ params }: PageProps) {
                         <i className="bi bi-buildings"></i>&emsp;{t("T_20")}
                       </Label>
                       <br />
-                      &emsp;&emsp;<Label className="text-black">{data.cooperate_company_subdistrict}</Label>
+                      &emsp;&emsp;<Label className="text-black ms-2">{data.cooperate_company_subdistrict}</Label>
                     </FormGroup>
                   </Col>
                   <Col className={`col-12 col-lg-6`}>
@@ -251,7 +249,7 @@ export default function CompanyInfoContent({ params }: PageProps) {
                         <i className="bi bi-buildings"></i>&emsp;{t("T_17")}
                       </Label>
                       <br />
-                      &emsp;&emsp;<Label className="text-black">{data.cooperate_company_postcode}</Label>
+                      &emsp;&emsp;<Label className="text-black ms-2">{data.cooperate_company_postcode}</Label>
                     </FormGroup>
                   </Col>
                   <Col className={`col-12  mt-3 d-flex align-items-center`}>

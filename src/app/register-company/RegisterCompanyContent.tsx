@@ -339,8 +339,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                     <Label className="text-black" for="cooperate_name">
                       {t("T_02")}
                     </Label>
-                    {/* className={errors.meter_code ? "input-group-error" : ""} */}
-                    <InputGroup>
+                    <InputGroup className="input-group">
                       <InputGroupText>
                         <i className="bi bi-person"></i>
                       </InputGroupText>
