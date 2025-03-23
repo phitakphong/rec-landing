@@ -542,7 +542,6 @@ input[type="checkbox"]:checked::after {
 
 .form-select:focus {
   border: none;
-  background: #fff;
   box-shadow: none;
   outline: none;
 }
@@ -553,7 +552,6 @@ input[type="checkbox"]:checked::after {
 .input-group:focus-within {
   border-radius: 8px;
   border: 1px solid #cf07aa;
-  background: #fff;
   box-shadow: 0px 0px 0px 4px rgba(168, 6, 137, 0.12);
   outline: none;
 }

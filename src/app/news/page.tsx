@@ -18,10 +18,12 @@ export default function NewsContent() {
   const [allData, setAllData] = useState([]);
   const [count, setCount] = useState(0);
   const [categories, setCategories] = useState<any[]>([]);
+  const [years, setYears] = useState<number[]>([]);
 
   const [searchCriteria, setSearchCriteria] = useState({
     text: "",
     category: "",
+    year: "",
   });
 
   const handlePageChange = (page: number) => {
@@ -30,23 +32,25 @@ export default function NewsContent() {
 
   const totalPages = Math.ceil(count / itemsPerPage);
 
-  const filterData = (data: any[], criteria: { text: string; category: string }) => {
-    if (criteria.text.length === 0 && criteria.category.length === 0) {
+  const filterData = (data: any[], criteria: { text: string; category: string; year: string }) => {
+    if (criteria.text.length === 0 && criteria.category.length === 0 && criteria.year.length === 0) {
       return data;
     }
     return data.filter((item) => {
       const textMatch = item.topic[i18n.language].toLowerCase().includes(criteria.text.toLowerCase()) || item.context[i18n.language].toLowerCase().includes(criteria.text.toLowerCase());
       const categoryMatch = criteria.category ? item.category.toLowerCase() === criteria.category.toLowerCase() : true;
-      return textMatch && categoryMatch;
+      const yearMatch = criteria.year ? new Date(item.news_datetime).getFullYear().toString() === criteria.year : true;
+      return textMatch && categoryMatch && yearMatch;
     });
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      const resp = await ApiService.getNews();
+      const resp: any[] = await ApiService.getNews();
       setAllData(resp);
       setCount(resp.length);
-      setCategories(resp.map((r: any) => r.category));
+      setCategories([...new Set(resp.map((r: any) => r.category))].sort());
+      setYears([...new Set(resp.map((r: any) => new Date(r.news_datetime).getFullYear()))].sort((a, b) => b - a));
     };
     fetchData();
   }, []);
@@ -79,7 +83,7 @@ export default function NewsContent() {
           </div>
         </div>
       </div>
-      <div className="background-platform">
+      <div className="background-platform ">
         <div className={`container py-5 max-width-1140`}>
           <div className="row">
             <div className="col-12 col-lg-4 mt-3">
@@ -90,20 +94,25 @@ export default function NewsContent() {
                 <Input placeholder={`${t("H_2")}`} type="text" name="text" value={searchCriteria.text} onChange={handleChange} />
               </InputGroup>
             </div>
-            <div className="col-4 d-none d-lg-block"></div>
-            <div className="col-12 col-lg-4 mt-3">
-              <FormGroup className="d-flex gap-2 align-items-center">
+            <div className="col-2 d-none d-lg-block"></div>
+            <div className="col-12 col-lg-6 mt-3">
+              <FormGroup className="d-flex gap-2 align-items-center normal-form">
                 <Input id="categorySelect" name="category" type="select" value={searchCriteria.category} onChange={handleChange}>
-                  <option value={""}>ทุกหมวดหมู่</option>
+                  <option value={``}>{t("H_7")}</option>
                   {categories.map((c, i) => (
                     <option key={i} value={c.toString()}>
-                      {c.toString()}
+                      {c}
                     </option>
                   ))}
                 </Input>
-                {/* <Input id="yearSelect" name="year" type="select">
-                  <option>ทุกปี</option>
-                </Input> */}
+                <Input id="yearSelect" name="year" type="select" value={searchCriteria.year} onChange={handleChange}>
+                  <option value={``}>{t("H_6")}</option>
+                  {years.map((y, i) => (
+                    <option key={i} value={y}>
+                      {y + (i18n.language === "th" ? 543 : 0)}
+                    </option>
+                  ))}
+                </Input>
               </FormGroup>
             </div>
           </div>
