@@ -3,7 +3,7 @@
 import { useTranslation } from "react-i18next";
 import "../../../i18n/i18n";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import Image from "next/image";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
@@ -105,13 +105,20 @@ export default function ContactUsContent() {
     }
   };
 
+  const [googleMapsApiKey, setGoogleMapsApiKey] = useState("");
+
+  useEffect(() => {
+    setGoogleMapsApiKey(ApiService.YOUR_GOOGLE_MAPS_API_KEY);
+  }, []);
+
   return (
     <>
-      <div className="background-purple">
-        <div className={`container py-5 max-width-1140`}>
-          <div className={`row my-5`}>
+      <div className="background-contactus">
+        <div className={`container py-5  max-width-1140`}>
+          <div className={`row`}>
             <div className={`col-12`}>
-              <h1 className="text-white full-width text-center">{t("H_1")}</h1>
+              <p className="text-header-eng text-center">CONTACT US</p>
+              <h1 className="text-header-big">{t("H_1")}</h1>
             </div>
           </div>
         </div>
@@ -199,7 +206,7 @@ export default function ContactUsContent() {
           <div className={`row`}>
             <div className={`col-lg-6 col-12 mt-5`}>
               <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "1/1" }}>
-                <LoadScript googleMapsApiKey={ApiService.YOUR_GOOGLE_MAPS_API_KEY}>
+                <LoadScript googleMapsApiKey={googleMapsApiKey}>
                   <GoogleMap mapContainerStyle={containerStyle} center={position} zoom={15}>
                     <Marker position={position} />
                   </GoogleMap>

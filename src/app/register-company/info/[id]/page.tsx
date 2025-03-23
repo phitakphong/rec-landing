@@ -87,11 +87,13 @@ export default function CompanyInfoContent({ params }: PageProps) {
 
   return (
     <>
-      <div className="background-purple">
+      <div className="background-register-company">
         <div className={`container py-5`}>
           <div className={`row my-5`}>
             <div className={`col-12`}>
-              <h1 className="text-white full-width text-center">{t("T_01")}</h1>
+      
+            <h1 className="text-header-big">{t("T_01")}</h1>
+             
             </div>
           </div>
         </div>

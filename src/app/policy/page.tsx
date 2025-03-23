@@ -10,11 +10,13 @@ export default function PlicyContent() {
 
   return (
     <>
-      <div className="background-purple">
+      <div className="background-policy">
         <div className={`container py-5`}>
           <div className={`row my-5`}>
             <div className={`col-12`}>
-              <h1 className="text-white full-width text-center">{t("H.0")}</h1>
+              <p className="text-header-eng text-center">Privacy Notice</p>
+              <h1 className="text-header-big">{t("H.0")}</h1>
+          
             </div>
           </div>
         </div>

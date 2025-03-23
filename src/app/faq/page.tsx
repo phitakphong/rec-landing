@@ -33,14 +33,15 @@ export default function FaqContent() {
 
   return (
     <>
-      <div className="background-purple">
+      <div className="background-faq">
         <div className={`container py-5`}>
           <div className={`row my-5`}>
             <div className={`col-12`}>
-              <h1 className="text-white full-width text-center">{t("faq")}</h1>
+            <p className="text-header-eng text-center">Frequently Asked Questions</p>
+              <h1 className="text-header-big">{t("faq")}</h1>
               <div className="row d-flex justify-content-center">
-                <div className="col-12 col-lg-5 mt-5">
-                  <InputGroup>
+                <div className="col-12 col-lg-4 mt-4">
+                  <InputGroup style={{ height: "40px"}}>
                     <InputGroupText className={`${styles.inputGroupText}`}>
                       <i className="bi bi-search"></i>
                     </InputGroupText>

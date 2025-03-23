@@ -10,11 +10,12 @@ export default function AboutContent() {
 
   return (
     <>
-      <div className="background-purple">
+      <div className="background-about">
         <div className={`container py-5 max-width-1140`}>
           <div className={`row my-5`}>
             <div className={`col-12`}>
-              <h1 className="text-white full-width text-center">{t("H_1")}</h1>
+              <p className="text-header-eng text-center">About us</p>
+              <h1 className="text-header-big">{t("H_1")}</h1>
             </div>
           </div>
         </div>

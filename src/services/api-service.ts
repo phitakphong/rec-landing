@@ -3,7 +3,10 @@ import getConfig from "../app/config";
 class ApiService {
   static API_ENDPOINT = getConfig().baseURL;
   static API_KEY = getConfig().apiKey;
-  static YOUR_GOOGLE_MAPS_API_KEY = getConfig().googleMapsApiKey;
+ 
+  static get YOUR_GOOGLE_MAPS_API_KEY() {
+    return getConfig().googleMapsApiKey;
+  }
 
   static DEFAULT_HEADERS = {
     accept: "application/json",
