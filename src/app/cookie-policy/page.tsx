@@ -10,11 +10,13 @@ export default function CookiePolicyContent() {
 
   return (
     <>
-      <div className="background-purple">
+      <div className="background-cookie">
         <div className={`container py-5`}>
           <div className={`row my-5`}>
             <div className={`col-12`}>
-              <h1 className="text-white full-width text-center">{t("H_0")}</h1>
+              <p className="text-header-eng text-center">Cookie Policy</p>
+              <h1 className="text-header-big">{t("H_0")}</h1>
+
             </div>
           </div>
         </div>

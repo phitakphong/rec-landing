@@ -14,6 +14,28 @@ body {
 }
 
 
+.text-header-eng {
+  color: rgba(255, 255, 255, 0.60);
+  text-align: center;
+  font-family: "IBM Plex Sans";
+  font-size: var(--Font-size-text-xl, 20px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--Line-height-text-xl, 30px); /* 150% */
+  text-transform: uppercase;
+}
+
+.text-header-big {
+  color: #FFF;
+  text-align: center;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 56px; /* 140% */
+}
+
+
+
 /* .container {
   max-width: 1140px !important;
   margin-left: auto;
@@ -179,6 +201,79 @@ a {
 .background-purple {
   background: linear-gradient(90deg, #85006b 0%, #c40aa1 100%);
 }
+
+.background-about {
+  background-image: url("/images/aboutus-banner.jpg");
+  background-position: center;  
+  background-repeat: no-repeat; 
+  background-size: auto; 
+}
+
+.background-contactus {
+  background-image: url("/images/contactus-banner.jpg");
+  background-position: center;  
+  background-repeat: no-repeat; 
+  background-size: auto; 
+}
+
+.background-faq {
+  background-image: url("/images/faq-banner.jpg");
+  background-position: center;  
+  background-repeat: no-repeat; 
+  background-size: auto; 
+}
+
+.background-new {
+  background-image: url("/images/news-banner.jpg");
+  background-position: center;  
+  background-repeat: no-repeat; 
+  background-size: auto; 
+}
+
+
+.background-calrec {
+  background-image: url("/images/calrec-banner.png");
+  background-position: center;  
+  background-repeat: no-repeat; 
+  background-size: auto; 
+}
+
+.background-register {
+  background-image: url("/images/register-banner.jpg");
+  background-position: center;  
+  background-repeat: no-repeat; 
+  background-size: auto; 
+}
+
+.background-register-company {
+  background-image: url("/images/terms-banner.png");
+  background-position: center;  
+  background-repeat: no-repeat; 
+  background-size: auto; 
+}
+
+
+.background-policy {
+  background-image: url("/images/policy-banner.jpg");
+  background-position: center;  
+  background-repeat: no-repeat; 
+  background-size: auto; 
+}
+
+.background-terms {
+  background-image: url("/images/terms-banner.png");
+  background-position: center;  
+  background-repeat: no-repeat; 
+  background-size: auto; 
+}
+
+.background-cookie {
+  background-image: url("/images/cookie-banner.jpg");
+  background-position: center;  
+  background-repeat: no-repeat; 
+  background-size: auto; 
+}
+
 
 .background-platform {
   background-image: url("/images/bg_platform.png");
