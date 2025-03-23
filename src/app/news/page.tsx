@@ -94,10 +94,10 @@ export default function NewsContent() {
                 <Input placeholder={`${t("H_2")}`} type="text" name="text" value={searchCriteria.text} onChange={handleChange} />
               </InputGroup>
             </div>
-            <div className="col-2 d-none d-lg-block"></div>
-            <div className="col-12 col-lg-6 mt-3">
-              <FormGroup className="d-flex gap-2 align-items-center normal-form">
-                <Input id="categorySelect" name="category" type="select" value={searchCriteria.category} onChange={handleChange}>
+            <div className="col-3 d-none d-lg-block"></div>
+            <div className="col-12 col-lg-5 mt-3">
+              <FormGroup className="d-flex gap-2 flex-column flex-lg-row normal-form">
+                <Input id="categorySelect" name="category" type="select" value={searchCriteria.category} onChange={handleChange} >
                   <option value={``}>{t("H_7")}</option>
                   {categories.map((c, i) => (
                     <option key={i} value={c.toString()}>
@@ -105,7 +105,7 @@ export default function NewsContent() {
                     </option>
                   ))}
                 </Input>
-                <Input id="yearSelect" name="year" type="select" value={searchCriteria.year} onChange={handleChange}>
+                <Input id="yearSelect" name="year" type="select" value={searchCriteria.year} onChange={handleChange} className="w-25">
                   <option value={``}>{t("H_6")}</option>
                   {years.map((y, i) => (
                     <option key={i} value={y}>
