@@ -320,7 +320,7 @@ export default function RegisterCompanyContent({ data }: Props) {
         <div className={`container py-5`}>
           <div className={`row my-5`}>
             <div className={`col-12`}>
-            <h1 className="text-header-big">{t("T_01")}</h1>
+              <h1 className="text-header-big">{t("T_01")}</h1>
             </div>
           </div>
         </div>
@@ -593,9 +593,9 @@ export default function RegisterCompanyContent({ data }: Props) {
                         type="select"
                       >
                         <option value={``}>{t("T_29")}</option>
-                        {provinces.map((p: any) => {
+                        {provinces.map((p: any, i) => {
                           return (
-                            <option key={p.province_code} value={p.province_code}>
+                            <option key={i} value={p.province_code}>
                               {p.province_name[i18n.language]}
                             </option>
                           );
@@ -624,9 +624,9 @@ export default function RegisterCompanyContent({ data }: Props) {
                         type="select"
                       >
                         <option value={``}>{t("T_29")}</option>
-                        {districts.map((d: any) => {
+                        {districts.map((d: any, i) => {
                           return (
-                            <option key={d.district_code} value={d.district_code}>
+                            <option key={i} value={d.district_code}>
                               {d.district_name[i18n.language]}
                             </option>
                           );
@@ -655,9 +655,9 @@ export default function RegisterCompanyContent({ data }: Props) {
                         type="select"
                       >
                         <option value={``}>{t("T_29")}</option>
-                        {subDistricts.map((s: any) => {
+                        {subDistricts.map((s: any, i) => {
                           return (
-                            <option key={s.sub_district_code} value={s.sub_district_code}>
+                            <option key={i} value={s.sub_district_code}>
                               {s.sub_district_name[i18n.language]}
                             </option>
                           );
@@ -688,7 +688,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                   {cooperateDocuments.map((s: any, i: number) => {
                     return (
                       <UploadItem
-                        key={`${i}_1`}
+                        key={`${i}`}
                         fileName={s.file_name}
                         fileSize={""}
                         fileUrl={s.file_url}
@@ -715,7 +715,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                   {cooperateReceiveDocument.map((s: any, i: number) => {
                     return (
                       <UploadItem
-                        key={`${i}_2`}
+                        key={`${i}`}
                         fileName={s.file_name}
                         fileSize={""}
                         fileUrl={s.file_url}
@@ -744,7 +744,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                   {cooperateDelegateDocument.map((s: any, i: number) => {
                     return (
                       <UploadItem
-                        key={`${i}_3`}
+                        key={`${i}`}
                         fileName={s.file_name}
                         fileSize={""}
                         fileUrl={s.file_url}

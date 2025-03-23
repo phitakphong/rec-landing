@@ -54,6 +54,10 @@ export default function CustomNavbar() {
     };
   }, []);
 
+  const goRegisterCompany = () => {
+    router.push("/register-company");
+  };
+
   return (
     <>
       <div className="d-none d-xl-block">
@@ -113,7 +117,7 @@ export default function CustomNavbar() {
 
             {/* Other NavItems */}
             <NavItem className="my-auto">
-              <Link href="/register" className={`nav-link ${pathname.includes("/register") ? "active" : ""}`}>
+              <Link href="/register" className={`nav-link ${pathname === "/register" ? "active" : ""}`}>
                 {t("M_8")}
               </Link>
             </NavItem>
@@ -144,7 +148,7 @@ export default function CustomNavbar() {
               <div style={{ borderLeft: "2px solid #1E1F4B4D", height: "30px" }} />
             </NavItem>
             <NavItem className="my-auto">
-              <Button outline color="border" style={{ width: 100, height: 48 }}>
+              <Button outline color="border" style={{ width: 100, height: 48 }} onClick={() => goRegisterCompany()}>
                 {t("M_6")}
               </Button>
             </NavItem>
@@ -249,7 +253,7 @@ export default function CustomNavbar() {
 
             <NavbarText>
               <div className="d-flex mt-3">
-                <Button outline color="border" style={{ width: 100, height: 48 }}>
+                <Button outline color="border" style={{ width: 100, height: 48 }} onClick={() => goRegisterCompany()}>
                   {t("M_6")}
                 </Button>
                 <div>&emsp;</div>

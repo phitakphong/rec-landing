@@ -18,7 +18,7 @@ export default function RegisterContent() {
   const [pCode, setPostCode] = useState("");
   const [requests, setRequests] = useState<any[]>([]);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<any>({
     name: "",
     surname: "",
     mobile: "",
@@ -31,8 +31,8 @@ export default function RegisterContent() {
     loccode: "",
     rec_amount: "",
     rec_year: "",
-    contact_period: "",
-    more_detail: "",
+    is_contact_period_morning: "",
+    is_contact_period_afternoon: "",
     request_id: "",
   });
 
@@ -95,14 +95,13 @@ export default function RegisterContent() {
       sub_district: false,
       rec_amount: false,
       rec_year: false,
-      contact_period: false,
       request_id: false,
     };
     Object.keys(invalid).forEach((k) => {
       invalid[k as keyof typeof invalid] = formData[k as keyof typeof formData].length === 0;
     });
 
-    const res = Object.values(invalid).every((e) => e === false);
+    const res = Object.values(invalid).every((e) => e === false) && formData.is_contact_period_morning.length && formData.is_contact_period_afternoon.length;
     setErrors(!res);
     return res;
   };
@@ -146,8 +145,8 @@ export default function RegisterContent() {
         is_request_power_source_bio: false,
         is_request_power_source_wind: false,
 
-        is_contact_period_morning: formData.contact_period === "1",
-        is_contact_period_afternoon: formData.contact_period === "2",
+        is_contact_period_morning: formData.is_contact_period_morning == 1,
+        is_contact_period_afternoon: formData.is_contact_period_afternoon == 1,
 
         more_detail: formData.more_detail,
 
@@ -267,7 +266,11 @@ export default function RegisterContent() {
                     >
                       <option value={``}>{t("H_10")}</option>
                       {provinces.map((p: any) => {
-                        return <option value={p.province_code}>{p.province_name[i18n.language]}</option>;
+                        return (
+                          <option key={p.province_code} value={p.province_code}>
+                            {p.province_name[i18n.language]}
+                          </option>
+                        );
                       })}
                     </Input>
                   </FormGroup>
@@ -289,7 +292,11 @@ export default function RegisterContent() {
                     >
                       <option value={``}>{t("H_10")}</option>
                       {districts.map((d: any) => {
-                        return <option value={d.district_code}>{d.district_name[i18n.language]}</option>;
+                        return (
+                          <option key={d.district_code} value={d.district_code}>
+                            {d.district_name[i18n.language]}
+                          </option>
+                        );
                       })}
                     </Input>
                   </FormGroup>
@@ -311,7 +318,11 @@ export default function RegisterContent() {
                     >
                       <option value={``}>{t("H_10")}</option>
                       {subDistricts.map((s: any) => {
-                        return <option value={s.sub_district_code}>{s.sub_district_name[i18n.language]}</option>;
+                        return (
+                          <option key={s.sub_district_code} value={s.sub_district_code}>
+                            {s.sub_district_name[i18n.language]}
+                          </option>
+                        );
                       })}
                     </Input>
                   </FormGroup>
@@ -336,7 +347,11 @@ export default function RegisterContent() {
                     <Input id="request_id" value={formData.request_id} name="request_id" onChange={handleChange} type="select">
                       <option value={``}>{t("H_10")}</option>
                       {requests.map((r: any) => {
-                        return <option value={r.request_id}>{r.text[i18n.language]}</option>;
+                        return (
+                          <option key={r.request_id} value={r.request_id}>
+                            {r.text[i18n.language]}
+                          </option>
+                        );
                       })}
                     </Input>
                   </FormGroup>
@@ -370,14 +385,39 @@ export default function RegisterContent() {
                 <Col className={`col-12 col-lg-6 mt-3`}>
                   <Label className="text-black">{t("D_6_1")}</Label>
                   <FormGroup check>
-                    <Input type="radio" id="contact_period1" name="contact_period" value="1" checked={formData.contact_period === "1"} onChange={handleChange} />
-                    <Label className="text-muted" for="contact_period1" check>
+                    <Input
+                      type="checkbox"
+                      id="is_contact_period_morning"
+                      name="is_contact_period_morning"
+                      checked={formData.is_contact_period_morning == 1}
+                      onChange={() => {
+                        const val = formData.is_contact_period_morning == 1 ? "" : "1";
+                        setFormData({
+                          ...formData,
+                          is_contact_period_morning: val,
+                        });
+                      }}
+                    />
+                    <Label className="text-muted mt-1 ms-2" for="is_contact_period_morning" check>
                       {t("D_6_2")}
                     </Label>
                   </FormGroup>
                   <FormGroup check>
-                    <Input type="radio" id="contact_period2" name="contact_period" value="2" checked={formData.contact_period === "2"} onChange={handleChange} />
-                    <Label className="text-muted" for="contact_period2" check>
+                    <Input
+                      type="checkbox"
+                      id="is_contact_period_afternoon"
+                      name="is_contact_period_afternoon"
+                      value={`1`}
+                      checked={formData.is_contact_period_afternoon == 1}
+                      onChange={() => {
+                        const val = formData.is_contact_period_afternoon == 1 ? "" : "1";
+                        setFormData({
+                          ...formData,
+                          is_contact_period_afternoon: val,
+                        });
+                      }}
+                    />
+                    <Label className="text-muted mt01 ms-2" for="is_contact_period_afternoon" check>
                       {t("D_6_3")}
                     </Label>
                   </FormGroup>
