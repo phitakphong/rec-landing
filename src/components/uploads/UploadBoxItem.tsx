@@ -42,7 +42,7 @@ export default function UploadItem({ fileName, fileSize, fileUrl, onDeleteFile }
       document.body.removeChild(link);
       window.URL.revokeObjectURL(blobUrl);
     } catch (error) {
-      console.error("Download error:", error);
+      // console.error("Download error:", error);
     }
   };
 

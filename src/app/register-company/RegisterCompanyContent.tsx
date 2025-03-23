@@ -40,10 +40,10 @@ export default function RegisterCompanyContent({ data }: Props) {
 
   const handleMapClick = (event: google.maps.MapMouseEvent) => {
     if (event.latLng) {
-      console.log({
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
-      });
+      // console.log({
+      //   lat: event.latLng.lat(),
+      //   lng: event.latLng.lng(),
+      // });
 
       setMarkerPosition({
         lat: event.latLng.lat(),
@@ -138,7 +138,7 @@ export default function RegisterCompanyContent({ data }: Props) {
   const districtChanged = async (districtCode: string) => {
     if (districtCode.length) {
       const resp = await ApiService.getSubDistricts(districtCode);
-      console.log(resp);
+      // console.log(resp);
       setSubDistricts(resp);
     } else {
       setSubDistricts([]);
@@ -184,7 +184,7 @@ export default function RegisterCompanyContent({ data }: Props) {
     formData.cooperate_document = cooperateDocuments;
 
     Object.keys(invalid).forEach((k) => {
-      console.log(k, formData[k as keyof typeof formData].length);
+      // console.log(k, formData[k as keyof typeof formData].length);
       invalid[k as keyof typeof invalid] = formData[k as keyof typeof formData].length === 0;
     });
 

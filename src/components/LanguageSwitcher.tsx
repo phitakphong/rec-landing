@@ -22,7 +22,7 @@ export default function LanguageSwitcher() {
 
   const toggleLanguage = () => {
     if (!isReady) {
-      console.warn("i18next is not initialized yet");
+      // console.warn("i18next is not initialized yet");
       return;
     }
     const newLang = language === "th" ? "en" : "th";

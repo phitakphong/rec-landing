@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Navbar, NavbarBrand, Nav, NavItem, NavbarText, Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarToggler } from "reactstrap";
@@ -7,7 +8,6 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { usePathname } from "next/navigation";
 
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
 
 // import { useRouter } from "next/navigation";
 
@@ -17,88 +17,133 @@ export default function CustomNavbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleDropdown = () => setDropdownOpen((prev) => !prev);
+  // const toggleDropdown = () => setDropdownOpen((prev) => !prev);
   const toggleNavbar = () => setIsOpen(!isOpen);
+
+  const dropdownRef = useRef<HTMLDivElement | null>(null); // ใช้ useRef เพื่ออ้างอิงไปยัง div ของ dropdown
+
+  const toggleDropdown = () => {
+    setDropdownOpen((prevState) => !prevState); // Toggle dropdown state
+  };
+
+  const closeDropdown = () => {
+    setDropdownOpen(false); // Close the dropdown
+  };
+
+  // ตรวจจับการคลิกภายนอกเมนู dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        closeDropdown(); // ปิด dropdown ถ้าคลิกนอกเมนู
+      }
+    };
+
+    // เพิ่ม event listener เมื่อ component ถูก mount
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // ลบ event listener เมื่อ component ถูก unmount
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
       <div className="d-none d-xl-block">
-        <Navbar expand="sm" className="navbar-custom">
+        <Navbar expand="sm" className="navbar-custom ">
           <NavbarBrand href="/home">
-            <Image src="/logo.svg" alt="Logo" width={150} height={50} priority />
+            <div style={{ position: "relative", width: "92px", height: "49.971px" }}>
+              <Image src="/logo.svg" alt="green2" fill priority />
+            </div>
           </NavbarBrand>
-          <Nav className="me-auto" navbar>
-            <NavItem className="mx-2">
+          <Nav navbar>
+            <NavItem className="my-auto">
               <Link href="/about" className={`nav-link ${pathname === "/about" ? "active" : ""}`}>
                 {t("M_1")}
               </Link>
             </NavItem>
 
             {/* Dropdown Menu */}
-            <NavItem className="mx-2">
-              <Dropdown nav isOpen={dropdownOpen} toggle={toggleDropdown}>
-                <DropdownToggle nav caret className={`nav-link ${["/our-product-1", "/our-product-2"].indexOf(pathname) >= 0 ? "active" : ""}`}>
+
+            <NavItem className="my-auto">
+              <div className="dropdown" ref={dropdownRef}>
+                <button
+                  className={`nav-link dropdown-toggle ${dropdownOpen ? "active" : ""}`}
+                  onClick={toggleDropdown} // Toggle dropdown state on button click
+                >
                   {t("M_2")}
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem>
-                    <Link href="/our-product-1" className={`dropdown-item ${pathname === "/our-product-1" ? "fw-bold txt-purple" : ""}`}>
-                      {t("M_2_1")}
-                    </Link>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <Link href="/our-product-2" className={`dropdown-item ${pathname === "/our-product-2" ? "fw-bold txt-purple" : ""}`}>
-                      {t("M_2_2")}
-                    </Link>
-                  </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
+                </button>
+                {/* Show dropdown menu when dropdownOpen is true */}
+                {dropdownOpen && (
+                  <ul className="dropdown-menu" style={{ display: "block" }}>
+                    <li>
+                      <Link href="/our-product-1" legacyBehavior passHref>
+                        <a
+                          className={`dropdown-item ${pathname === "/our-product-1" ? "fw-bold txt-purple" : ""}`}
+                          onClick={closeDropdown} // Close the dropdown on click
+                        >
+                          {t("M_2_1")}
+                        </a>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/our-product-2" legacyBehavior passHref>
+                        <a
+                          className={`dropdown-item ${pathname === "/our-product-2" ? "fw-bold txt-purple" : ""}`}
+                          onClick={closeDropdown} // Close the dropdown on click
+                        >
+                          {t("M_2_2")}
+                        </a>
+                      </Link>
+                    </li>
+                  </ul>
+                )}
+              </div>
             </NavItem>
 
             {/* Other NavItems */}
-            <NavItem className="mx-2">
+            <NavItem className="my-auto">
               <Link href="/register" className={`nav-link ${pathname.includes("/register") ? "active" : ""}`}>
                 {t("M_8")}
               </Link>
             </NavItem>
-            <NavItem className="mx-2">
+            <NavItem className="my-auto">
               <Link href="/rec-calc" className={`nav-link ${pathname.includes("/rec-calc") ? "active" : ""}`}>
                 {t("M_3")}
               </Link>
             </NavItem>
-            <NavItem className="mx-2">
+            <NavItem className="my-auto">
               <Link href="/news" className={`nav-link ${pathname.includes("/news") ? "active" : ""}`}>
                 {t("M_4")}
               </Link>
             </NavItem>
-            <NavItem className="mx-2">
+            <NavItem className="my-auto">
               <Link href="/faq" className={`nav-link ${pathname.includes("/faq") ? "active" : ""}`}>
                 {t("M_5")}
               </Link>
             </NavItem>
-            <NavItem className="mx-2">
+            <NavItem className="my-auto">
               <Link href="/contactus" className={`nav-link ${pathname.includes("/contactus") ? "active" : ""}`}>
                 {t("M_9")}
               </Link>
             </NavItem>
+            <NavItem className="my-auto">
+              <LanguageSwitcher />
+            </NavItem>
+            <NavItem className="my-auto">
+              <div style={{ borderLeft: "2px solid #1E1F4B4D", height: "30px" }} />
+            </NavItem>
+            <NavItem className="my-auto">
+              <Button outline color="border" style={{ width: 100, height: 48 }}>
+                {t("M_6")}
+              </Button>
+            </NavItem>
+            <NavItem className="my-auto">
+              <Button color="border" className="bg-primary-gradient" style={{ width: 100, height: 48 }}>
+                {t("M_7")}
+              </Button>
+            </NavItem>
           </Nav>
-
-          <NavbarText>
-            <LanguageSwitcher />
-          </NavbarText>
-          <NavbarText className="mx-1">
-            <div style={{ borderLeft: "2px solid #1E1F4B4D", height: "30px" }} />
-          </NavbarText>
-          <NavbarText className="ms-3">
-            <Button outline color="primary" style={{ width: 140, height: 50 }}>
-              {t("M_6")}
-            </Button>
-          </NavbarText>
-          <NavbarText className="ms-3">
-            <Button color="primary" className="bg-primary-gradient" style={{ width: 140 }}>
-              {t("M_7")}
-            </Button>
-          </NavbarText>
         </Navbar>
       </div>
       <div className="d-block d-xl-none">
@@ -122,55 +167,71 @@ export default function CustomNavbar() {
             }}
           >
             <Nav className="me-auto" navbar>
-              <NavItem className="mx-2">
+              <NavItem className="">
                 <Link href="/about" className={`nav-link ${pathname === "/about" ? "active" : ""}`}>
                   {t("M_1")}
                 </Link>
               </NavItem>
 
               {/* Dropdown Menu */}
-              <NavItem className="mx-2">
-                <Dropdown nav isOpen={dropdownOpen} toggle={toggleDropdown}>
-                  <DropdownToggle nav caret className={`nav-link ${["/our-product-1", "/our-product-2"].indexOf(pathname) >= 0 ? "active" : ""}`}>
+              <NavItem className="">
+                <div className="dropdown" ref={dropdownRef}>
+                  <button
+                    className={`nav-link dropdown-toggle ${dropdownOpen ? "active" : ""}`}
+                    onClick={toggleDropdown} // Toggle dropdown state on button click
+                  >
                     {t("M_2")}
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem>
-                      <Link href="/our-product-1" className={`dropdown-item dropdown-item-warp ${pathname === "/our-product-1" ? "fw-bold txt-purple" : ""}`}>
-                        {t("M_2_1")}
-                      </Link>
-                    </DropdownItem>
-                    <DropdownItem>
-                      <Link href="/our-product-2" className={`dropdown-item dropdown-item-warp ${pathname === "/our-product-2" ? "fw-bold txt-purple" : ""}`}>
-                        {t("M_2_2")}
-                      </Link>
-                    </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
+                  </button>
+                  {/* Show dropdown menu when dropdownOpen is true */}
+                  {dropdownOpen && (
+                    <ul className="dropdown-menu" style={{ display: "block" }}>
+                      <li>
+                        <Link href="/our-product-1" legacyBehavior passHref>
+                          <a
+                            className={`dropdown-item ${pathname === "/our-product-1" ? "fw-bold txt-purple" : ""}`}
+                            onClick={closeDropdown} // Close the dropdown on click
+                          >
+                            {t("M_2_1")}
+                          </a>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="/our-product-2" legacyBehavior passHref>
+                          <a
+                            className={`dropdown-item ${pathname === "/our-product-2" ? "fw-bold txt-purple" : ""}`}
+                            onClick={closeDropdown} // Close the dropdown on click
+                          >
+                            {t("M_2_2")}
+                          </a>
+                        </Link>
+                      </li>
+                    </ul>
+                  )}
+                </div>
               </NavItem>
 
               {/* Other NavItems */}
-              <NavItem className="mx-2">
+              <NavItem className="">
                 <Link href="/register" className={`nav-link ${pathname.includes("/register") ? "active" : ""}`}>
                   {t("M_8")}
                 </Link>
               </NavItem>
-              <NavItem className="mx-2">
+              <NavItem className="">
                 <Link href="/rec-calc" className={`nav-link ${pathname.includes("/rec-calc") ? "active" : ""}`}>
                   {t("M_3")}
                 </Link>
               </NavItem>
-              <NavItem className="mx-2">
+              <NavItem className="">
                 <Link href="/news" className={`nav-link ${pathname.includes("/news") ? "active" : ""}`}>
                   {t("M_4")}
                 </Link>
               </NavItem>
-              <NavItem className="mx-2">
+              <NavItem className="">
                 <Link href="/faq" className={`nav-link ${pathname.includes("/faq") ? "active" : ""}`}>
                   {t("M_5")}
                 </Link>
               </NavItem>
-              <NavItem className="mx-2">
+              <NavItem className="">
                 <Link href="/contactus" className={`nav-link ${pathname.includes("/contactus") ? "active" : ""}`}>
                   {t("M_9")}
                 </Link>

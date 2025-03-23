@@ -3,12 +3,23 @@
   --bs-primary-rgb: 116, 4, 95; /* Ensure correct RGB values */
 
   --purple: var(--bs-primary);
+  --bs-border: #D0D5DD; 
+  --bs-text: #3A3A3A;
+  --text: var(--bs-text);
 }
 
 body {
-  color: var(--purple);
+  color: var(--text);
   font-family: "IBM Plex Sans Thai", sans-serif;
 }
+
+
+/* .container {
+  max-width: 1140px !important;
+  margin-left: auto;
+  margin-right: auto;
+} */
+
 
 /* Override Bootstrap button border radius */
 .btn {
@@ -18,8 +29,14 @@ body {
 /* Override Bootstrap primary button */
 .btn-primary {
   background-color: var(--bs-primary) !important;
-  border-color: var(--bs-primary) !important;
+  /* border-color: var(--bs-primary) !important; */
   color: #fff !important;
+}
+
+.btn-border {
+  background-color: var(--bs-primary) !important;
+  border-color: var(--bs-border) !important;
+  color: #ffffff !important;
 }
 
 .btn-primary:hover {
@@ -35,9 +52,18 @@ body {
   border-radius: 12px !important;
 }
 
+
+
 .btn-outline-primary:hover {
   background-color: var(--bs-primary) !important;
   color: #fff !important;
+}
+
+.btn-outline-border {
+  color: #475467 !important;
+  border-color: var(--bs-border) !important;
+  background-color: transparent !important;
+  border-radius: 12px !important;
 }
 
 .button-content {
@@ -274,15 +300,10 @@ a {
   color: white !important;
 }
 
-.navbar > .container,
-.navbar > .container-fluid,
-.navbar > .container-lg,
-.navbar > .container-md,
-.navbar > .container-sm,
-.navbar > .container-xl,
-.navbar > .container-xxl {
+
+.navbar-custom .navbar-nav {
   display: flex;
-  flex-wrap: inherit;
-  align-items: center;
-  justify-content: space-between !important;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 16px; /* กำหนดระยะห่างระหว่างเมนู */
 }
