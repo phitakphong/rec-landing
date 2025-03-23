@@ -28,8 +28,8 @@ export default function News() {
         <div className="col-12 position-relative">
           <h1 className="gradient-text">{t("D_5")}</h1>
 
-          <Link href="/news" className="txt-purple position-absolute top-0 end-0 mt-3">
-            {t("D_5_1")} <Image src="/images/ic_more.png" width={25} height={25} alt="ic_more" />
+          <Link href="/news" className="txt-purple position-absolute top-0 end-0 mt-3" style={{ fontSize: "18px" }}>
+            {t("D_5_1")} <Image src="/images/ic_more.png" width={24} height={24} alt="ic_more" />
           </Link>
         </div>
       </div>

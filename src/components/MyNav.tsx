@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Navbar, NavbarBrand, Nav, NavItem, NavbarText, Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarToggler } from "reactstrap";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { useTranslation } from "react-i18next";
 
@@ -16,6 +16,7 @@ export default function CustomNavbar() {
   const pathname = usePathname();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   // const toggleDropdown = () => setDropdownOpen((prev) => !prev);
   const toggleNavbar = () => setIsOpen(!isOpen);
@@ -33,15 +34,21 @@ export default function CustomNavbar() {
   // ตรวจจับการคลิกภายนอกเมนู dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      const href = (event.target as any).href;
+
+      if (href && href.toString().endsWith("our-product-1")) {
+        router.push("/our-product-1");
+      } else if (href && href.toString().endsWith("our-product-2")) {
+        router.push("/our-product-2");
+      }
+
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        closeDropdown(); // ปิด dropdown ถ้าคลิกนอกเมนู
+        closeDropdown();
       }
     };
 
-    // เพิ่ม event listener เมื่อ component ถูก mount
     document.addEventListener("mousedown", handleClickOutside);
 
-    // ลบ event listener เมื่อ component ถูก unmount
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -67,34 +74,37 @@ export default function CustomNavbar() {
 
             <NavItem className="my-auto">
               <div className="dropdown" ref={dropdownRef}>
-                <button
-                  className={`nav-link dropdown-toggle ${dropdownOpen ? "active" : ""}`}
-                  onClick={toggleDropdown} // Toggle dropdown state on button click
-                >
+                <button className={`nav-link dropdown-toggle ${dropdownOpen || ["/our-product-1", "/our-product-2"].includes(pathname) ? "active" : ""}`} onClick={toggleDropdown}>
                   {t("M_2")}
                 </button>
-                {/* Show dropdown menu when dropdownOpen is true */}
+
                 {dropdownOpen && (
-                  <ul className="dropdown-menu" style={{ display: "block" }}>
+                  <ul className="dropdown-menu show">
                     <li>
-                      <Link href="/our-product-1" legacyBehavior passHref>
-                        <a
-                          className={`dropdown-item ${pathname === "/our-product-1" ? "fw-bold txt-purple" : ""}`}
-                          onClick={closeDropdown} // Close the dropdown on click
-                        >
-                          {t("M_2_1")}
-                        </a>
-                      </Link>
+                      <a
+                        href="/our-product-1"
+                        className={`dropdown-item ${pathname === "/our-product-1" ? "fw-bold txt-purple" : ""}`}
+                        onClick={(e) => {
+                          e.preventDefault(); // หยุดไม่ให้ <a> ทำงานทันที
+                          closeDropdown(); // ปิดเมนู
+                          router.push("/our-product-1"); // แล้วค่อยเปลี่ยน route
+                        }}
+                      >
+                        {t("M_2_1")}
+                      </a>
                     </li>
                     <li>
-                      <Link href="/our-product-2" legacyBehavior passHref>
-                        <a
-                          className={`dropdown-item ${pathname === "/our-product-2" ? "fw-bold txt-purple" : ""}`}
-                          onClick={closeDropdown} // Close the dropdown on click
-                        >
-                          {t("M_2_2")}
-                        </a>
-                      </Link>
+                      <a
+                        href="/our-product-2"
+                        className={`dropdown-item ${pathname === "/our-product-2" ? "fw-bold txt-purple" : ""}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          closeDropdown();
+                          router.push("/our-product-2");
+                        }}
+                      >
+                        {t("M_2_2")}
+                      </a>
                     </li>
                   </ul>
                 )}
@@ -147,13 +157,12 @@ export default function CustomNavbar() {
         </Navbar>
       </div>
       <div className="d-block d-xl-none">
-        <Navbar className="navbar-custom">
+        <Navbar className="navbar-custom nav-item-mobile">
           <NavbarBrand href="/home">
             <Image src="/logo.svg" alt="Logo" width={150} height={50} priority />
           </NavbarBrand>
-          <div className="d-flex">
+          <div className="d-flex flex-fill justify-content-end">
             <LanguageSwitcher />
-
             <NavbarToggler onClick={toggleNavbar}>{isOpen ? <i className="bi bi-x-lg fs-4"></i> : <i className="bi bi-list fs-4"></i>}</NavbarToggler>
           </div>
 
@@ -168,7 +177,7 @@ export default function CustomNavbar() {
           >
             <Nav className="me-auto" navbar>
               <NavItem className="">
-                <Link href="/about" className={`nav-link ${pathname === "/about" ? "active" : ""}`}>
+                <Link href="/about" className={`py-0 nav-link ${pathname === "/about" ? "active" : ""}`}>
                   {t("M_1")}
                 </Link>
               </NavItem>
@@ -177,7 +186,7 @@ export default function CustomNavbar() {
               <NavItem className="">
                 <div className="dropdown" ref={dropdownRef}>
                   <button
-                    className={`nav-link dropdown-toggle ${dropdownOpen ? "active" : ""}`}
+                    className={`p-0 nav-link dropdown-toggle ${dropdownOpen ? "active" : ""}`}
                     onClick={toggleDropdown} // Toggle dropdown state on button click
                   >
                     {t("M_2")}
@@ -212,39 +221,39 @@ export default function CustomNavbar() {
 
               {/* Other NavItems */}
               <NavItem className="">
-                <Link href="/register" className={`nav-link ${pathname.includes("/register") ? "active" : ""}`}>
+                <Link href="/register" className={`py-0 nav-link ${pathname === "/register" ? "active" : ""}`}>
                   {t("M_8")}
                 </Link>
               </NavItem>
               <NavItem className="">
-                <Link href="/rec-calc" className={`nav-link ${pathname.includes("/rec-calc") ? "active" : ""}`}>
+                <Link href="/rec-calc" className={`py-0 nav-link ${pathname.includes("/rec-calc") ? "active" : ""}`}>
                   {t("M_3")}
                 </Link>
               </NavItem>
               <NavItem className="">
-                <Link href="/news" className={`nav-link ${pathname.includes("/news") ? "active" : ""}`}>
+                <Link href="/news" className={`py-0 nav-link ${pathname.includes("/news") ? "active" : ""}`}>
                   {t("M_4")}
                 </Link>
               </NavItem>
               <NavItem className="">
-                <Link href="/faq" className={`nav-link ${pathname.includes("/faq") ? "active" : ""}`}>
+                <Link href="/faq" className={`py-0 nav-link ${pathname.includes("/faq") ? "active" : ""}`}>
                   {t("M_5")}
                 </Link>
               </NavItem>
               <NavItem className="">
-                <Link href="/contactus" className={`nav-link ${pathname.includes("/contactus") ? "active" : ""}`}>
+                <Link href="/contactus" className={`py-0 nav-link ${pathname.includes("/contactus") ? "active" : ""}`}>
                   {t("M_9")}
                 </Link>
               </NavItem>
             </Nav>
 
             <NavbarText>
-              <div className="d-flex">
-                <Button outline color="primary" style={{ width: 140, height: 50 }}>
+              <div className="d-flex mt-3">
+                <Button outline color="border" style={{ width: 100, height: 48 }}>
                   {t("M_6")}
                 </Button>
                 <div>&emsp;</div>
-                <Button color="primary" className="bg-primary-gradient" style={{ width: 140 }}>
+                <Button color="border" className="bg-primary-gradient" style={{ width: 100, height: 48 }}>
                   {t("M_7")}
                 </Button>
               </div>

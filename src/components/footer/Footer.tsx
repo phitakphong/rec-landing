@@ -10,7 +10,7 @@ export default function Footer() {
   return (
     <>
       <div className={`py-5 ${styles.footerBg} text-white`}>
-        <div className="container">
+        <div className="container max-width-1140">
           <div className="row">
             <div className="col-12 col-xl-3 position-relative">
               <Image src="/images/logo_pea.png" width={240} height={80} alt="logo_pea" />
@@ -106,12 +106,12 @@ export default function Footer() {
           <div className="row">
             <div className="col-12">
               <div className="d-flex justify-content-between align-items-center flex-wrap text-white">
-                <span>{t("F_8")}</span>
-
-                <div className="col-12 col-xl-9">
-                  <div className="d-block d-xl-none">
-                    <div className="row mt-3">
-                      <div className="col-12">
+                <div className="col-12 d-flex">
+                  <span className="d-none d-xl-block">{t("F_8")}</span>
+                  <div className="d-block d-xl-none flex-fill">
+                    <div className="row">
+                      <span className="">{t("F_8")}</span>
+                      <div className="col-12  mt-3">
                         <Link href="/cookie-policy" className="text-white text-decoration-none">
                           {t("F_9")}
                         </Link>
@@ -128,7 +128,7 @@ export default function Footer() {
                       </div>
                     </div>
                   </div>
-                  <div className="d-none d-xl-block">
+                  <div className="d-none d-xl-block flex-fill">
                     <div className="d-flex justify-content-end gap-4">
                       <Link href="/cookie-policy" className="text-white text-decoration-none">
                         {t("F_9")}

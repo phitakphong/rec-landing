@@ -47,11 +47,10 @@ export default function HomeContent() {
       <CustomCarousel />
 
       <AnimatedSection>
-
         <div className={`${styles.backgroundFit}`}>
-          <div className="container" style={{ maxWidth: "1140px" }}>
+          <div className="container max-width-1140">
             <div className={`container py-5`}>
-              <div className={`row`}>
+              <div className={`row mt-5`}>
                 <div className={`col-12 col-lg-6 z-1`}>
                   <h1 className="gradient-text">{t("H_1")}</h1>
                   <p className="txt-body " dangerouslySetInnerHTML={{ __html: `&emsp;&emsp;${t("D_1")}` }}></p>
@@ -60,7 +59,6 @@ export default function HomeContent() {
                       <div className="me-3">
                         <Image src="/images/ic_thunder.svg" alt="ic_thunder" width={60} height={60} />
                       </div>
-
                       <div>
                         <h5 className="fw-bold mb-1">{t("H_1_1")}</h5>
                         <p className="text-muted mb-0" dangerouslySetInnerHTML={{ __html: t("D_1_1") }}></p>
@@ -104,7 +102,7 @@ export default function HomeContent() {
       </AnimatedSection>
       <AnimatedSection>
         <div className={`${styles.backgroundNetz}`}>
-          <div className="container" style={{ maxWidth: "1140px" }}>
+          <div className="container max-width-1140">
             <div className="container py-5">
               <div className="row">
                 <div className="col-12 ">
@@ -155,37 +153,43 @@ export default function HomeContent() {
       </AnimatedSection>
       <AnimatedSection>
         <div className={`${styles.backgroundService}`}>
-          <div className="container" style={{ maxWidth: "1140px" }}>
+          <div className="container max-width-1140">
             <div className="container py-5">
               <div className="row">
-                <div className="col-12 " id="services">
+                <div className="col-12 pt-5" id="services">
                   <h1 className="gradient-text mx-auto">{t("H_3")}</h1>
                   <p className="txt-body text-center" dangerouslySetInnerHTML={{ __html: `${t("H_3_1")}` }}></p>
                 </div>
               </div>
-              <div className="row d-flex text-center position-relative" style={{ minHeight: "100%" }}>
-                <div className="col-md-6 mt-3 d-flex flex-column">
-                  <div className={`card card-custom d-flex flex-column align-items-center pointer h-100`} onClick={() => router.push("/our-product-1")} style={{ borderRadius: "34px" }}>
-                    <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "16/9" }}>
-                      <Image src="/images/img_service1.png" fill alt="บริการซื้อขาย" className={`${styles.cardImgTop}`} style={{ objectFit: "contain" }} />
-                    </div>
-                    <div className="card-body text-center">
-                      <h5 className="mt-2" dangerouslySetInnerHTML={{ __html: t("D_3_1_1") }}></h5>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-md-6 mt-3 d-flex flex-column">
-                  <div className={`card card-custom d-flex flex-column align-items-center pointer h-100`} onClick={() => router.push("/our-product-2")} style={{ borderRadius: "34px" }}>
-                    <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "16/9" }}>
-                      <Image src="/images/img_service2.png" fill alt="บริการซื้อขาย" className={`${styles.cardImgTop}`} style={{ objectFit: "contain" }} />
-                    </div>
-                    <div className="card-body text-center">
-                      <h5 className="mt-2" dangerouslySetInnerHTML={{ __html: t("D_3_1_2") }}></h5>
+              <div className="px-0 px-xl-5">
+                <div className="px-0 px-xl-5">
+                  <div className="px-0 px-xl-5">
+                    <div className="row d-flex text-center position-relative" style={{ minHeight: "100%" }}>
+                      <div className="col-md-6 mt-3 d-flex flex-column">
+                        <div className={`card card-custom d-flex flex-column align-items-center pointer h-100`} onClick={() => router.push("/our-product-1")} style={{ borderRadius: "34px" }}>
+                          <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "16/9" }}>
+                            <Image src="/images/img_service1.png" fill alt="บริการซื้อขาย" className={`${styles.cardImgTop}`} style={{ objectFit: "contain" }} />
+                          </div>
+                          <div className="card-body text-center">
+                            <h5 className="mt-2" dangerouslySetInnerHTML={{ __html: t("D_3_1_1") }}></h5>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-md-6 mt-3 d-flex flex-column">
+                        <div className={`card card-custom d-flex flex-column align-items-center pointer h-100`} onClick={() => router.push("/our-product-2")} style={{ borderRadius: "34px" }}>
+                          <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "16/9" }}>
+                            <Image src="/images/img_service2.png" fill alt="บริการซื้อขาย" className={`${styles.cardImgTop}`} style={{ objectFit: "contain" }} />
+                          </div>
+                          <div className="card-body text-center">
+                            <h5 className="mt-2" dangerouslySetInnerHTML={{ __html: t("D_3_1_2") }}></h5>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+
               <div className="row mt-5">
                 <div className="col-md-12 text-center my-5">
                   <Button color="primary" className="bg-primary-gradient px-5" onClick={() => router.push("/register")}>
@@ -199,44 +203,44 @@ export default function HomeContent() {
       </AnimatedSection>
       <AnimatedSection>
         <div className={`${styles.backgroundPlatform}`}>
-          <div className="container" style={{ maxWidth: "1140px" }}>
-            <div className="container py-5">
+          <div className="container max-width-1140">
+            <div className="container py-5 mt-5">
               <div className="row">
                 <div className="col-12 ">
                   <h1 className="gradient-text" dangerouslySetInnerHTML={{ __html: `${t("H_4")}` }}></h1>
-                  <p className="txt-body" dangerouslySetInnerHTML={{ __html: `${t("H_4_1")}` }}></p>
-                  <h2 className="text-black mt-4">{t("H_4_2")}</h2>
-                  <div className="col-12 px-0 position-relative">
+                  <p className="txt-body mt-3" dangerouslySetInnerHTML={{ __html: `${t("H_4_1")}` }}></p>
+                  <h2 className="text-black mt-5 ">{t("H_4_2")}</h2>
+                  <div className="col-12 mt-3 px-0 position-relative">
                     <div className="row d-flex text-center position-relative" style={{ minHeight: "100%" }}>
                       <div className="col-12 col-lg-3 mt-3 d-flex flex-column">
-                        <div className={`card card-custom d-flex flex-column align-items-center  p-3 h-100`}>
-                          <Image src="/images/ic_1.png" alt="ic_1" height={80} width={80} priority />
+                        <div className={`card card-rec d-flex flex-column align-items-center  p-3 h-100`}>
+                          <Image src="/images/icon1.svg" alt="ic_1" height={80} width={80} priority />
                           <h5 className="fw-bold mb-1 pt-3" dangerouslySetInnerHTML={{ __html: t("H_4_2_1") }}></h5>
-                          <p className="mt-3 text-center" dangerouslySetInnerHTML={{ __html: t("D_4_2_1") }}></p>
+                          <p className="mt-3 text-center card-text" dangerouslySetInnerHTML={{ __html: t("D_4_2_1") }}></p>
                         </div>
                       </div>
 
                       <div className="col-12 col-lg-3 mt-3 d-flex flex-column">
-                        <div className={`card card-custom d-flex flex-column align-items-center  p-3 h-100`}>
-                          <Image src="/images/ic_2.png" alt="ic_2" height={80} width={80} priority />
+                        <div className={`card card-rec d-flex flex-column align-items-center  p-3 h-100`}>
+                          <Image src="/images/icon2.svg" alt="ic_2" height={80} width={80} priority />
                           <h5 className="fw-bold mb-1 pt-3" dangerouslySetInnerHTML={{ __html: t("H_4_2_2") }}></h5>
-                          <p className="mt-3 text-center" dangerouslySetInnerHTML={{ __html: t("D_4_2_2") }}></p>
+                          <p className="mt-3 text-center card-text" dangerouslySetInnerHTML={{ __html: t("D_4_2_2") }}></p>
                         </div>
                       </div>
 
                       <div className="col-12 col-lg-3 mt-3 d-flex flex-column">
-                        <div className={`card card-custom d-flex flex-column align-items-center  p-3 h-100`}>
-                          <Image src="/images/ic_3.png" alt="ic_3" height={80} width={80} priority />
+                        <div className={`card card-rec d-flex flex-column align-items-center  p-3 h-100`}>
+                          <Image src="/images/icon3.svg" alt="ic_3" height={80} width={80} priority />
                           <h5 className="fw-bold mb-1 pt-3" dangerouslySetInnerHTML={{ __html: t("H_4_2_3") }}></h5>
-                          <p className="mt-3 text-center" dangerouslySetInnerHTML={{ __html: t("D_4_2_3") }}></p>
+                          <p className="mt-3 text-cente card-text" dangerouslySetInnerHTML={{ __html: t("D_4_2_3") }}></p>
                         </div>
                       </div>
 
                       <div className="col-12 col-lg-3 mt-3 d-flex flex-column">
-                        <div className={`card card-custom d-flex flex-column align-items-center p-3 h-100`}>
-                          <Image src="/images/ic_4.png" alt="ic_4" height={80} width={80} priority />
+                        <div className={`card card-rec d-flex flex-column align-items-center p-3 h-100`}>
+                          <Image src="/images/icon4.svg" alt="ic_4" height={80} width={80} priority />
                           <h5 className="fw-bold mb-1 pt-3" dangerouslySetInnerHTML={{ __html: t("H_4_2_4") }}></h5>
-                          <p className="mt-3 text-center" dangerouslySetInnerHTML={{ __html: t("D_4_2_4") }}></p>
+                          <p className="mt-3 text-cente card-text" dangerouslySetInnerHTML={{ __html: t("D_4_2_4") }}></p>
                         </div>
                       </div>
                     </div>
@@ -252,10 +256,16 @@ export default function HomeContent() {
       </AnimatedSection>
       <AnimatedSection>
         <div className={`${styles.backgroundfAQ} py-5`}>
-          <div className="container py-5">
-            <div className={`${styles.backgroundCakc}`}>
-              <div className="my-5">
+          <div className="container py-5 max-width-1140">
+            <div className={`row`}>
+              <div className={`col-12 col-xxl-7 z-1`}>
                 <CalcRec />
+              </div>
+
+              <div className="col-12 col-xxl-5 mt-5 z-0">
+                <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "1/1" }}>
+                  <Image src="/images/img_calc2.png" alt="green2" fill priority />
+                </div>
               </div>
             </div>
           </div>
@@ -263,7 +273,7 @@ export default function HomeContent() {
       </AnimatedSection>
       <AnimatedSection>
         <div>
-          <div className="container py-5">
+          <div className="container py-5 max-width-1140">
             <div className="my-5">
               <News />
             </div>
@@ -271,33 +281,32 @@ export default function HomeContent() {
         </div>
       </AnimatedSection>
       <AnimatedSection>
-        <div>
-          <div className="container pb-5">
-            <div className="p-lg-5 p-8">
-              <div className="ratio ratio-16x9">
-                <iframe
-                  src="https://www.youtube.com/embed/Bn_mDPJHQbE?si=UbyfkvnTxNKaUF9D"
-                  title="YouTube video player"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
+        <div className="py-5">
+          <div className="container pb-5 max-width-1140 d-flex justify-content-center">
+            <div className="video-container">
+              <iframe
+                style={{ height: "100%", width: "100%" }}
+                src="https://www.youtube.com/embed/Bn_mDPJHQbE?si=UbyfkvnTxNKaUF9D"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
             </div>
           </div>
         </div>
       </AnimatedSection>
       <AnimatedSection>
-        <div className={`${styles.backgroundfAQ} py-5`}>
-          <div className="container">
-            <FAQList />
+        <div className={`${styles.backgroundfAQ}`}>
+          <div className="container max-width-1140 ">
+            <div className="">
+              <FAQList />
+            </div>
           </div>
         </div>
       </AnimatedSection>
       <AnimatedSection>
-        <div className={`py-5`}>
-          <div className="container">
-            <Partner />
-          </div>
+        <div className="container max-width-1140">
+          <Partner />
         </div>
       </AnimatedSection>
     </>

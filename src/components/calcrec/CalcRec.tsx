@@ -12,7 +12,11 @@ const MONTHS = {
   th: ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."],
 };
 
-export default function CalcRec() {
+interface CalcRecProps {
+  className?: string;
+}
+
+export default function CalcRec({ className }: CalcRecProps) {
   const { t, i18n } = useTranslation(["calc", "common"]);
   const [selectState, setSelectState] = useState("CUSTOM");
   const [calcResult, setCalcResult] = useState<any>(null);
@@ -193,19 +197,19 @@ export default function CalcRec() {
       amt_invoice: false,
     });
 
-    setFormData({
-      meter_code: "",
-      pea_no: "",
-      bill_period: "",
-      amt_invoice: "",
-    });
-
     // setFormData({
-    //   meter_code: "020000225347",
-    //   pea_no: "22991042",
-    //   bill_period: "202401",
-    //   amt_invoice: "441.73",
+    //   meter_code: "",
+    //   pea_no: "",
+    //   bill_period: "",
+    //   amt_invoice: "",
     // });
+
+    setFormData({
+      meter_code: "020000225347",
+      pea_no: "22991042",
+      bill_period: "202401",
+      amt_invoice: "441.73",
+    });
 
     setFormData2({
       from: "",
@@ -276,7 +280,7 @@ export default function CalcRec() {
             <Button
               color="primary"
               style={{ height: "50px" }}
-              className={`${selectState === "CUSTOM" ? "bg-primary-gradient" : "btn-outline-primary  no-border"}`}
+              className={`${selectState === "CUSTOM" ? "bg-primary-gradient" : "btn-outline-primary  no-border card-text"}`}
               onClick={() => {
                 resetForm();
                 setSelectState("CUSTOM");
@@ -285,7 +289,7 @@ export default function CalcRec() {
               {t("D_4_4_2")}
             </Button>
             <Button
-              className={`ms-1 ${selectState === "HISTORY" ? "bg-primary-gradient" : "btn-outline-primary no-border"}`}
+              className={`ms-1 ${selectState === "HISTORY" ? "bg-primary-gradient" : "btn-outline-primary no-border card-text"}`}
               style={{ height: "50px" }}
               onClick={() => {
                 resetForm();
@@ -296,10 +300,10 @@ export default function CalcRec() {
             </Button>
           </div>
         </div>
-      </div>
-      <div className={`row mt-5`}>
+      </div>{" "}
+      <div className={`row mt-3`}>
         <div className="col-12">
-          <div className={`card card-custom p-3 ${styles.background}`} style={{ border: "none" }}>
+          <div className={`p-3 ${className}`} style={{ border: "none" }}>
             {selectState === "CUSTOM" ? (
               <>
                 <div className="row align-items-center mt-3">
@@ -334,7 +338,7 @@ export default function CalcRec() {
               <>
                 <Form>
                   <Row>
-                    <Col className={`col-12 col-lg-5`}>
+                    <Col className={`col-12 col-lg-6`}>
                       <FormGroup>
                         <Label className="text-black" for="meter_code">
                           {t("H_3")}
@@ -347,7 +351,7 @@ export default function CalcRec() {
                         </InputGroup>
                       </FormGroup>
                     </Col>
-                    <Col className={`col-12 col-lg-5`}>
+                    <Col className={`col-12 col-lg-6`}>
                       <FormGroup>
                         <Label className="text-black" for="pea_no">
                           {t("H_4")}
@@ -360,7 +364,7 @@ export default function CalcRec() {
                         </InputGroup>
                       </FormGroup>
                     </Col>
-                    <Col className={`col-12 col-lg-5`}>
+                    <Col className={`col-12 col-lg-6`}>
                       <FormGroup>
                         <Label className="text-black" for="bill_period">
                           {t("H_5")}
@@ -380,7 +384,7 @@ export default function CalcRec() {
                         </InputGroup>
                       </FormGroup>
                     </Col>
-                    <Col className={`col-12 col-lg-5`}>
+                    <Col className={`col-12 col-lg-6`}>
                       <FormGroup>
                         <Label className="text-black" for="amt_invoice">
                           {t("H_6")}
@@ -393,7 +397,7 @@ export default function CalcRec() {
                         </InputGroup>
                       </FormGroup>
                     </Col>
-                    <Col className="col-12 col-lg-2 d-flex">
+                    <Col className="col-12 d-flex">
                       <Button
                         disabled={loading}
                         type="button"

@@ -19,7 +19,7 @@ export default function NewsWidget(props: any) {
           <Image src={props.image_url} style={{ borderRadius: "1em" }} layout="responsive" width={1} height={1} alt="ing_news" />
         </div>
         <div className={`${props.size === "small" ? "col-6" : "col-12 mt-3"}`}>
-          <strong>{props.category}</strong>
+          <strong className="text-news-cat">{props.category}</strong>
           {props.size === "big" ? (
             <h2 className={`mt-2 ${styles.truncate2Lines}`}>{props.topic[i18n.language]}</h2>
           ) : (

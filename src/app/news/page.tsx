@@ -70,7 +70,7 @@ export default function NewsContent() {
   return (
     <>
       <div className="background-purple">
-        <div className={`container py-5`}>
+        <div className={`container py-5 `}>
           <div className={`row my-5`}>
             <div className={`col-12`}>
               <h1 className="text-white full-width text-center">{t("H_1")}</h1>
@@ -79,7 +79,7 @@ export default function NewsContent() {
         </div>
       </div>
       <div className="background-platform">
-        <div className={`container py-5`}>
+        <div className={`container py-5 max-width-1140`}>
           <div className="row">
             <div className="col-12 col-lg-4 mt-3">
               <InputGroup>

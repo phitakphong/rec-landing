@@ -24,17 +24,17 @@ export default function Partner() {
   }, []);
 
   return (
-    <>
+    <div className="py-72px">
       <div className="full-width mb-5">
         <h1 className="gradient-text mx-auto" dangerouslySetInnerHTML={{ __html: t("partner") }}></h1>
       </div>
       {partners.map((row, rowIndex) => (
-        <div key={rowIndex} className="d-flex flex-wrap justify-content-center gap-5 mb-5">
+        <div key={rowIndex} className="d-flex flex-wrap justify-content-center gap-5 ">
           {row.map((partner) => (
             <Image key={partner.partner_uid} src={partner.image_url} alt={`Partner ${partner.partner_name}`} width={120} height={60} />
           ))}
         </div>
       ))}
-    </>
+    </div>
   );
 }

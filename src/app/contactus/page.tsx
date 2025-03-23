@@ -108,7 +108,7 @@ export default function ContactUsContent() {
   return (
     <>
       <div className="background-purple">
-        <div className={`container py-5`}>
+        <div className={`container py-5 max-width-1140`}>
           <div className={`row my-5`}>
             <div className={`col-12`}>
               <h1 className="text-white full-width text-center">{t("H_1")}</h1>
@@ -116,7 +116,7 @@ export default function ContactUsContent() {
           </div>
         </div>
       </div>
-      <div className={`container py-5`}>
+      <div className={`container py-5 max-width-1140`}>
         <div className="row">
           <div className="col-12 ">
             <div className="text-center full-width d-flex justify-content-center">
@@ -195,7 +195,7 @@ export default function ContactUsContent() {
         </div>
       </div>
       <div className="background-gray">
-        <div className={`container py-5`}>
+        <div className={`container py-5 max-width-1140`}>
           <div className={`row`}>
             <div className={`col-lg-6 col-12 mt-5`}>
               <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "1/1" }}>

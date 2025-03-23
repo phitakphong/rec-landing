@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang={isReady ? i18n.language : undefined}>
       <body className={`${isReady ? ibmPlexSansThai.className : undefined}`}>
         <div className="d-flex justify-content-center">
-          <div className="w-100" style={{ maxWidth : "1440px"}}>
+          <div className="w-100" style={{ maxWidth: "1440px" }}>
             {isReady ? (
               <I18nProvider>
                 <MyNav />

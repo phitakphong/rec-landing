@@ -13,7 +13,7 @@ export default function OurProduct2Content() {
   return (
     <>
       <div>
-        <div className={`container py-5`}>
+        <div className={`container py-5 max-width-1140`}>
           <div className={`row`}>
             <div className={`col-12 col-lg-7 z-1`}>
               <h1 className="gradient-text">{t("H_1")}</h1>
@@ -80,7 +80,7 @@ export default function OurProduct2Content() {
       </div>
 
       <div className="background-gray">
-        <div className="container py-5">
+        <div className="container py-5 max-width-1140">
           <div className="row">
             <div className="col-12 ">
               <h1 className="gradient-text">{t("H_4")}</h1>
@@ -170,7 +170,7 @@ export default function OurProduct2Content() {
         </div>
       </div>
       <div className={`${styles.backgroundPlatform}`}>
-        <div className={`container py-5`}>
+        <div className={`container py-5 max-width-1140`}>
           <div className={`row`}>
             <div className={`col-12`}>
               <h1 className="gradient-text">{t("H_7")}</h1>
@@ -229,7 +229,7 @@ export default function OurProduct2Content() {
         </div>
       </div>
       <div className="background-gray">
-        <div className="container py-5">
+        <div className="container py-5 max-width-1140">
           <div className="row">
             <div className="col-12 my-5 ">
               <h2 className="gradient-textfull-width text-center">{t("H_8")}</h2>

@@ -14,7 +14,7 @@ export default function RecCalcContent() {
   return (
     <>
       <div className="background-purple">
-        <div className={`container py-5`}>
+        <div className={`container py-5 max-width-1140`}>
           <div className={`row my-5`}>
             <div className={`col-12`}>
               <h1 className="text-white full-width text-center">{t("H_0")}</h1>
@@ -23,10 +23,10 @@ export default function RecCalcContent() {
         </div>
       </div>
 
-      <div className={`container mt-5`}>
+      <div className={`container mt-5 max-width-1140`}>
         <div className={`row`}>
           <div className={`col-12 col-xxl-7 z-1`}>
-            <CalcRec />
+            <CalcRec className={`background-calc card card-custom`} />
           </div>
           <div className="col-12 col-xxl-5 d-flex justify-content-center align-items-end mt-5 z-0">
             <Image src="/images/img_calc.png" alt="green2" width={400} height={500} priority />

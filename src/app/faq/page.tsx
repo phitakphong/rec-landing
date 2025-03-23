@@ -52,8 +52,8 @@ export default function FaqContent() {
           </div>
         </div>
       </div>
-      <div className={`container py-5`}>
-        <div className="row my-5">
+      <div className={`container py-5 max-width-1140`}>
+        <div className="row">
           <div className="col-12 px-5">
             {filteredFaqs.map((faq, index) => (
               <React.Fragment key={faq.faq_uid}>

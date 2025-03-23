@@ -19,7 +19,7 @@ export default function PlicyContent() {
           </div>
         </div>
       </div>
-      <div className={`container py-5`}>
+      <div className={`container py-5 max-width-1140`}>
         <div className="row">
           <div className="col-12">
             <p className="text-muted mb-0" dangerouslySetInnerHTML={{ __html: t("H.1") }}></p>

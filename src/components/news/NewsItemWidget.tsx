@@ -19,7 +19,7 @@ export default function NewsItemWidget(props: any) {
         </div>
         <div className="p-3 d-flex flex-column flex-grow-1">
           <div>
-            {props.category}
+            <span className="text-news-cat">{props.category} </span>
             <p className="mt-2 truncate-2-lines">
               <strong>{props.topic[i18n.language]}</strong>
             </p>

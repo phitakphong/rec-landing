@@ -13,7 +13,7 @@ export default function OurProduct1Content() {
   return (
     <>
       <div>
-        <div className={`container py-5`}>
+        <div className={`container py-5 max-width-1140`}>
           <div className={`row`}>
             <div className={`col-12 col-lg-6 z-1`}>
               <h1 className="gradient-text py-2">{t("H_1")}</h1>
@@ -58,7 +58,7 @@ export default function OurProduct1Content() {
         </div>
       </div>
       <div className="background-gray">
-        <div className={`container py-5`}>
+        <div className={`container py-5 max-width-1140`}>
           <div className={`row mt-5`}>
             <div className={`col-12`}>
               <h1 className="gradient-text">{t("H_2")}</h1>
@@ -96,7 +96,7 @@ export default function OurProduct1Content() {
       </div>
 
       <div>
-        <div className={`container py-5`}>
+        <div className={`container py-5 max-width-1140`}>
           <div className={`row mt-5`}>
             <div className={`col-12`}>
               <h1 className="gradient-text">{t("H_2_6")}</h1>

@@ -3,9 +3,11 @@
   --bs-primary-rgb: 116, 4, 95; /* Ensure correct RGB values */
 
   --purple: var(--bs-primary);
-  --bs-border: #D0D5DD; 
-  --bs-text: #3A3A3A;
+  --bs-border: #d0d5dd;
+  --bs-text: #3a3a3a;
   --text: var(--bs-text);
+
+  --text-purple: #8e0369;
 }
 
 body {
@@ -13,13 +15,11 @@ body {
   font-family: "IBM Plex Sans Thai", sans-serif;
 }
 
-
 /* .container {
   max-width: 1140px !important;
   margin-left: auto;
   margin-right: auto;
 } */
-
 
 /* Override Bootstrap button border radius */
 .btn {
@@ -51,8 +51,6 @@ body {
   background-color: transparent !important;
   border-radius: 12px !important;
 }
-
-
 
 .btn-outline-primary:hover {
   background-color: var(--bs-primary) !important;
@@ -300,10 +298,76 @@ a {
   color: white !important;
 }
 
+.navbar-custom .navbar-nav {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 16px;
+}
 
 .navbar-custom .navbar-nav {
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
-  gap: 16px; /* กำหนดระยะห่างระหว่างเมนู */
+  gap: 16px;
+}
+
+.navbar > .container-fluid {
+  justify-content: center;
+}
+
+.max-width-1140 {
+  max-width: 1140px;
+}
+
+.btn.btn-primary {
+  border: none;
+}
+
+.nav-item-mobile .navbar-nav {
+  gap: 10px;
+}
+
+.card-text {
+  color: #475467 !important;
+}
+
+.background-calc {
+  background: linear-gradient(180deg, #f9fafb 0%, #edf0f3 100%);
+}
+
+.card-rec {
+  border-radius: 16px;
+  border: 1px solid #fff;
+  background: #fff;
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.06);
+  padding: 24px !important;
+}
+
+.text-news-cat {
+  color: var(--text-purple);
+}
+
+.video-container {
+  border-radius: 8px;
+  overflow: hidden;
+  width: 916px;
+  height: 516px;
+}
+
+hr {
+  height: 0.5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  margin: 1rem 0;
+}
+
+.py-100px {
+  padding-bottom: 100px;
+  padding-top: 100px;
+}
+
+.py-72px {
+  padding-bottom: 72px;
+  padding-top: 72px;
 }

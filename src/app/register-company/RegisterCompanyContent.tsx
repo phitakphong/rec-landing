@@ -325,7 +325,7 @@ export default function RegisterCompanyContent({ data }: Props) {
           </div>
         </div>
       </div>
-      <div className={`container py-5`}>
+      <div className={`container py-5 max-width-1140`}>
         <div className="row">
           <Container>
             <Form>

@@ -96,7 +96,7 @@ export default function CompanyInfoContent({ params }: PageProps) {
           </div>
         </div>
       </div>
-      <div className={`container py-5`}>
+      <div className={`container py-5 max-width-1140`}>
         <div className="row">
           {data && (
             <Container>

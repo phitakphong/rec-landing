@@ -46,7 +46,7 @@ export default function NewsDetailContent({ params }: PageProps) {
   return (
     <>
       <div className="background-platform">
-        <div className="container py-5">
+        <div className="container py-5 max-width-1140">
           <div className="row my-5">
             {data && (
               <div className="col-12">

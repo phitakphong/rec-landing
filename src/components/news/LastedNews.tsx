@@ -23,8 +23,8 @@ export default function LastedNews() {
   }, []);
 
   return (
-    <div className="background-gray py-5">
-      <div className="container">
+    <div className="background-gray py-5 ">
+      <div className="container max-width-1140">
         <div className="row">
           <div className="col-12 position-relative">
             <h1 className="gradient-text">{t("H_3")}</h1>

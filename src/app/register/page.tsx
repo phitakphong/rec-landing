@@ -192,7 +192,7 @@ export default function RegisterContent() {
   return (
     <>
       <div className="background-purple">
-        <div className={`container py-5`}>
+        <div className={`container py-5 max-width-1140`}>
           <div className={`row my-5`}>
             <div className={`col-12`}>
               <h1 className="text-white full-width text-center">{t("H_1")}</h1>
@@ -200,7 +200,7 @@ export default function RegisterContent() {
           </div>
         </div>
       </div>
-      <div className={`container py-5`}>
+      <div className={`container py-5 max-width-1140`}>
         <div className="row">
           <Container>
             <Form>

@@ -38,7 +38,7 @@ export default function FAQList() {
   };
 
   return (
-    <>
+    <div className="py-100px">
       <div className="full-width mb-2">
         <h1 className="gradient-text mx-auto" dangerouslySetInnerHTML={{ __html: t("faq") }}></h1>
       </div>
@@ -96,6 +96,6 @@ export default function FAQList() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
