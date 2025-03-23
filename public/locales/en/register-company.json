@@ -29,7 +29,7 @@
 
   "T_28": "Company Coordinator",
   "T_29": "Specify",
-  "T_30": "<strong>Drag and drop files here</strong> or click to select files.",
+  "T_30": "<span class='cookie-text'><strong>Drag and drop files here</strong></span> or click to select files.",
   "T_31": "Please upload a PDF file (max 25MB).",
   "T_32": "Save",
   "T_33": "Please fill out all the information.",
