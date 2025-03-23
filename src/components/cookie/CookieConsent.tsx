@@ -30,10 +30,10 @@ export default function CookieConsent() {
                 </button>
               </div>
               <div className="col-12">
-                <p className="text-muted">{t("H_1")}</p>
+                <p className="text-muted" dangerouslySetInnerHTML={{ __html: t("H_1") }}></p>
               </div>
               <div className="col-12">
-                <Button outline color="primary" style={{ width: 140, height: 40 }} onClick={toggle}>
+                <Button className="btn btn-outline-border" style={{ width: 140, height: 40 }} onClick={toggle}>
                   {t("H_2")}
                 </Button>
                 <Button
@@ -49,50 +49,57 @@ export default function CookieConsent() {
               </div>
             </div>
             <Modal isOpen={modal} toggle={toggle} backdrop="static" size="lg" zIndex={"99"}>
-              <ModalHeader className="text-black" toggle={toggle}>
-                {t("setting.H_1")}
+              <ModalHeader className="text-black p24px" toggle={toggle}>
+                <div style={{ fontSize: "20px" }}> {t("setting.H_1")}</div>
               </ModalHeader>
               <ModalBody>
-                <p className="text-muted">{t("setting.H_2")}</p>
+                <p className="text-muted mt-3">{t("setting.H_2")}</p>
                 <FormGroup check>
                   <Input type="checkbox" id="time1" name="time1" />
-                  <Label className="text-muted" for="time1" check>
-                    <strong className="text-black"> {t("setting.H_3")}</strong>
+                  <Label className="text-muted ms-2" for="time1" check>
+                    <strong className="card-text font-w-600"> {t("setting.H_3")}</strong>
                   </Label>
-                  <p className="text-muted">{t("setting.D_3")}</p>
+                  <p className="text-muted ms-3"> {t("setting.D_3")}</p>
                 </FormGroup>
                 <FormGroup check>
                   <Input type="checkbox" id="time1" name="time1" />
-                  <Label className="text-muted" for="time1" check>
-                    <strong className="text-black"> {t("setting.H_4")}</strong>
+                  <Label className="text-muted ms-2" for="time1" check>
+                    <strong className="card-text font-w-600"> {t("setting.H_4")}</strong>
                   </Label>
-                  <p className="text-muted">{t("setting.D_4")}</p>
+                  <p className="text-muted ms-2">{t("setting.D_4")}</p>
                 </FormGroup>
                 <FormGroup check>
                   <Input type="checkbox" id="time1" name="time1" />
-                  <Label className="text-muted" for="time1" check>
-                    <strong className="text-black"> {t("setting.H_5")}</strong>
+                  <Label className="text-muted ms-2" for="time1" check>
+                    <strong className="card-text font-w-600"> {t("setting.H_5")}</strong>
                   </Label>
-                  <p className="text-muted">{t("setting.D_5")}</p>
+                  <p className="text-muted ms-2">{t("setting.D_5")}</p>
                 </FormGroup>
                 <FormGroup check>
                   <Input type="checkbox" id="time1" name="time1" />
-                  <Label className="text-muted" for="time1" check>
-                    <strong className="text-black"> {t("setting.H_6")}</strong>
+                  <Label className="text-muted ms-2" for="time1" check>
+                    <strong className="card-text font-w-600"> {t("setting.H_6")}</strong>
                   </Label>
-                  <p className="text-muted">{t("setting.D_6")}</p>
+                  <p className="text-muted ms-2">{t("setting.D_6")}</p>
                 </FormGroup>
                 <hr />
                 <FormGroup check>
                   <Input type="checkbox" id="time1" name="time1" />
-                  <Label className="text-muted" for="time1" check>
-                    <strong className="text-black"> {t("setting.H_7")}</strong>
+                  <Label className="text-muted ms-2" for="time1" check>
+                    <strong className="card-text font-w-600"> {t("setting.H_7")}</strong>
                   </Label>
-                  <p className="text-muted">{t("setting.D_7")}</p>
+                  <p className="text-muted ms-2">{t("setting.D_7")}</p>
                 </FormGroup>
               </ModalBody>
               <ModalFooter>
-                <Button color="primary" onClick={toggle}>
+                <Button
+                  color="primary"
+                  className="bg-primary-gradient ms-3"
+                  style={{ minWidth: 140, height: 40 }}
+                  onClick={() => {
+                    toggle();
+                  }}
+                >
                   {t("setting.H_7")}
                 </Button>
               </ModalFooter>

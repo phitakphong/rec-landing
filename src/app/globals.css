@@ -491,3 +491,51 @@ hr {
   padding-bottom: 72px;
   padding-top: 72px;
 }
+
+.cookie-text {
+  color: #a80689 !important;
+}
+
+.p24px {
+  padding: 24px !important;
+}
+
+.btn-close {
+  height: 20px !important;
+  width: 20px !important;
+  padding: 10px !important;
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #d0d5dd;
+  background-color: #d0d5dd; /* Default background */
+  cursor: pointer;
+  appearance: none; /* Remove default browser style */
+  border-radius: 4px; /* Optional: square with rounded corners */
+  display: inline-block;
+  vertical-align: middle;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #a80689;
+  border-color: #a80689;
+  position: relative;
+}
+
+input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 7px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.font-w-600 {
+  font-weight: 600;
+}

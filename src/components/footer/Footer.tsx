@@ -41,7 +41,6 @@ export default function Footer() {
                 </span>
                 <strong className="ms-3">1129 PEA Contact Center</strong>
               </div>
-              {/* <div className="col-6 d-flex align-items-center gap-3 mt-3"></div> */}
             </div>
             <div className="col-12 col-xl-9">
               <div className="d-block d-xl-none">
@@ -107,7 +106,6 @@ export default function Footer() {
             <div className="col-12">
               <div className="d-flex justify-content-between align-items-center flex-wrap text-white">
                 <div className="col-12 d-flex">
-                  <span className="d-none d-xl-block">{t("F_8")}</span>
                   <div className="d-block d-xl-none flex-fill">
                     <div className="row">
                       <span className="">{t("F_8")}</span>
@@ -129,7 +127,8 @@ export default function Footer() {
                     </div>
                   </div>
                   <div className="d-none d-xl-block flex-fill">
-                    <div className="d-flex justify-content-end gap-4">
+                    <div className="d-flex justify-content-start gap-4">
+                      <span className="">{t("F_8")}</span>{" "}
                       <Link href="/cookie-policy" className="text-white text-decoration-none">
                         {t("F_9")}
                       </Link>
