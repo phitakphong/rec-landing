@@ -772,7 +772,12 @@ export default function RegisterCompanyContent({ data }: Props) {
                 <Col className={`col-12 mt-3`}>
                   <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "1/1" }}>
                     <LoadScript googleMapsApiKey={ApiService.YOUR_GOOGLE_MAPS_API_KEY}>
-                      <GoogleMap mapContainerStyle={containerStyle} center={position} zoom={15} onClick={handleMapClick}>
+                      <GoogleMap mapContainerStyle={containerStyle} center={position} zoom={15} onClick={handleMapClick} options={{
+                        mapTypeControl: false,
+                        streetViewControl: false,
+                        fullscreenControl: false,
+                        zoomControl: true,
+                      }}>
                         {markerPosition && <Marker position={markerPosition} />}
                       </GoogleMap>
                     </LoadScript>

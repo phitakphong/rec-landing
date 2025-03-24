@@ -243,7 +243,9 @@ export default function CalcRec({ className }: CalcRecProps) {
       let kwhTotal = 0;
       selectedItems.forEach((e, i) => {
         if (e) {
-          kwhTotal += calcResult[i]?.kwhTotal || 0;
+          if (calcResult && calcResult[i]) {
+            kwhTotal += calcResult[i].kwhTotal || 0;
+          }
         }
       });
       setSumKwh(kwhTotal / 1000);

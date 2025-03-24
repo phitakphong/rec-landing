@@ -18,7 +18,18 @@ body {
 .text-header-eng {
   color: rgba(255, 255, 255, 0.6);
   text-align: center;
-  font-family: "IBM Plex Sans";
+
+  font-size: var(--Font-size-text-xl, 20px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--Line-height-text-xl, 30px); /* 150% */
+  text-transform: uppercase;
+}
+
+.text-header-eng-new {
+  color: rgba(255, 255, 255, 0.60);
+  text-align: center;
+
   font-size: var(--Font-size-text-xl, 20px);
   font-style: normal;
   font-weight: 400;
@@ -131,6 +142,30 @@ h1 {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-size-40 {
+  
+  background: var(--Linear, linear-gradient(87deg, #8E0369 -1.67%, #577AB8 56.62%, #2DDF9E 120.47%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 56px;
+}
+
+.title-product2 {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 40px;
+  text-align: center;
+  color: #101828;
+}
+
+.fw-bold {
+  font-weight: 600 !important;
 }
 
 .bg-primary-gradient {
