@@ -112,6 +112,20 @@ class ApiService {
     }
   }
 
+  static async getAbout() {
+    const url = `${ApiService.API_ENDPOINT}/about-us`;
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: ApiService.DEFAULT_HEADERS,
+      });
+
+      return await ApiService.handleResponse(response);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static async getDistricts(provinceCode: string) {
     const url = `${ApiService.API_ENDPOINT}/ref/districts/${provinceCode}`;
     try {
