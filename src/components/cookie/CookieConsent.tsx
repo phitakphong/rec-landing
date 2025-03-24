@@ -12,7 +12,14 @@ export default function CookieConsent() {
     setModal(!modal);
   };
   const [modal, setModal] = useState(false);
-  if (!show) return null; // Hide when dismissed
+
+  if (!show) return null;
+
+  const consent = localStorage.getItem("consent") || false;
+  if (consent) {
+    setShow(false);
+  }
+
   return (
     <div className="position-fixed bottom-0 start-50 translate-middle-x lg mb-5 z-2 " style={{ width: "95%" }}>
       <div className="row d-flex justify-content-center">
@@ -41,6 +48,7 @@ export default function CookieConsent() {
                   className="bg-primary-gradient ms-3"
                   style={{ width: 140, height: 40 }}
                   onClick={() => {
+                    localStorage.setItem("consent", new Date().getUTCMilliseconds().toString());
                     setShow(false);
                   }}
                 >

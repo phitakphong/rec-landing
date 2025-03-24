@@ -197,19 +197,19 @@ export default function CalcRec({ className }: CalcRecProps) {
       amt_invoice: false,
     });
 
-    // setFormData({
-    //   meter_code: "",
-    //   pea_no: "",
-    //   bill_period: "",
-    //   amt_invoice: "",
-    // });
-
     setFormData({
-      meter_code: "020000225347",
-      pea_no: "22991042",
-      bill_period: "202401",
-      amt_invoice: "441.73",
+      meter_code: "",
+      pea_no: "",
+      bill_period: "",
+      amt_invoice: "",
     });
+
+    // setFormData({
+    //   meter_code: "020000225347",
+    //   pea_no: "22991042",
+    //   bill_period: "202401",
+    //   amt_invoice: "441.73",
+    // });
 
     setFormData2({
       from: "",

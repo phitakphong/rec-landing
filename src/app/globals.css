@@ -27,7 +27,7 @@ body {
 }
 
 .text-header-eng-new {
-  color: rgba(255, 255, 255, 0.60);
+  color: rgba(255, 255, 255, 0.6);
   text-align: center;
 
   font-size: var(--Font-size-text-xl, 20px);
@@ -145,8 +145,7 @@ h1 {
 }
 
 .gradient-text-size-40 {
-  
-  background: var(--Linear, linear-gradient(87deg, #8E0369 -1.67%, #577AB8 56.62%, #2DDF9E 120.47%));
+  background: var(--Linear, linear-gradient(87deg, #8e0369 -1.67%, #577ab8 56.62%, #2ddf9e 120.47%));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -456,7 +455,6 @@ a {
 .navbar-custom .navbar-nav {
   display: flex;
   flex-wrap: nowrap;
-  justify-content: center;
   gap: 16px;
 }
 
@@ -465,10 +463,6 @@ a {
   flex-wrap: nowrap;
   justify-content: center;
   gap: 16px;
-}
-
-.navbar > .container-fluid {
-  justify-content: center;
 }
 
 .max-width-1140 {
@@ -609,4 +603,8 @@ select option:checked {
 .form-register .text-black {
   font-size: 16px;
   color: #475467;
+}
+
+.gap-16px {
+  gap: 16px;
 }

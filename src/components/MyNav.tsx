@@ -61,102 +61,79 @@ export default function CustomNavbar() {
   return (
     <>
       <div className="d-none d-xl-block">
-        <Navbar expand="sm" className="navbar-custom ">
+        <Navbar expand="sm">
           <NavbarBrand href="/home">
             <div style={{ position: "relative", width: "92px", height: "49.971px" }}>
               <Image src="/logo.svg" alt="green2" fill priority />
             </div>
           </NavbarBrand>
+          <div className="d-flex px-3 w-100 gap-16px flex-wrap">
+            <Link href="/about" className={`nav-link ${pathname === "/about" ? "active" : ""}`}>
+              {t("M_1")}
+            </Link>
+            <div className="dropdown" ref={dropdownRef}>
+              <button className={`nav-link dropdown-toggle ${dropdownOpen || ["/our-product-1", "/our-product-2"].includes(pathname) ? "active" : ""}`} onClick={toggleDropdown}>
+                {t("M_2")}
+              </button>
+
+              {dropdownOpen && (
+                <ul className="dropdown-menu show">
+                  <li>
+                    <a
+                      href="/our-product-1"
+                      className={`dropdown-item ${pathname === "/our-product-1" ? "fw-bold txt-purple" : ""}`}
+                      onClick={(e) => {
+                        e.preventDefault(); // หยุดไม่ให้ <a> ทำงานทันที
+                        closeDropdown(); // ปิดเมนู
+                        router.push("/our-product-1"); // แล้วค่อยเปลี่ยน route
+                      }}
+                    >
+                      {t("M_2_1")}
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/our-product-2"
+                      className={`dropdown-item ${pathname === "/our-product-2" ? "fw-bold txt-purple" : ""}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        closeDropdown();
+                        router.push("/our-product-2");
+                      }}
+                    >
+                      {t("M_2_2")}
+                    </a>
+                  </li>
+                </ul>
+              )}
+            </div>
+            <Link href="/register" className={`nav-link ${pathname === "/register" ? "active" : ""}`}>
+              {t("M_8")}
+            </Link>
+            <Link href="/rec-calc" className={`nav-link ${pathname.includes("/rec-calc") ? "active" : ""}`}>
+              {t("M_3")}
+            </Link>
+            <Link href="/news" className={`nav-link ${pathname.includes("/news") ? "active" : ""}`}>
+              {t("M_4")}
+            </Link>
+            <Link href="/faq" className={`nav-link ${pathname.includes("/faq") ? "active" : ""}`}>
+              {t("M_5")}
+            </Link>
+            <Link href="/contactus" className={`nav-link ${pathname.includes("/contactus") ? "active" : ""}`}>
+              {t("M_9")}
+            </Link>
+          </div>
           <Nav navbar>
-            <NavItem className="my-auto">
-              <Link href="/about" className={`nav-link ${pathname === "/about" ? "active" : ""}`}>
-                {t("M_1")}
-              </Link>
-            </NavItem>
-
-            {/* Dropdown Menu */}
-
-            <NavItem className="my-auto">
-              <div className="dropdown" ref={dropdownRef}>
-                <button className={`nav-link dropdown-toggle ${dropdownOpen || ["/our-product-1", "/our-product-2"].includes(pathname) ? "active" : ""}`} onClick={toggleDropdown}>
-                  {t("M_2")}
-                </button>
-
-                {dropdownOpen && (
-                  <ul className="dropdown-menu show">
-                    <li>
-                      <a
-                        href="/our-product-1"
-                        className={`dropdown-item ${pathname === "/our-product-1" ? "fw-bold txt-purple" : ""}`}
-                        onClick={(e) => {
-                          e.preventDefault(); // หยุดไม่ให้ <a> ทำงานทันที
-                          closeDropdown(); // ปิดเมนู
-                          router.push("/our-product-1"); // แล้วค่อยเปลี่ยน route
-                        }}
-                      >
-                        {t("M_2_1")}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/our-product-2"
-                        className={`dropdown-item ${pathname === "/our-product-2" ? "fw-bold txt-purple" : ""}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          closeDropdown();
-                          router.push("/our-product-2");
-                        }}
-                      >
-                        {t("M_2_2")}
-                      </a>
-                    </li>
-                  </ul>
-                )}
-              </div>
-            </NavItem>
-
-            {/* Other NavItems */}
-            <NavItem className="my-auto">
-              <Link href="/register" className={`nav-link ${pathname === "/register" ? "active" : ""}`}>
-                {t("M_8")}
-              </Link>
-            </NavItem>
-            <NavItem className="my-auto">
-              <Link href="/rec-calc" className={`nav-link ${pathname.includes("/rec-calc") ? "active" : ""}`}>
-                {t("M_3")}
-              </Link>
-            </NavItem>
-            <NavItem className="my-auto">
-              <Link href="/news" className={`nav-link ${pathname.includes("/news") ? "active" : ""}`}>
-                {t("M_4")}
-              </Link>
-            </NavItem>
-            <NavItem className="my-auto">
-              <Link href="/faq" className={`nav-link ${pathname.includes("/faq") ? "active" : ""}`}>
-                {t("M_5")}
-              </Link>
-            </NavItem>
-            <NavItem className="my-auto">
-              <Link href="/contactus" className={`nav-link ${pathname.includes("/contactus") ? "active" : ""}`}>
-                {t("M_9")}
-              </Link>
-            </NavItem>
-            <NavItem className="my-auto">
+            <NavbarText className="d-flex justify-content-center align-items-center">
               <LanguageSwitcher />
-            </NavItem>
-            <NavItem className="my-auto">
-              <div style={{ borderLeft: "2px solid #1E1F4B4D", height: "30px" }} />
-            </NavItem>
-            <NavItem className="my-auto">
-              <Button outline color="border" style={{ width: 100, height: 48 }} onClick={() => goRegisterCompany()}>
+              <div style={{ borderLeft: "2px solid #1E1F4B4D", height: "30px", alignSelf: "center" }} />
+              <Button className="ms-3" outline color="border" style={{ width: 100, height: 48 }} onClick={() => goRegisterCompany()}>
                 {t("M_6")}
               </Button>
-            </NavItem>
-            <NavItem className="my-auto">
-              <Button color="border" className="bg-primary-gradient" style={{ width: 100, height: 48 }}>
+              <Button color="border" className="bg-primary-gradient ms-3" style={{ width: 100, height: 48 }}>
                 {t("M_7")}
               </Button>
-            </NavItem>
+            </NavbarText>
           </Nav>
         </Navbar>
       </div>
