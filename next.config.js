@@ -4,17 +4,6 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: 'pntdev.ddns.net',
-        port: '28092',
-        pathname: '/REG/Banner/**', // Adjust the path if needed
-      },
-    ],
-  },
-
   experimental: {
     serverActions: true,
     runtime: "edge",
@@ -32,6 +21,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "**",
+      },
+      {
+        protocol: "http",
         hostname: "**",
       },
     ],
