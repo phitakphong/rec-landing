@@ -585,6 +585,14 @@ input[type="checkbox"]:checked::after {
   outline: none;
 }
 
+.input-group:focus-within .input-group-text,
+.input-group:focus-within input {
+  border: none !important;
+  border-radius: 8px;
+  box-shadow: none;
+  outline: none;
+}
+
 select option {
   font-weight: normal;
   color: #000;
@@ -607,4 +615,18 @@ select option:checked {
 
 .gap-16px {
   gap: 16px;
+}
+
+.text-red {
+  color: red;
+}
+
+.input-group.border-red .input-group-text,
+.input-group.border-red .form-select,
+.input-group.border-red input {
+  border-color: red !important;
+}
+
+.normal-form .border-red {
+  border-color: red !important;
 }

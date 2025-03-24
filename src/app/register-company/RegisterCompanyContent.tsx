@@ -30,6 +30,8 @@ export default function RegisterCompanyContent({ data }: Props) {
   const [subDistricts, setSubDistricts] = useState<any[]>([]);
   const [pCode, setPostCode] = useState("");
   const [id, setId] = useState(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const [invalid, setInvalid] = useState<any>(null);
   const [position, setPosition] = useState({
     lat: 13.850821,
     lng: 100.558112,
@@ -42,11 +44,6 @@ export default function RegisterCompanyContent({ data }: Props) {
 
   const handleMapClick = (event: google.maps.MapMouseEvent) => {
     if (event.latLng) {
-      // console.log({
-      //   lat: event.latLng.lat(),
-      //   lng: event.latLng.lng(),
-      // });
-
       setMarkerPosition({
         lat: event.latLng.lat(),
         lng: event.latLng.lng(),
@@ -118,12 +115,41 @@ export default function RegisterCompanyContent({ data }: Props) {
     fetchData();
   }, [setProvince]);
 
+  useEffect(() => {
+    if (hasInteracted) {
+      validate();
+    }
+  }, [formData, hasInteracted]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    let newVal = value;
+    if (name === "cooperate_phone") {
+      newVal = value.replace(/\D/g, "").slice(0, 10);
+    } else if (name === "cooperate_company_id") {
+      newVal = value.replace(/\D/g, "").slice(0, 13);
+    } else if (name === "cooperate_card_id" && formData.cooperate_card_type == 1) {
+      newVal = value.replace(/\D/g, "").slice(0, 13);
+    } else if (name === "cooperate_company_province") {
+      setFormData((prev: any) => ({
+        ...prev,
+        [name]: newVal,
+        cooperate_company_district: "",
+        cooperate_company_subdistrict: "",
+      }));
+      return;
+    } else if (name === "cooperate_company_district") {
+      setFormData((prev: any) => ({
+        ...prev,
+        [name]: newVal,
+        cooperate_company_subdistrict: "",
+      }));
+      return;
+    }
+    setFormData((prev: any) => ({
+      ...prev,
+      [name]: newVal,
+    }));
   };
 
   const provinceChanged = async (provinceCode: string) => {
@@ -149,8 +175,8 @@ export default function RegisterCompanyContent({ data }: Props) {
   };
 
   const subDistrictChanged = async (subDistrictCode: string) => {
-    const p = subDistricts.find((s) => s.sub_district_code === subDistrictCode)!.post_code;
-    setPostCode(p);
+    const p = subDistricts.find((s) => s.sub_district_code === subDistrictCode)?.post_code;
+    setPostCode(p || "");
   };
 
   const validate = (): boolean => {
@@ -186,16 +212,29 @@ export default function RegisterCompanyContent({ data }: Props) {
     formData.cooperate_document = cooperateDocuments;
 
     Object.keys(invalid).forEach((k) => {
-      // console.log(k, formData[k as keyof typeof formData].length);
-      invalid[k as keyof typeof invalid] = formData[k as keyof typeof formData].length === 0;
+      if (k === "cooperate_phone") {
+        invalid.cooperate_phone = formData.cooperate_phone.length !== 10;
+      } else if (k === "cooperate_company_id") {
+        invalid.cooperate_company_id = formData.cooperate_company_id.length !== 13;
+      } else if (k === "cooperate_card_id" && formData.cooperate_card_type == 1) {
+        invalid.cooperate_card_id = formData.cooperate_card_id.length !== 13;
+      } else if (k === "cooperate_email") {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        invalid.cooperate_email = !emailRegex.test(formData.cooperate_email);
+      } else {
+        invalid[k as keyof typeof invalid] = formData[k as keyof typeof formData].length === 0;
+      }
     });
 
     const res = Object.values(invalid).every((e) => e === false);
-
+    setInvalid(invalid);
     return res;
   };
 
   const submit = async () => {
+    if (!hasInteracted) {
+      setHasInteracted(true);
+    }
     const valid = validate();
 
     if (!valid) {
@@ -325,11 +364,60 @@ export default function RegisterCompanyContent({ data }: Props) {
           setMarkerPosition({ lat: latitude, lng: longitude });
         },
         () => {
-          alert("Unable to retrieve your location.");
+          Swal.fire({
+            icon: "error",
+            confirmButtonText: t("T_46"),
+            buttonsStyling: false,
+            allowOutsideClick: false,
+            customClass: {
+              confirmButton: "bg-primary-gradient btn btn-primary px-5",
+            },
+            text: t("T_33"),
+          });
         }
       );
     } else {
-      alert("Geolocation is not supported by this browser.");
+      Swal.fire({
+        icon: "error",
+        confirmButtonText: t("T_45"),
+        buttonsStyling: false,
+        allowOutsideClick: false,
+        customClass: {
+          confirmButton: "bg-primary-gradient btn btn-primary px-5",
+        },
+        text: t("T_33"),
+      });
+    }
+  };
+
+  const mapRef = useRef<GoogleMap | null>(null);
+
+  const initMap = (map: any) => {
+    console.log(map);
+    if (map) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.style.backgroundColor = "#fff";
+      button.style.border = "1px solid #ccc";
+      button.style.padding = "10px";
+      button.style.cursor = "pointer";
+      button.style.position = "absolute";
+      button.style.width = "40px";
+      button.style.height = "40px";
+      button.style.marginRight = "8px";
+      button.style.marginTop = "8px";
+      button.style.zIndex = "1000";
+      button.style.borderRadius = "4px";
+
+      const icon = document.createElement("i");
+      icon.className = "bi bi-crosshair2";
+      icon.style.fontSize = "18px";
+      button.appendChild(icon);
+
+      map.controls[window.google.maps.ControlPosition.TOP_RIGHT].push(button);
+
+      button.addEventListener("click", handleGetCurrentLocation);
+      handleGetCurrentLocation();
     }
   };
 
@@ -358,12 +446,13 @@ export default function RegisterCompanyContent({ data }: Props) {
                     <Label className="text-black" for="cooperate_name">
                       {t("T_02")}
                     </Label>
-                    <InputGroup className="input-group">
+                    <InputGroup className={`input-group ${invalid?.cooperate_name ? "border-red" : ""}`}>
                       <InputGroupText>
                         <i className="bi bi-person"></i>
                       </InputGroupText>
                       <Input id="cooperate_name" name="cooperate_name" value={formData.cooperate_name} type="text" autoComplete="off" maxLength={255} onChange={handleChange} placeholder={t("T_29")} />
                     </InputGroup>
+                    {invalid?.cooperate_name && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -371,7 +460,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                     <Label className="text-black" for="cooperate_surname">
                       {t("T_03")}
                     </Label>
-                    <InputGroup>
+                    <InputGroup className={`input-group ${invalid?.cooperate_surname ? "border-red" : ""}`}>
                       <InputGroupText>
                         <i className="bi bi-person"></i>
                       </InputGroupText>
@@ -386,6 +475,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                         placeholder={t("T_29")}
                       />
                     </InputGroup>
+                    {invalid?.cooperate_surname && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -393,7 +483,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                     <Label className="text-black" for="cooperate_card_type">
                       {t("T_04")}
                     </Label>
-                    <InputGroup>
+                    <InputGroup className={`input-group ${invalid?.cooperate_card_type ? "border-red" : ""}`}>
                       <InputGroupText>
                         <i className="bi bi-credit-card"></i>
                       </InputGroupText>
@@ -403,6 +493,8 @@ export default function RegisterCompanyContent({ data }: Props) {
                         <option value={`2`}>{t("T_06")}</option>
                       </Input>
                     </InputGroup>
+
+                    {invalid?.cooperate_card_type && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -410,7 +502,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                     <Label className="text-black" for="cooperate_card_id">
                       {t("T_07")}
                     </Label>
-                    <InputGroup>
+                    <InputGroup className={`input-group ${invalid?.cooperate_card_id ? "border-red" : ""}`}>
                       <InputGroupText>
                         <i className="bi bi-credit-card"></i>
                       </InputGroupText>
@@ -425,6 +517,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                         placeholder={t("T_29")}
                       />
                     </InputGroup>
+                    {invalid?.cooperate_card_id && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -432,7 +525,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                     <Label className="text-black" for="cooperate_phone">
                       {t("T_08")}
                     </Label>
-                    <InputGroup>
+                    <InputGroup className={`input-group ${invalid?.cooperate_phone ? "border-red" : ""}`}>
                       <InputGroupText>
                         <i className="bi bi-phone"></i>
                       </InputGroupText>
@@ -447,6 +540,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                         placeholder={t("T_29")}
                       />
                     </InputGroup>
+                    {invalid?.cooperate_phone && <small className="text-red">{t("T_50")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -454,7 +548,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                     <Label className="text-black" for="cooperate_email">
                       {t("T_09")}
                     </Label>
-                    <InputGroup>
+                    <InputGroup className={`input-group ${invalid?.cooperate_email ? "border-red" : ""}`}>
                       <InputGroupText>
                         <i className="bi bi-envelope"></i>
                       </InputGroupText>
@@ -469,6 +563,8 @@ export default function RegisterCompanyContent({ data }: Props) {
                         placeholder={t("T_29")}
                       />
                     </InputGroup>
+                    {invalid?.cooperate_email && formData.cooperate_email.length === 0 && <small className="text-red">{t("T_48")}</small>}
+                    {invalid?.cooperate_email && formData.cooperate_email.length > 0 && <small className="text-red">{t("T_51")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12  my-3 d-flex align-items-center`}>
@@ -480,7 +576,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                     <Label className="text-black" for="cooperate_company_name">
                       {t("T_11")}
                     </Label>
-                    <InputGroup>
+                    <InputGroup className={`input-group ${invalid?.cooperate_company_name ? "border-red" : ""}`}>
                       <InputGroupText>
                         <i className="bi bi-person"></i>
                       </InputGroupText>
@@ -495,6 +591,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                         placeholder={t("T_29")}
                       />
                     </InputGroup>
+                    {invalid?.cooperate_company_name && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -502,7 +599,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                     <Label className="text-black" for="cooperate_company_ca">
                       {t("T_12")}
                     </Label>
-                    <InputGroup>
+                    <InputGroup className={`input-group ${invalid?.cooperate_company_ca ? "border-red" : ""}`}>
                       <InputGroupText>
                         <i className="bi bi-credit-card"></i>
                       </InputGroupText>
@@ -517,6 +614,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                         placeholder={t("T_29")}
                       />
                     </InputGroup>
+                    {invalid?.cooperate_company_ca && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -524,7 +622,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                     <Label className="text-black" for="cooperate_company_id">
                       {t("T_13")}
                     </Label>
-                    <InputGroup>
+                    <InputGroup className={`input-group ${invalid?.cooperate_company_id ? "border-red" : ""}`}>
                       <InputGroupText>
                         <i className="bi bi-credit-card"></i>
                       </InputGroupText>
@@ -539,6 +637,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                         placeholder={t("T_29")}
                       />
                     </InputGroup>
+                    {invalid?.cooperate_company_id && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -546,7 +645,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                     <Label className="text-black" for="cooperate_company_branch">
                       {t("T_14")}
                     </Label>
-                    <InputGroup>
+                    <InputGroup className={`input-group ${invalid?.cooperate_company_branch ? "border-red" : ""}`}>
                       <InputGroupText>
                         <i className="bi bi-credit-card"></i>
                       </InputGroupText>
@@ -561,6 +660,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                         placeholder={t("T_29")}
                       />
                     </InputGroup>
+                    {invalid?.cooperate_company_branch && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12`}>
@@ -574,7 +674,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                     <Label className="text-black" for="cooperate_company_address">
                       {t("T_16")}
                     </Label>
-                    <InputGroup>
+                    <InputGroup className={`input-group ${invalid?.cooperate_company_address ? "border-red" : ""}`}>
                       <InputGroupText>
                         <i className="bi bi-buildings"></i>
                       </InputGroupText>
@@ -589,6 +689,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                         placeholder={t("T_29")}
                       />
                     </InputGroup>
+                    {invalid?.cooperate_company_address && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -596,7 +697,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                     <Label className="text-black" for="cooperate_company_province">
                       {t("T_18")}
                     </Label>
-                    <InputGroup>
+                    <InputGroup className={`input-group ${invalid?.cooperate_company_province ? "border-red" : ""}`}>
                       <InputGroupText>
                         <i className="bi bi-buildings"></i>
                       </InputGroupText>
@@ -620,6 +721,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                         })}
                       </Input>
                     </InputGroup>
+                    {invalid?.cooperate_company_province && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -627,7 +729,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                     <Label className="text-black" for="cooperate_company_district">
                       {t("T_19")}
                     </Label>
-                    <InputGroup>
+                    <InputGroup className={`input-group ${invalid?.cooperate_company_district ? "border-red" : ""}`}>
                       <InputGroupText>
                         <i className="bi bi-buildings"></i>
                       </InputGroupText>
@@ -651,6 +753,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                         })}
                       </Input>
                     </InputGroup>
+                    {invalid?.cooperate_company_district && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -658,7 +761,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                     <Label className="text-black" for="cooperate_company_subdistrict">
                       {t("T_20")}
                     </Label>
-                    <InputGroup>
+                    <InputGroup className={`input-group ${invalid?.cooperate_company_subdistrict ? "border-red" : ""}`}>
                       <InputGroupText>
                         <i className="bi bi-buildings"></i>
                       </InputGroupText>
@@ -682,6 +785,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                         })}
                       </Input>
                     </InputGroup>
+                    {invalid?.cooperate_company_subdistrict && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -717,6 +821,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                     );
                   })}
                   <UploadBox onUploadComplete={handleUploadCooperateDocumentComplete} />
+                  {invalid?.cooperate_receive_document && <small className="text-red">{t("T_49")}</small>}
                   <div className=" mt-3">
                     <span
                       onClick={() => {
@@ -743,8 +848,8 @@ export default function RegisterCompanyContent({ data }: Props) {
                       />
                     );
                   })}
-
                   <UploadBox onUploadComplete={handleUploadCooperateReceiveDocumentComplete} />
+                  {invalid?.cooperate_document && <small className="text-red">{t("T_49")}</small>}
                   <div className=" mt-3">
                     <span
                       onClick={() => {
@@ -773,6 +878,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                     );
                   })}
                   <UploadBox onUploadComplete={handleUploadCooperateDelegateDocumentComplete} />
+                  {invalid?.cooperate_delegate_document && <small className="text-red">{t("T_49")}</small>}
                   <div className=" mt-3">
                     <span
                       onClick={() => {
@@ -786,18 +892,21 @@ export default function RegisterCompanyContent({ data }: Props) {
                 </Col>
                 <Col className={`col-12  mt-5 d-flex align-items-center`}>
                   <div className="left-item"></div>
-                  <h5 className="text-black warp-content ms-3">{t("T_27")}</h5>
+                  <h5 className="text-black warp-content ms-3">{t("T_27")}</h5>&emsp;<span className="txt-purple">{t("T_47")}</span>
                 </Col>
                 <Col className={`col-12 mt-3`}>
-                  <button type="button" onClick={handleGetCurrentLocation}>
-                    Use My Current Location
-                  </button>
                   <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "2/1" }}>
                     <LoadScript googleMapsApiKey={ApiService.YOUR_GOOGLE_MAPS_API_KEY}>
                       <GoogleMap
                         mapContainerStyle={containerStyle}
                         center={position}
                         zoom={15}
+                        onLoad={(map) => {
+                          if (!mapRef.current) {
+                            mapRef.current = map as any;
+                            initMap(map);
+                          }
+                        }}
                         onClick={handleMapClick}
                         options={{
                           mapTypeControl: false,

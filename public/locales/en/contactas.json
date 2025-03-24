@@ -25,5 +25,10 @@
   "T_33": "Please fill out all the information.",
   "T_34": "OK",
   "T_38": "Successfully.",
-  "T_39": "The system has successfully saved the data."
+  "T_39": "The system has successfully saved the data.",
+
+  "T_48": "Please enter the correct information.",
+  "T_49": "Please upload file.",
+  "T_50": "Please enter a mobile phone number only to receive the OTP.",
+  "T_51": "Please enter a valid email address."
 }

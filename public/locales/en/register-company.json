@@ -44,5 +44,10 @@
   "T_43": "Edit",
   "T_44": "Loading...",
   "T_45": "Geolocation is not supported by this browser.",
-  "T_46": "Unable to retrieve your location."
+  "T_46": "Unable to retrieve your location.",
+  "T_47": "Select the location of your organization on the map.",
+  "T_48": "Please enter the correct information.",
+  "T_49": "Please upload file.",
+  "T_50": "Please enter a mobile phone number only to receive the OTP.",
+  "T_51": "Please enter a valid email address."
 }

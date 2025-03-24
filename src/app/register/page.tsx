@@ -18,6 +18,9 @@ export default function RegisterContent() {
   const [pCode, setPostCode] = useState("");
   const [requests, setRequests] = useState<any[]>([]);
 
+  const [invalid, setInvalid] = useState<any>(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
   const [formData, setFormData] = useState<any>({
     name: "",
     surname: "",
@@ -36,13 +39,10 @@ export default function RegisterContent() {
     request_id: "",
   });
 
-  const [errors, setErrors] = useState(false);
-
   useEffect(() => {
     const fetchData = async () => {
       const resp = await ApiService.getProvinces();
       setProvince(resp);
-
       const respReq = await ApiService.getRequests();
       setRequests(respReq);
     };
@@ -51,10 +51,40 @@ export default function RegisterContent() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    let newVal = value;
+    if (name === "mobile") {
+      newVal = value.replace(/\D/g, "").slice(0, 10);
+    } else if (name === "rec_year") {
+      if (value.length) {
+        const maxYear = new Date().getFullYear() + 543;
+        if (parseInt(value) > maxYear) {
+          newVal = maxYear.toString();
+        } else {
+          newVal = value;
+        }
+      } else {
+        newVal = "";
+      }
+    } else if (name === "province") {
+      setFormData((prev: any) => ({
+        ...prev,
+        [name]: newVal,
+        district: "",
+        sub_district: "",
+      }));
+      return;
+    } else if (name === "district") {
+      setFormData((prev: any) => ({
+        ...prev,
+        [name]: newVal,
+        sub_district: "",
+      }));
+      return;
+    }
+    setFormData((prev: any) => ({
+      ...prev,
+      [name]: newVal,
+    }));
   };
 
   const provinceChanged = async (provinceCode: string) => {
@@ -79,12 +109,12 @@ export default function RegisterContent() {
   };
 
   const subDistrictChanged = async (subDistrictCode: string) => {
-    const p = subDistricts.find((s) => s.sub_district_code === subDistrictCode)!.post_code;
-    setPostCode(p);
+    const p = subDistricts.find((s) => s.sub_district_code === subDistrictCode)?.post_code;
+    setPostCode(p || "");
   };
 
   const validate = (): boolean => {
-    const invalid = {
+    const invalid: any = {
       name: false,
       surname: false,
       mobile: false,
@@ -98,15 +128,32 @@ export default function RegisterContent() {
       request_id: false,
     };
     Object.keys(invalid).forEach((k) => {
-      invalid[k as keyof typeof invalid] = formData[k as keyof typeof formData].length === 0;
+      if (k === "mobile") {
+        invalid.mobile = formData.mobile.length !== 10;
+      } else if (k === "email") {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        invalid.email = !emailRegex.test(formData.email);
+      } else if (k === "rec_year") {
+        invalid.rec_year = formData.rec_year.length !== 4;
+      } else {
+        invalid[k as keyof typeof invalid] = formData[k as keyof typeof formData].length === 0;
+      }
     });
 
-    const res = Object.values(invalid).every((e) => e === false) && formData.is_contact_period_morning.length && formData.is_contact_period_afternoon.length;
-    setErrors(!res);
+    invalid.is_contact_period = formData.is_contact_period_morning.length === 0 && formData.is_contact_period_afternoon.length === 0;
+
+    console.log(formData);
+    console.log(invalid);
+    const res = Object.values(invalid).every((e) => e === false);
+    setInvalid(invalid);
+
     return res;
   };
 
   const submit = async () => {
+    if (!hasInteracted) {
+      setHasInteracted(true);
+    }
     const valid = validate();
 
     if (!valid) {
@@ -188,6 +235,12 @@ export default function RegisterContent() {
     }
   };
 
+  useEffect(() => {
+    if (hasInteracted) {
+      validate();
+    }
+  }, [formData, hasInteracted]);
+
   return (
     <>
       <div className="background-register">
@@ -210,7 +263,18 @@ export default function RegisterContent() {
                     <Label className="text-black" for="name">
                       {t("D_1_1")} *
                     </Label>
-                    <Input id="name" value={formData.name} name="name" onChange={handleChange} placeholder={t("D_7_1")} type="text" autoComplete="off" maxLength={255} />
+                    <Input
+                      id="name"
+                      className={`${invalid?.name ? "border-red" : ""}`}
+                      value={formData.name}
+                      name="name"
+                      onChange={handleChange}
+                      placeholder={t("D_7_1")}
+                      type="text"
+                      autoComplete="off"
+                      maxLength={255}
+                    />
+                    {invalid?.name && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -218,7 +282,18 @@ export default function RegisterContent() {
                     <Label className="text-black" for="surname">
                       {t("D_1_2")} *
                     </Label>
-                    <Input id="surname" value={formData.surname} name="surname" onChange={handleChange} placeholder={t("D_7_1")} type="text" autoComplete="off" maxLength={255} />
+                    <Input
+                      id="surname"
+                      className={`${invalid?.surname ? "border-red" : ""}`}
+                      value={formData.surname}
+                      name="surname"
+                      onChange={handleChange}
+                      placeholder={t("D_7_1")}
+                      type="text"
+                      autoComplete="off"
+                      maxLength={255}
+                    />
+                    {invalid?.surname && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -226,7 +301,18 @@ export default function RegisterContent() {
                     <Label className="text-black" for="phoneNo">
                       {t("D_1_3")} *
                     </Label>
-                    <Input id="mobile" value={formData.mobile} name="mobile" onChange={handleChange} placeholder={t("D_7_1")} type="text" autoComplete="off" maxLength={255} />
+                    <Input
+                      id="mobile"
+                      className={`${invalid?.mobile ? "border-red" : ""}`}
+                      value={formData.mobile}
+                      name="mobile"
+                      onChange={handleChange}
+                      placeholder={t("D_7_1")}
+                      type="text"
+                      autoComplete="off"
+                      maxLength={255}
+                    />
+                    {invalid?.mobile && <small className="text-red">{t("T_50")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -234,7 +320,19 @@ export default function RegisterContent() {
                     <Label className="text-black" for="email">
                       {t("D_1_4")} *
                     </Label>
-                    <Input id="email" value={formData.email} name="email" onChange={handleChange} placeholder={t("D_7_1")} type="email" autoComplete="off" maxLength={255} />
+                    <Input
+                      id="email"
+                      className={`${invalid?.email ? "border-red" : ""}`}
+                      value={formData.email}
+                      name="email"
+                      onChange={handleChange}
+                      placeholder={t("D_7_1")}
+                      type="email"
+                      autoComplete="off"
+                      maxLength={255}
+                    />
+                    {invalid?.email && formData.email.length === 0 && <small className="text-red">{t("T_48")}</small>}
+                    {invalid?.email && formData.email.length > 0 && <small className="text-red">{t("T_51")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12  mt-3 d-flex align-items-center`}>
@@ -246,7 +344,18 @@ export default function RegisterContent() {
                     <Label className="text-black" for="address">
                       {t("D_2_1")} *
                     </Label>
-                    <Input id="address" value={formData.address} name="address" onChange={handleChange} placeholder={t("D_7_1")} autoComplete="off" type="text" maxLength={500} />
+                    <Input
+                      id="address"
+                      className={`${invalid?.address ? "border-red" : ""}`}
+                      value={formData.address}
+                      name="address"
+                      onChange={handleChange}
+                      placeholder={t("D_7_1")}
+                      autoComplete="off"
+                      type="text"
+                      maxLength={500}
+                    />
+                    {invalid?.address && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -256,6 +365,7 @@ export default function RegisterContent() {
                     </Label>
                     <Input
                       id="province"
+                      className={`${invalid?.province ? "border-red" : ""}`}
                       value={formData.province}
                       name="province"
                       onChange={(e: any) => {
@@ -273,6 +383,7 @@ export default function RegisterContent() {
                         );
                       })}
                     </Input>
+                    {invalid?.province && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -282,6 +393,7 @@ export default function RegisterContent() {
                     </Label>
                     <Input
                       id="district"
+                      className={`${invalid?.district ? "border-red" : ""}`}
                       value={formData.district}
                       name="district"
                       onChange={(e: any) => {
@@ -299,6 +411,7 @@ export default function RegisterContent() {
                         );
                       })}
                     </Input>
+                    {invalid?.district && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -307,6 +420,7 @@ export default function RegisterContent() {
                       {t("D_2_4")} *
                     </Label>
                     <Input
+                      className={`${invalid?.sub_district ? "border-red" : ""}`}
                       id="sub_district"
                       value={formData.sub_district}
                       name="sub_district"
@@ -325,6 +439,7 @@ export default function RegisterContent() {
                         );
                       })}
                     </Input>
+                    {invalid?.sub_district && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>
@@ -344,7 +459,7 @@ export default function RegisterContent() {
                     <Label className="text-black" for="request_id">
                       {t("H_4")} *
                     </Label>
-                    <Input id="request_id" value={formData.request_id} name="request_id" onChange={handleChange} type="select">
+                    <Input id="request_id" className={`${invalid?.request_id ? "border-red" : ""}`} value={formData.request_id} name="request_id" onChange={handleChange} type="select">
                       <option value={``}>{t("H_10")}</option>
                       {requests.map((r: any) => {
                         return (
@@ -354,6 +469,7 @@ export default function RegisterContent() {
                         );
                       })}
                     </Input>
+                    {invalid?.request_id && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12  mt-3 d-flex align-items-center`}>
@@ -365,8 +481,19 @@ export default function RegisterContent() {
                     <Label className="text-black" for="rec_amount">
                       {t("D_5_1")} *
                     </Label>
-                    <Input id="rec_amount" value={formData.rec_amount} name="rec_amount" onChange={handleChange} placeholder={t("D_7_1")} type="number" maxLength={255} />
+                    <Input
+                      id="rec_amount"
+                      className={`${invalid?.request_id ? "border-red" : ""}`}
+                      value={formData.rec_amount}
+                      name="rec_amount"
+                      onChange={handleChange}
+                      placeholder={t("D_7_1")}
+                      type="number"
+                      maxLength={255}
+                    />
                     <small className="text-muted">{t(`H_11`)}</small>
+                    <br />
+                    {invalid?.rec_amount && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6 mt-3`}>
@@ -374,8 +501,19 @@ export default function RegisterContent() {
                     <Label className="text-black" for="rec_year">
                       {t("D_5_2")} *
                     </Label>
-                    <Input id="rec_year" value={formData.rec_year} name="rec_year" onChange={handleChange} placeholder={t("D_7_1")} type="number" maxLength={255} />
+                    <Input
+                      id="rec_year"
+                      className={`${invalid?.rec_year ? "border-red" : ""}`}
+                      value={formData.rec_year}
+                      name="rec_year"
+                      onChange={handleChange}
+                      placeholder={t("D_7_1")}
+                      type="number"
+                      maxLength={255}
+                    />
                     <small className="text-muted">{t(`H_12`)}</small>
+                    <br />
+                    {invalid?.rec_year && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12  mt-3 d-flex align-items-center`}>
@@ -421,6 +559,7 @@ export default function RegisterContent() {
                       {t("D_6_3")}
                     </Label>
                   </FormGroup>
+                  {invalid?.is_contact_period && <small className="text-red">{t("T_48")}</small>}
                 </Col>
                 <Col className={`col-12 mt-5`}>
                   <FormGroup>

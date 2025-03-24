@@ -23,6 +23,9 @@ const position = {
 export default function ContactUsContent() {
   const { t } = useTranslation(["contactas"]);
 
+  const [invalid, setInvalid] = useState<any>(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
   const [formData, setFormData] = useState({
     contact_name: "",
     contact_surname: "",
@@ -33,10 +36,14 @@ export default function ContactUsContent() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    let newVal = value;
+    if (name === "contact_mobile") {
+      newVal = value.replace(/\D/g, "").slice(0, 10);
+    }
+    setFormData((prev: any) => ({
+      ...prev,
+      [name]: newVal,
+    }));
   };
 
   const validate = (): boolean => {
@@ -47,13 +54,30 @@ export default function ContactUsContent() {
       contact_email: false,
     };
     Object.keys(invalid).forEach((k) => {
-      invalid[k as keyof typeof invalid] = formData[k as keyof typeof formData].length === 0;
+      if (k === "contact_mobile") {
+        invalid.contact_mobile = formData.contact_mobile.length !== 10;
+      } else if (k === "contact_email") {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        invalid.contact_email = !emailRegex.test(formData.contact_email);
+      } else {
+        invalid[k as keyof typeof invalid] = formData[k as keyof typeof formData].length === 0;
+      }
     });
     const res = Object.values(invalid).every((e) => e === false);
+    setInvalid(invalid);
     return res;
   };
 
+  useEffect(() => {
+    if (hasInteracted) {
+      validate();
+    }
+  }, [formData, hasInteracted]);
+
   const submit = async () => {
+    if (!hasInteracted) {
+      setHasInteracted(true);
+    }
     const valid = validate();
 
     if (!valid) {
@@ -108,6 +132,7 @@ export default function ContactUsContent() {
   const [googleMapsApiKey, setGoogleMapsApiKey] = useState("");
 
   useEffect(() => {
+    console.log(ApiService.YOUR_GOOGLE_MAPS_API_KEY);
     setGoogleMapsApiKey(ApiService.YOUR_GOOGLE_MAPS_API_KEY);
   }, []);
 
@@ -138,7 +163,18 @@ export default function ContactUsContent() {
                     <Label className="text-black" for="contact_name">
                       {t("H_8")} *
                     </Label>
-                    <Input id="contact_name" value={formData.contact_name} name="contact_name" onChange={handleChange} placeholder={t("H_13")} type="text" autoComplete="off" maxLength={255} />
+                    <Input
+                      id="contact_name"
+                      className={`${invalid?.contact_name ? "border-red" : ""}`}
+                      value={formData.contact_name}
+                      name="contact_name"
+                      onChange={handleChange}
+                      placeholder={t("H_13")}
+                      type="text"
+                      autoComplete="off"
+                      maxLength={255}
+                    />
+                    {invalid?.contact_name && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-6`}>
@@ -147,6 +183,7 @@ export default function ContactUsContent() {
                       {t("H_9")} *
                     </Label>
                     <Input
+                      className={`${invalid?.contact_surname ? "border-red" : ""}`}
                       id="contact_surname"
                       value={formData.contact_surname}
                       name="contact_surname"
@@ -156,6 +193,7 @@ export default function ContactUsContent() {
                       autoComplete="off"
                       maxLength={255}
                     />
+                    {invalid?.contact_surname && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-6`}>
@@ -163,7 +201,20 @@ export default function ContactUsContent() {
                     <Label className="text-black" for="contact_mobile">
                       {t("H_10")} *
                     </Label>
-                    <Input id="contact_mobile" value={formData.contact_mobile} name="contact_mobile" onChange={handleChange} placeholder={t("H_13")} autoComplete="off" type="text" maxLength={10} inputMode="numeric" pattern="[0-9]*" />
+                    <Input
+                      id="contact_mobile"
+                      className={`${invalid?.contact_mobile ? "border-red" : ""}`}
+                      value={formData.contact_mobile}
+                      name="contact_mobile"
+                      onChange={handleChange}
+                      placeholder={t("H_13")}
+                      autoComplete="off"
+                      type="text"
+                      maxLength={10}
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                    />
+                    {invalid?.contact_mobile && <small className="text-red">{t("T_50")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-6`}>
@@ -171,7 +222,18 @@ export default function ContactUsContent() {
                     <Label className="text-black" for="email">
                       {t("H_11")} *
                     </Label>
-                    <Input id="contact_email" value={formData.contact_email} name="contact_email" onChange={handleChange} placeholder={t("H_13")} type="email" maxLength={255} />
+                    <Input
+                      id="contact_email"
+                      className={`${invalid?.contact_email ? "border-red" : ""}`}
+                      value={formData.contact_email}
+                      name="contact_email"
+                      onChange={handleChange}
+                      placeholder={t("H_13")}
+                      type="email"
+                      maxLength={255}
+                    />
+                    {invalid?.contact_email && formData.contact_email.length === 0 && <small className="text-red">{t("T_48")}</small>}
+                    {invalid?.contact_email && formData.contact_email.length > 0 && <small className="text-red">{t("T_51")}</small>}
                   </FormGroup>
                 </Col>
                 <Col className={`col-12`}>
@@ -206,9 +268,19 @@ export default function ContactUsContent() {
           <div className={`row`}>
             <div className={`col-lg-6 col-12 mt-5`}>
               <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "1/1" }}>
-                <LoadScript googleMapsApiKey={googleMapsApiKey}>
-                  <GoogleMap mapContainerStyle={containerStyle} center={position} zoom={15}>
-                    <Marker position={position} />
+                <LoadScript googleMapsApiKey={ApiService.YOUR_GOOGLE_MAPS_API_KEY}>
+                  <GoogleMap
+                    mapContainerStyle={containerStyle}
+                    center={position}
+                    zoom={15}
+                    options={{
+                      mapTypeControl: false,
+                      streetViewControl: false,
+                      fullscreenControl: false,
+                      zoomControl: true,
+                    }}
+                  >
+                    {position && <Marker position={position} />}
                   </GoogleMap>
                 </LoadScript>
               </div>
