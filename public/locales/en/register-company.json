@@ -42,5 +42,7 @@
   "T_41": "Back to Home",
   "T_42": "The transaction could not be completed. Please try again later.",
   "T_43": "Edit",
-  "T_44": "Loading..."
+  "T_44": "Loading...",
+  "T_45": "Geolocation is not supported by this browser.",
+  "T_46": "Unable to retrieve your location."
 }

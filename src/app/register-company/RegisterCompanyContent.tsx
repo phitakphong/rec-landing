@@ -17,11 +17,6 @@ const containerStyle = {
   height: "100%",
 };
 
-const position = {
-  lat: 13.850821,
-  lng: 100.558112,
-};
-
 interface Props {
   data: any | null;
   id: string | null;
@@ -35,8 +30,15 @@ export default function RegisterCompanyContent({ data }: Props) {
   const [subDistricts, setSubDistricts] = useState<any[]>([]);
   const [pCode, setPostCode] = useState("");
   const [id, setId] = useState(null);
+  const [position, setPosition] = useState({
+    lat: 13.850821,
+    lng: 100.558112,
+  });
 
-  const [markerPosition, setMarkerPosition] = useState<any>(null);
+  const [markerPosition, setMarkerPosition] = useState<any>({
+    lat: 13.850821,
+    lng: 100.558112,
+  });
 
   const handleMapClick = (event: google.maps.MapMouseEvent) => {
     if (event.latLng) {
@@ -312,6 +314,23 @@ export default function RegisterCompanyContent({ data }: Props) {
   const handleUploadCooperateDelegateDocumentDelete = (index: number) => {
     const updatedDocs = [...cooperateDelegateDocument.slice(0, index), ...cooperateDelegateDocument.slice(index + 1)];
     setCooperateDelegateDocument(updatedDocs);
+  };
+
+  const handleGetCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setPosition({ lat: latitude, lng: longitude });
+          setMarkerPosition({ lat: latitude, lng: longitude });
+        },
+        () => {
+          alert("Unable to retrieve your location.");
+        }
+      );
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
   };
 
   return (
@@ -770,14 +789,23 @@ export default function RegisterCompanyContent({ data }: Props) {
                   <h5 className="text-black warp-content ms-3">{t("T_27")}</h5>
                 </Col>
                 <Col className={`col-12 mt-3`}>
-                  <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "1/1" }}>
+                  <button type="button" onClick={handleGetCurrentLocation}>
+                    Use My Current Location
+                  </button>
+                  <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "2/1" }}>
                     <LoadScript googleMapsApiKey={ApiService.YOUR_GOOGLE_MAPS_API_KEY}>
-                      <GoogleMap mapContainerStyle={containerStyle} center={position} zoom={15} onClick={handleMapClick} options={{
-                        mapTypeControl: false,
-                        streetViewControl: false,
-                        fullscreenControl: false,
-                        zoomControl: true,
-                      }}>
+                      <GoogleMap
+                        mapContainerStyle={containerStyle}
+                        center={position}
+                        zoom={15}
+                        onClick={handleMapClick}
+                        options={{
+                          mapTypeControl: false,
+                          streetViewControl: false,
+                          fullscreenControl: false,
+                          zoomControl: true,
+                        }}
+                      >
                         {markerPosition && <Marker position={markerPosition} />}
                       </GoogleMap>
                     </LoadScript>
