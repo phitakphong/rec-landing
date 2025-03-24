@@ -410,7 +410,7 @@ export default function RegisterCompanyContent({ data }: Props) {
       button.style.borderRadius = "4px";
 
       const icon = document.createElement("i");
-      icon.className = "bi bi-crosshair2";
+      icon.className = "bi bi-crosshair";
       icon.style.fontSize = "18px";
       button.appendChild(icon);
 
