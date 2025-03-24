@@ -25,11 +25,11 @@ export default function News() {
   return (
     <>
       <div className="row">
-        <div className="col-12 position-relative">
-          <h1 className="gradient-text">{t("D_5")}</h1>
+        <div className="col-12 d-flex flex-column flex-lg-row align-items-lg-center position-relative">
+          <h1 className="gradient-text mb-2 mb-lg-0">{t("D_5")}</h1>
 
-          <Link href="/news" className="txt-purple position-absolute top-0 end-0 mt-3" style={{ fontSize: "18px" }}>
-            {t("D_5_1")} <Image src="/images/ic_more.png" width={24} height={24} alt="ic_more" />
+          <Link href="/news" className="txt-purple ms-lg-auto mt-3 mt-lg-0" style={{ fontSize: "18px" }}>
+        {t("D_5_1")} <Image src="/images/ic_more.png" width={24} height={24} alt="ic_more" />
           </Link>
         </div>
       </div>

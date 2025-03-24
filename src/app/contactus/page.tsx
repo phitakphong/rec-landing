@@ -163,7 +163,7 @@ export default function ContactUsContent() {
                     <Label className="text-black" for="contact_mobile">
                       {t("H_10")} *
                     </Label>
-                    <Input id="contact_mobile" value={formData.contact_mobile} name="contact_mobile" onChange={handleChange} placeholder={t("H_13")} autoComplete="off" type="text" maxLength={255} />
+                    <Input id="contact_mobile" value={formData.contact_mobile} name="contact_mobile" onChange={handleChange} placeholder={t("H_13")} autoComplete="off" type="text" maxLength={10} inputMode="numeric" pattern="[0-9]*" />
                   </FormGroup>
                 </Col>
                 <Col className={`col-6`}>

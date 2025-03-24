@@ -77,7 +77,7 @@ export default function NewsContent() {
         <div className={`container py-5`}>
           <div className={`row my-5`}>
             <div className={`col-12`}>
-              <p className="text-header-eng text-center">News and Events</p>
+              <p className="text-header-eng-new text-center">News and Events</p>
               <h1 className="text-header-big">{t("H_1")}</h1>
             </div>
           </div>
