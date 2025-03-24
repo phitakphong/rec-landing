@@ -15,6 +15,11 @@ body {
   font-family: "IBM Plex Sans Thai", sans-serif;
 }
 
+
+
+
+
+
 .text-header-eng {
   color: rgba(255, 255, 255, 0.6);
   text-align: center;
@@ -460,12 +465,10 @@ a {
   gap: 16px;
 }
 
-.navbar-custom .navbar-nav {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  gap: 16px;
+.navbar-custom .navbar-1200 {
+  font-size: 14px;
 }
+
 
 .navbar > .container-fluid {
   justify-content: center;
