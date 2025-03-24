@@ -2,11 +2,22 @@
 
 import { useTranslation } from "react-i18next";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Partner from "../../components/partner/Partner";
+import ApiService from "@/services/api-service";
 
 export default function AboutContent() {
-  const { t } = useTranslation(["about"]);
+  const { t, i18n } = useTranslation(["about"]);
+  const [aboutData, setaboutData] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const resp = await ApiService.getAbout();
+      setaboutData(resp);
+
+    };
+    fetchData();
+  }, [setaboutData]);
 
   return (
     <>
@@ -23,38 +34,95 @@ export default function AboutContent() {
       <div className={`container py-5 max-width-1140`}>
         <div className="row">
           <div className="col-12">
-            <p className="text-muted mb-0" dangerouslySetInnerHTML={{ __html: t("H_2") }}></p>
-            <strong>
-              <p className="text-muted mt-5" dangerouslySetInnerHTML={{ __html: t("H_3") }}></p>
-            </strong>
-            <p className="text-muted mb-0" dangerouslySetInnerHTML={{ __html: t("D_3_1") }}></p>
-            <div className="mt-5">
-              <p className="text-muted mb-0" dangerouslySetInnerHTML={{ __html: t("D_3_2") }}></p>
-            </div>
-            <div className="mt-5">
-              <strong>
-                <p className="text-muted mb-0" dangerouslySetInnerHTML={{ __html: t("H_4") }}></p>
-              </strong>
-              <p className="text-muted mb-0" dangerouslySetInnerHTML={{ __html: t("D_4") }}></p>
-            </div>
-            <div className="mt-5">
-              <strong>
-                <p className="text-muted mb-0" dangerouslySetInnerHTML={{ __html: t("H_5") }}></p>
-              </strong>
-              <p className="text-muted mb-0" dangerouslySetInnerHTML={{ __html: t("D_5") }}></p>
-            </div>
-            <div className="mt-5">
-              <strong>
-                <p className="text-muted mb-0" dangerouslySetInnerHTML={{ __html: t("H_6") }}></p>
-              </strong>
-              <p className="text-muted mb-0" dangerouslySetInnerHTML={{ __html: t("D_6") }}></p>
-            </div>
-            <div className="mt-5">
-              <strong>
-                <p className="text-muted mb-0" dangerouslySetInnerHTML={{ __html: t("H_7") }}></p>
-              </strong>
-              <p className="text-muted mb-0" dangerouslySetInnerHTML={{ __html: t("D_7") }}></p>
-            </div>
+
+            {aboutData.map((p: any, i: number) => (
+              i === 0 ? (
+                <div key={`about-context-${i}`}>
+                  <p className="text-muted mb-0" dangerouslySetInnerHTML={{ __html: i18n.language === "th" ? p.context.th : p.context.en }}></p>
+                  <div className="mt-5">
+                    {p.image_url_3.length > 0 ? (
+                      <div className="row">
+                        <div className="col-md-4">
+                          <img src={p.image_url_1} alt="" className="img-fluid" />
+                        </div>
+                        <div className="col-md-4">
+                          <img src={p.image_url_1} alt="" className="img-fluid" />
+                        </div>
+                        <div className="col-md-4">
+                          <img src={p.image_url_1} alt="" className="img-fluid" />
+                        </div>
+                      </div>
+                    ) : p.image_url_2.length > 0 ? (
+                      <div className="row">
+                        <div className="col-md-6">
+                          <img src={p.image_url_1} alt="" className="img-fluid" />
+                        </div>
+                        <div className="col-md-6">
+                          <img src={p.image_url_2} alt="" className="img-fluid" />
+                        </div>
+                      </div>
+                    ) : p.image_url_1.length > 0 ? (
+
+                      <div className="row">
+                        <div className="col-md-12">
+                          <img src={p.image_url_1} alt="" className="img-fluid" />
+                        </div>
+                      </div>
+
+                    ) : null}
+                  </div>
+                </div>
+              ) : (
+                <div key={`about-topic-${i}`}>
+                  {p.topic.th.length > 0 ? (
+                    <>
+                      <strong>
+                        <p className="text-muted mt-5" dangerouslySetInnerHTML={{ __html: i18n.language === "th" ? p.topic.th : p.topic.en }}></p>
+                      </strong>
+                    </>
+                  ) : null
+                  }
+
+                  <p className="text-muted mb-0" dangerouslySetInnerHTML={{ __html: i18n.language === "th" ? p.context.th : p.context.en }}></p>
+
+
+                  {p.image_url_3.length > 0 ? (
+                    <div className="row">
+                      <div className="col-md-4">
+                        <img src={p.image_url_1} alt="" className="img-fluid" />
+                      </div>
+                      <div className="col-md-4">
+                        <img src={p.image_url_2} alt="" className="img-fluid" />
+                      </div>
+                      <div className="col-md-4">
+                        <img src={p.image_url_3} alt="" className="img-fluid" />
+                      </div>
+                    </div>
+                  ) : p.image_url_2.length > 0 ? (
+                    <div className="row">
+                      <div className="col-md-6">
+                        <img src={p.image_url_1} alt="" className="img-fluid" />
+                      </div>
+                      <div className="col-md-6">
+                        <img src={p.image_url_2} alt="" className="img-fluid" />
+                      </div>
+                    </div>
+                  ) : p.image_url_1.length > 0 ? (
+
+
+                    <div className="row">
+                      <div className="col-md-12">
+                        <img src={p.image_url_1} alt="" className="img-fluid" />
+                      </div>
+                    </div>
+
+                  ) : null
+                  }
+
+
+                </div>
+              )
+            ))}
           </div>
         </div>
       </div>
