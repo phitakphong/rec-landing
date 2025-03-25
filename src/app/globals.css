@@ -240,7 +240,7 @@ a {
   background-image: url("/images/aboutus-banner.jpg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: cover;
   height: 256px;
   display: flex;
   align-items: center;
@@ -250,7 +250,7 @@ a {
   background-image: url("/images/contactus-banner.jpg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: cover;
   height: 256px;
   display: flex;
   align-items: center;
@@ -260,7 +260,7 @@ a {
   background-image: url("/images/faq-banner.jpg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: cover;
   height: 256px;
   display: flex;
   align-items: center;
@@ -280,7 +280,7 @@ a {
   background-image: url("/images/calrec-banner.png");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: cover;
   height: 256px;
   display: flex;
   align-items: center;
@@ -290,7 +290,7 @@ a {
   background-image: url("/images/register-banner.jpg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: cover;
   height: 256px;
   display: flex;
   align-items: center;
@@ -300,7 +300,7 @@ a {
   background-image: url("/images/terms-banner.png");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: cover;
   height: 256px;
   display: flex;
   align-items: center;
@@ -310,7 +310,7 @@ a {
   background-image: url("/images/policy-banner.jpg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: cover;
   height: 256px;
   display: flex;
   align-items: center;
@@ -320,7 +320,7 @@ a {
   background-image: url("/images/terms-banner.png");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: cover;
   height: 256px;
   display: flex;
   align-items: center;
