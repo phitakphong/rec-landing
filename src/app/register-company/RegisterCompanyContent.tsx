@@ -366,26 +366,26 @@ export default function RegisterCompanyContent({ data }: Props) {
         () => {
           Swal.fire({
             icon: "error",
-            confirmButtonText: t("T_46"),
+            confirmButtonText: t("T_34"),
             buttonsStyling: false,
             allowOutsideClick: false,
             customClass: {
               confirmButton: "bg-primary-gradient btn btn-primary px-5",
             },
-            text: t("T_33"),
+            text: t("T_46"),
           });
         }
       );
     } else {
       Swal.fire({
         icon: "error",
-        confirmButtonText: t("T_45"),
+        confirmButtonText: t("T_34"),
         buttonsStyling: false,
         allowOutsideClick: false,
         customClass: {
           confirmButton: "bg-primary-gradient btn btn-primary px-5",
         },
-        text: t("T_33"),
+        text: t("T_45"),
       });
     }
   };

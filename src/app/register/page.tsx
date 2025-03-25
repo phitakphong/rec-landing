@@ -142,8 +142,6 @@ export default function RegisterContent() {
 
     invalid.is_contact_period = formData.is_contact_period_morning.length === 0 && formData.is_contact_period_afternoon.length === 0;
 
-    console.log(formData);
-    console.log(invalid);
     const res = Object.values(invalid).every((e) => e === false);
     setInvalid(invalid);
 
