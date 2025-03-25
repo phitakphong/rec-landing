@@ -15,8 +15,10 @@ export default function OurProduct1Content() {
       <div>
         <div className={`container py-5 max-width-1140`}>
           <div className={`row`}>
-            <div className={`col-12 col-lg-6 z-1`}>
-              <h1 className="gradient-text py-2">{t("H_1")}</h1>
+            <div className="col-12 z-1">
+              <h1 className="gradient-text text-full">{t("H_1")}</h1>
+            </div>
+            <div className={`col-12 col-lg-6 mt-3`}>
               <p className="txt-body " dangerouslySetInnerHTML={{ __html: `${t("D_1")}` }}></p>
               <div className="col-12">
                 <div className="d-flex align-items-center p-3">

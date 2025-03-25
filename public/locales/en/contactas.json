@@ -30,5 +30,10 @@
   "T_48": "Please enter the correct information.",
   "T_49": "Please upload file.",
   "T_50": "Please enter a mobile phone number only to receive the OTP.",
-  "T_51": "Please enter a valid email address."
+  "T_51": "Please enter a valid email address.",
+
+  "A_6": "Convenient time for contact",
+  "A_6_1": "Can select more than one option",
+  "A_6_2": "Morning (9.00-12.00)",
+  "A_6_3": "Afternoon (13.00-16.00)"
 }

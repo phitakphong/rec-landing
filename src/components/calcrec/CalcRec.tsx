@@ -510,7 +510,8 @@ export default function CalcRec({ className }: CalcRecProps) {
                           </td>
                           <td>{i + 1}.</td>
                           <td>
-                            {MONTHS[i18n.language as keyof typeof MONTHS][parseInt(p.billPeriod.toString().substring(4))]} {p.billPeriod.toString().substring(0, 4)}
+                          {MONTHS[i18n.language as keyof typeof MONTHS][parseInt(p.billPeriod.toString().substring(4))]} {parseInt(p.billPeriod.toString().substring(0, 4)) + 543}
+
                           </td>
                           <td>{p.kwhTotal} kWh</td>
                         </tr>

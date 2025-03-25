@@ -42,6 +42,8 @@ export default function RegisterCompanyContent({ data }: Props) {
     lng: 100.558112,
   });
 
+  const [is_contact_period_morning, setIsContactPeriodMorning] = useState<any>(null);
+
   const handleMapClick = (event: google.maps.MapMouseEvent) => {
     if (event.latLng) {
       setMarkerPosition({
@@ -185,7 +187,7 @@ export default function RegisterCompanyContent({ data }: Props) {
       cooperate_card_type: false,
       cooperate_company_address: false,
       cooperate_company_branch: false,
-      cooperate_company_ca: false,
+      // cooperate_company_ca: false,
       cooperate_company_district: false,
       cooperate_company_id: false,
       cooperate_company_name: false,
@@ -297,10 +299,11 @@ export default function RegisterCompanyContent({ data }: Props) {
         confirmButtonText: t("T_40"),
         cancelButtonText: t("T_41"),
         customClass: {
-          confirmButton: "bg-primary-gradient btn btn-primary px-5 me-2",
+          confirmButton: "bg-primary-gradient btn btn-primary px-4 me-2",
           cancelButton: "bg-primary-gradient btn btn-primary px-5",
         },
         buttonsStyling: false,
+        heightAuto: false, // Disable automatic height adjustment
       });
 
       if (result.isConfirmed) {
@@ -364,16 +367,16 @@ export default function RegisterCompanyContent({ data }: Props) {
           setMarkerPosition({ lat: latitude, lng: longitude });
         },
         () => {
-          Swal.fire({
-            icon: "error",
-            confirmButtonText: t("T_34"),
-            buttonsStyling: false,
-            allowOutsideClick: false,
-            customClass: {
-              confirmButton: "bg-primary-gradient btn btn-primary px-5",
-            },
-            text: t("T_46"),
-          });
+          // Swal.fire({
+          //   icon: "error",
+          //   confirmButtonText: t("T_34"),
+          //   buttonsStyling: false,
+          //   allowOutsideClick: false,
+          //   customClass: {
+          //     confirmButton: "bg-primary-gradient btn btn-primary px-5",
+          //   },
+          //   text: t("T_46"),
+          // });
         }
       );
     } else {
@@ -599,7 +602,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                     <Label className="text-black" for="cooperate_company_ca">
                       {t("T_12")}
                     </Label>
-                    <InputGroup className={`input-group ${invalid?.cooperate_company_ca ? "border-red" : ""}`}>
+                    <InputGroup className={`input-group`}>
                       <InputGroupText>
                         <i className="bi bi-credit-card"></i>
                       </InputGroupText>
@@ -614,7 +617,7 @@ export default function RegisterCompanyContent({ data }: Props) {
                         placeholder={t("T_29")}
                       />
                     </InputGroup>
-                    {invalid?.cooperate_company_ca && <small className="text-red">{t("T_48")}</small>}
+                    
                   </FormGroup>
                 </Col>
                 <Col className={`col-12 col-lg-6`}>

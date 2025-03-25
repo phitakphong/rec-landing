@@ -15,8 +15,11 @@ export default function OurProduct2Content() {
       <div>
         <div className={`container py-5 max-width-1140`}>
           <div className={`row`}>
-            <div className={`col-12 col-lg-7 z-1`}>
+            <div className="col-12 z-1">
               <h1 className="gradient-text text-full">{t("H_1")}</h1>
+            </div>
+            <div className={`col-12 col-lg-7 z-1 mt-3`}>
+              
               <p className="txt-body " dangerouslySetInnerHTML={{ __html: `${t("H_2")}` }}></p>
               <p className="txt-body " dangerouslySetInnerHTML={{ __html: `${t("H_3")}` }}></p>
               <div className="col-12">
@@ -70,9 +73,9 @@ export default function OurProduct2Content() {
                 </div>
               </div>
             </div>
-            <div className="col-12 col-lg-5 d-flex justify-content-center align-items-end mb-3 z-0">
+            <div className="col-12 col-lg-5 d-flex justify-content-center align-items-center mb-3 z-0">
               <div style={{ position: "relative", width: "100%", height: "auto", aspectRatio: "1/1" }}>
-                <Image src="/images/img_prod2.png" alt="green2" fill priority />
+              <Image src="/images/img_prod2.png" alt="green2" fill priority />
               </div>
             </div>
           </div>

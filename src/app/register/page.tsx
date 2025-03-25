@@ -37,6 +37,11 @@ export default function RegisterContent() {
     is_contact_period_morning: "",
     is_contact_period_afternoon: "",
     request_id: "",
+    is_request_power_source_solar: "",
+    is_request_power_source_hydro: "",
+    is_request_power_source_bio: "",
+    is_request_power_source_wind: "",
+
   });
 
   useEffect(() => {
@@ -141,6 +146,7 @@ export default function RegisterContent() {
     });
 
     invalid.is_contact_period = formData.is_contact_period_morning.length === 0 && formData.is_contact_period_afternoon.length === 0;
+    invalid.is_request_power = formData.is_request_power_source_solar.length === 0 && formData.is_request_power_source_hydro.length === 0 && formData.is_request_power_source_bio.length === 0 && formData.is_request_power_source_wind.length === 0;
 
     const res = Object.values(invalid).every((e) => e === false);
     setInvalid(invalid);
@@ -185,10 +191,10 @@ export default function RegisterContent() {
         rec_amount: parseFloat(formData.rec_amount),
         rec_year: parseInt(formData.rec_year),
 
-        is_request_power_source_solar: false,
-        is_request_power_source_hydro: false,
-        is_request_power_source_bio: false,
-        is_request_power_source_wind: false,
+        is_request_power_source_solar: formData.is_request_power_source_solar == 1,
+        is_request_power_source_hydro: formData.is_request_power_source_hydro == 1,
+        is_request_power_source_bio: formData.is_request_power_source_bio == 1,
+        is_request_power_source_wind: formData.is_request_power_source_wind == 1,
 
         is_contact_period_morning: formData.is_contact_period_morning == 1,
         is_contact_period_afternoon: formData.is_contact_period_afternoon == 1,
@@ -210,6 +216,10 @@ export default function RegisterContent() {
         },
         buttonsStyling: false,
       });
+
+      if (result.isConfirmed) {
+        router.push("/home");
+      }
 
       if (result.isConfirmed) {
         const form = { ...formData };
@@ -470,7 +480,94 @@ export default function RegisterContent() {
                     {invalid?.request_id && <small className="text-red">{t("T_48")}</small>}
                   </FormGroup>
                 </Col>
+{/* checkbok */}
                 <Col className={`col-12  mt-3 d-flex align-items-center`}>
+                  <div className="left-item"></div>
+                  <h5 className="text-black warp-content ms-3">{t("D_4_1")}</h5>
+                </Col>
+                <Col className={`col-12 col-lg-6 mt-3`}>
+
+                  <FormGroup check>
+                    <Input
+                      type="checkbox"
+                      id="is_request_power_source_solar"
+                      name="is_request_power_source_solar"
+                      checked={formData.is_request_power_source_solar == 1}
+                      onChange={() => {
+                        const val = formData.is_request_power_source_solar == 1 ? "" : "1";
+                        setFormData({
+                          ...formData,
+                          is_request_power_source_solar: val,
+                        });
+                      }}
+                    />
+                    <Label className="text-muted mt-1 ms-2" for="is_request_power_source_solar" check>
+                      {t("D_4_2")}
+                    </Label>
+                  </FormGroup>
+                  <FormGroup check>
+                    <Input
+                      type="checkbox"
+                      id="is_request_power_source_wind"
+                      name="is_request_power_source_wind"
+                      value={`1`}
+                      checked={formData.is_request_power_source_wind == 1}
+                      onChange={() => {
+                        const val = formData.is_request_power_source_wind == 1 ? "" : "1";
+                        setFormData({
+                          ...formData,
+                          is_request_power_source_wind: val,
+                        });
+                      }}
+                    />
+                    <Label className="text-muted mt01 ms-2" for="is_request_power_source_wind" check>
+                      {t("D_4_3")}
+                    </Label>
+                  </FormGroup>
+
+                  <FormGroup check>
+                    <Input
+                      type="checkbox"
+                      id="is_request_power_source_hydro"
+                      name="is_request_power_source_hydro"
+                      value={`1`}
+                      checked={formData.is_request_power_source_hydro == 1}
+                      onChange={() => {
+                        const val = formData.is_request_power_source_hydro == 1 ? "" : "1";
+                        setFormData({
+                          ...formData,
+                          is_request_power_source_hydro: val,
+                        });
+                      }}
+                    />
+                    <Label className="text-muted mt01 ms-2" for="is_request_power_source_hydro" check>
+                      {t("D_4_4")}
+                    </Label>
+                  </FormGroup>
+
+                  <FormGroup check>
+                    <Input
+                      type="checkbox"
+                      id="is_request_power_source_bio"
+                      name="is_request_power_source_bio"
+                      value={`1`}
+                      checked={formData.is_request_power_source_bio == 1}
+                      onChange={() => {
+                        const val = formData.is_request_power_source_bio == 1 ? "" : "1";
+                        setFormData({
+                          ...formData,
+                          is_request_power_source_bio: val,
+                        });
+                      }}
+                    />
+                    <Label className="text-muted mt01 ms-2" for="is_request_power_source_bio" check>
+                      {t("D_4_5")}
+                    </Label>
+                  </FormGroup>
+                  {invalid?.is_request_power && <small className="text-red">{t("T_48")}</small>}
+                </Col>
+{/* end checkbox */}
+                <Col className={`col-12  mt-4 d-flex align-items-center`}>
                   <div className="left-item"></div>
                   <h5 className="text-black warp-content ms-3">{t("H_5")}</h5>
                 </Col>

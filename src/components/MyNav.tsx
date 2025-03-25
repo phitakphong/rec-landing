@@ -87,8 +87,8 @@ export default function CustomNavbar() {
                   <ul className="dropdown-menu show">
                     <li>
                       <a
-                        href="/our-product-1"
-                        className={`dropdown-item ${pathname === "/our-product-1" ? "fw-bold txt-purple" : ""}`}
+                        href="/our-product-2"
+                        className={`dropdown-item ${pathname === "/our-product-2" ? "fw-bold txt-purple" : ""}`}
                         onClick={(e) => {
                           e.preventDefault(); // หยุดไม่ให้ <a> ทำงานทันที
                           closeDropdown(); // ปิดเมนู
@@ -100,8 +100,8 @@ export default function CustomNavbar() {
                     </li>
                     <li>
                       <a
-                        href="/our-product-2"
-                        className={`dropdown-item ${pathname === "/our-product-2" ? "fw-bold txt-purple" : ""}`}
+                        href="/our-product-1"
+                        className={`dropdown-item ${pathname === "/our-product-1" ? "fw-bold txt-purple" : ""}`}
                         onClick={(e) => {
                           e.preventDefault();
                           closeDropdown();
@@ -184,12 +184,12 @@ export default function CustomNavbar() {
                 <ul className="dropdown-menu show">
                   <li>
                     <a
-                      href="/our-product-1"
-                      className={`dropdown-item ${pathname === "/our-product-1" ? "fw-bold txt-purple" : ""}`}
+                      href="/our-product-2"
+                      className={`dropdown-item ${pathname === "/our-product-2" ? "fw-bold txt-purple" : ""}`}
                       onClick={(e) => {
                         e.preventDefault(); // หยุดไม่ให้ <a> ทำงานทันที
                         closeDropdown(); // ปิดเมนู
-                        router.push("/our-product-1"); // แล้วค่อยเปลี่ยน route
+                        router.push("/our-product-2"); // แล้วค่อยเปลี่ยน route
                       }}
                     >
                       {t("M_2_1")}
@@ -197,12 +197,12 @@ export default function CustomNavbar() {
                   </li>
                   <li>
                     <a
-                      href="/our-product-2"
-                      className={`dropdown-item ${pathname === "/our-product-2" ? "fw-bold txt-purple" : ""}`}
+                      href="/our-product-1"
+                      className={`dropdown-item ${pathname === "/our-product-1" ? "fw-bold txt-purple" : ""}`}
                       onClick={(e) => {
                         e.preventDefault();
                         closeDropdown();
-                        router.push("/our-product-2");
+                        router.push("/our-product-1");
                       }}
                     >
                       {t("M_2_2")}
@@ -359,9 +359,9 @@ export default function CustomNavbar() {
                   {dropdownOpen && (
                     <ul className="dropdown-menu" style={{ display: "block" }}>
                       <li>
-                        <Link href="/our-product-1" legacyBehavior passHref>
+                        <Link href="/our-product-2" legacyBehavior passHref>
                           <a
-                            className={`dropdown-item ${pathname === "/our-product-1" ? "fw-bold txt-purple" : ""}`}
+                            className={`dropdown-item ${pathname === "/our-product-2" ? "fw-bold txt-purple" : ""}`}
                             onClick={closeDropdown} // Close the dropdown on click
                           >
                             {t("M_2_1")}
@@ -369,9 +369,9 @@ export default function CustomNavbar() {
                         </Link>
                       </li>
                       <li>
-                        <Link href="/our-product-2" legacyBehavior passHref>
+                        <Link href="/our-product-1" legacyBehavior passHref>
                           <a
-                            className={`dropdown-item ${pathname === "/our-product-2" ? "fw-bold txt-purple" : ""}`}
+                            className={`dropdown-item ${pathname === "/our-product-1" ? "fw-bold txt-purple" : ""}`}
                             onClick={closeDropdown} // Close the dropdown on click
                           >
                             {t("M_2_2")}

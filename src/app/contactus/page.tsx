@@ -9,6 +9,7 @@ import Image from "next/image";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import ApiService from "../../services/api-service";
 import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 const containerStyle = {
   width: "100%",
@@ -22,16 +23,18 @@ const position = {
 
 export default function ContactUsContent() {
   const { t } = useTranslation(["contactas"]);
-
+  const router = useRouter();
   const [invalid, setInvalid] = useState<any>(null);
   const [hasInteracted, setHasInteracted] = useState(false);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<any>({
     contact_name: "",
     contact_surname: "",
     contact_mobile: "",
     contact_email: "",
     contact_detail: "",
+    is_contact_period_morning: "",
+    is_contact_period_afternoon: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,11 +50,11 @@ export default function ContactUsContent() {
   };
 
   const validate = (): boolean => {
-    const invalid = {
+    const invalid: any = {
       contact_name: false,
       contact_surname: false,
       contact_mobile: false,
-      contact_email: false,
+      contact_email: false
     };
     Object.keys(invalid).forEach((k) => {
       if (k === "contact_mobile") {
@@ -63,6 +66,9 @@ export default function ContactUsContent() {
         invalid[k as keyof typeof invalid] = formData[k as keyof typeof formData].length === 0;
       }
     });
+
+    invalid.is_contact_period = formData.is_contact_period_morning.length === 0 && formData.is_contact_period_afternoon.length === 0;
+    
     const res = Object.values(invalid).every((e) => e === false);
     setInvalid(invalid);
     return res;
@@ -95,7 +101,18 @@ export default function ContactUsContent() {
     }
 
     try {
-      await ApiService.createContactUs(formData);
+      const req = {
+        contact_name: formData.contact_name,
+        contact_surname: formData.contact_surname,
+        contact_mobile: formData.contact_mobile,
+        contact_email: formData.contact_email,
+        contact_detail: formData.contact_detail,
+
+        is_contact_period_morning: formData.is_contact_period_morning == 1,
+        is_contact_period_afternoon: formData.is_contact_period_afternoon == 1,
+      };
+      
+      await ApiService.createContactUs(req);
       const result = await Swal.fire({
         icon: "success",
         title: t("T_38"),
@@ -109,6 +126,7 @@ export default function ContactUsContent() {
       });
 
       if (result.isConfirmed) {
+        router.push("/home");
         const form = { ...formData };
         Object.keys(form).forEach((k: string) => {
           form[k as keyof typeof form] = "";
@@ -236,7 +254,55 @@ export default function ContactUsContent() {
                     {invalid?.contact_email && formData.contact_email.length > 0 && <small className="text-red">{t("T_51")}</small>}
                   </FormGroup>
                 </Col>
-                <Col className={`col-12`}>
+
+                <Col className={`col-12  mt-3 d-flex align-items-center`}>
+                  <div className="left-item"></div>
+                  <h5 className="text-black warp-content ms-3">{t("A_6")}</h5>
+                </Col>
+                <Col className={`col-12 col-lg-6 mt-3`}>
+                  <Label className="text-black">{t("A_6_1")}</Label>
+                  <FormGroup check>
+                    <Input
+                      type="checkbox"
+                      id="is_contact_period_morning"
+                      name="is_contact_period_morning"
+                      checked={formData.is_contact_period_morning == 1}
+                      onChange={() => {
+                        const val = formData.is_contact_period_morning == 1 ? "" : "1";
+                        setFormData({
+                          ...formData,
+                          is_contact_period_morning: val,
+                        });
+                      }}
+                    />
+                    <Label className="text-muted mt-1 ms-2" for="is_contact_period_morning" check>
+                      {t("A_6_2")}
+                    </Label>
+                  </FormGroup>
+                  <FormGroup check>
+                    <Input
+                      type="checkbox"
+                      id="is_contact_period_afternoon"
+                      name="is_contact_period_afternoon"
+                      value={`1`}
+                      checked={formData.is_contact_period_afternoon == 1}
+                      onChange={() => {
+                        const val = formData.is_contact_period_afternoon == 1 ? "" : "1";
+                        setFormData({
+                          ...formData,
+                          is_contact_period_afternoon: val,
+                        });
+                      }}
+                    />
+                    <Label className="text-muted mt01 ms-2" for="is_contact_period_afternoon" check>
+                      {t("A_6_3")}
+                    </Label>
+                  </FormGroup>
+                  {invalid?.is_contact_period && <small className="text-red">{t("T_48")}</small>}
+                </Col>
+
+
+                <Col className={`col-12 mt-3`}>
                   <FormGroup>
                     <Label className="text-black" for="contact_detail">
                       {t("H_12")}
