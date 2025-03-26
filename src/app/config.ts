@@ -18,8 +18,8 @@ const getConfig = () => {
   }
 
   return {
-    baseURL: "http://pntdev.ddns.net:28082/api",
-    apiKey: "SaCE5o6t5haRyanQfO3dzPxKCQMg6IcjHkp4oDDSiao4sNZnnYbDQAB2r7n9dZVz",
+    baseURL: process.env.NEXT_PUBLIC_CLIENT_API_HOST || "http://pntdev.ddns.net:28082/api",
+    apiKey: process.env.NEXT_PUBLIC_API_KEY || "SaCE5o6t5haRyanQfO3dzPxKCQMg6IcjHkp4oDDSiao4sNZnnYbDQAB2r7n9dZVz",
     googleMapsApiKey: "AIzaSyArRpUnfBJKShmHioFxRt70uH4i90XWNWw",
   };
 };
