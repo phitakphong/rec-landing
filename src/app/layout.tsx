@@ -30,7 +30,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang={isReady ? i18n.language : undefined}>
       <head>
-        <Script id="env-config" src="/env-config.js" />
+      <Script
+          id="env-config"
+          src={'/env/env-config.js'}
+        />
       </head>
         <body className={`${isReady ? ibmPlexSansThai.className : undefined}`}>
         <div className="d-flex justify-content-center">
