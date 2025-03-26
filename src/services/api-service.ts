@@ -1,9 +1,14 @@
 import getConfig from "../app/config";
 
 class ApiService {
-  static API_ENDPOINT = getConfig().baseURL;
-  static API_KEY = getConfig().apiKey;
- 
+  static get API_ENDPOINT() {
+    return getConfig().baseURL;
+  }
+
+  static get API_KEY() {
+    return getConfig().apiKey;
+  }
+
   static get YOUR_GOOGLE_MAPS_API_KEY() {
     return getConfig().googleMapsApiKey;
   }
