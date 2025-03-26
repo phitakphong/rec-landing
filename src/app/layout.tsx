@@ -3,6 +3,7 @@ import { IBM_Plex_Sans_Thai } from "next/font/google";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "@/app/globals.css";
+import Script from "next/script";
 import MyNav from "@/components/MyNav";
 import I18nProvider from "@/providers/I18nProvider";
 import { useEffect, useState } from "react";
@@ -28,7 +29,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang={isReady ? i18n.language : undefined}>
-      <body className={`${isReady ? ibmPlexSansThai.className : undefined}`}>
+      <head>
+        <Script id="env-config" src="/env-config.js" />
+      </head>
+        <body className={`${isReady ? ibmPlexSansThai.className : undefined}`}>
         <div className="d-flex justify-content-center">
           <div className="w-100">
             {isReady ? (
