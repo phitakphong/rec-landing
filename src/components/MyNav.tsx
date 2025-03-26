@@ -362,6 +362,7 @@ export default function CustomNavbar() {
                         <Link href="/our-product-2" legacyBehavior passHref>
                           <a
                             className={`dropdown-item ${pathname === "/our-product-2" ? "fw-bold txt-purple" : ""}`}
+                            style={{ whiteSpace: "normal", wordWrap: "break-word" }} 
                             onClick={closeDropdown} // Close the dropdown on click
                           >
                             {t("M_2_1")}
@@ -372,6 +373,7 @@ export default function CustomNavbar() {
                         <Link href="/our-product-1" legacyBehavior passHref>
                           <a
                             className={`dropdown-item ${pathname === "/our-product-1" ? "fw-bold txt-purple" : ""}`}
+                            style={{ whiteSpace: "normal", wordWrap: "break-word" }} 
                             onClick={closeDropdown} // Close the dropdown on click
                           >
                             {t("M_2_2")}
